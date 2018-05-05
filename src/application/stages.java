@@ -12,7 +12,7 @@ import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
 
 public class stages {
-	
+
 	public static String autor, title;
 
 	public static void createMainStage(Stage primaryStage) {
@@ -51,28 +51,32 @@ public class stages {
 
 					if (event.getCode().equals(KeyCode.O)) {
 						AudioPlayer.pickSong();
-					} else {
-						System.out.println(event.getCode());
-					}
-
-					if (AudioPlayer.isPlaying) {
-						if (event.getCode().equals(KeyCode.P)) {
+					} else if (event.getCode().equals(KeyCode.P)) {
 							if (AudioPlayer.isPlaying) {
 								AudioPlayer.player.pause();
 								AudioPlayer.isPlaying = false;
 							} else {
+								try {
 								AudioPlayer.player.play();
 								AudioPlayer.isPlaying = true;
+								} catch (NullPointerException a) {
+									// foo
+								}
 							}
-						} else if (event.getCode().equals(KeyCode.UP)) {
-							AudioPlayer.volume = AudioPlayer.volume + 0.05f;
+						} else {
+						System.out.println(event.getCode());
+					} 
+					
+					if (AudioPlayer.isPlaying) {
+						if (event.getCode().equals(KeyCode.UP)) {
+							AudioPlayer.volume = AudioPlayer.volume + 0.05d;
 							if (AudioPlayer.volume > 1) {
 								AudioPlayer.volume = 1;
 							}
 							AudioPlayer.player.setVolume(AudioPlayer.volume);
 							System.out.println(AudioPlayer.player.getVolume());
 						} else if (event.getCode().equals(KeyCode.DOWN)) {
-							AudioPlayer.volume = AudioPlayer.volume - 0.05f;
+							AudioPlayer.volume = AudioPlayer.volume - 0.05d;
 							if (AudioPlayer.volume < 0) {
 								AudioPlayer.volume = 0;
 							}
