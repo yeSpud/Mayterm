@@ -52,6 +52,8 @@ public class Display {
 
 			Main.mainStage.setResizable(false);
 			Main.mainStage.show();
+			
+			root.getStyleClass().add("stage");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,6 +76,7 @@ public class Display {
 			//bars.setRotate(180);
 			
 		}
+		
 
 	}
 

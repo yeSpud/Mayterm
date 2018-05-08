@@ -47,7 +47,7 @@ public class AudioPlayer {
 
 			});
 			player.setAudioSpectrumNumBands(63);
-			player.setAudioSpectrumInterval(.1d);
+			player.setAudioSpectrumInterval(0.0167d);
 			
 			//player.setAudioSpectrumThreshold(-100);
 			player.setAudioSpectrumListener(new AudioSpectrumListener() {
