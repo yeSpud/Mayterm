@@ -10,12 +10,17 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		
-		stages.createMainStage(primaryStage);
+		Display.createLoad();
+		Display.createBars();
+		Display.root.getChildren().add(Display.nothing);
+		Display.createMainStage(primaryStage);
+		
 		//pickSong();
 
 	}
 
 	public static void main(String[] args) {
 		launch(args);
+		
 	}
 }

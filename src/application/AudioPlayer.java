@@ -6,6 +6,7 @@ import java.util.Stack;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -16,19 +17,24 @@ public class AudioPlayer {
 	public static Stack<String> queue = new Stack<String>();
 	public static boolean isPlaying = false;
 	public static double volume = 0.75d;
-	// public static AudioSpectrum vis;
-
+	
 	public static void play() {
 		if (queue.isEmpty()) {
-			pickSong();
+			//pickSong();
+			Display.root.getChildren().remove(Display.bars);
+			Display.root.getChildren().add(Display.nothing);
 			isPlaying = false;
 		} else {
-			media = new Media(String.format("file://%s", queue.pop()));
+			media = new Media(String.format("file://%s", queue.pop().replace(" ", "%20")));
 			player = new MediaPlayer(media);
 			player.setVolume(volume);
 
 			player.play();
 			isPlaying = true;
+			
+			Display.root.getChildren().remove(Display.nothing);
+			Display.root.getChildren().add(Display.bars);
+			
 			player.setOnEndOfMedia(new Runnable() {
 
 				@Override
@@ -41,6 +47,9 @@ public class AudioPlayer {
 
 			});
 			player.setAudioSpectrumNumBands(63);
+			player.setAudioSpectrumInterval(.1d);
+			
+			//player.setAudioSpectrumThreshold(-100);
 			player.setAudioSpectrumListener(new AudioSpectrumListener() {
 
 				@Override
@@ -48,12 +57,15 @@ public class AudioPlayer {
 					// TODO Auto-generated method stub
 					System.out.println(String.format("timestamp: %s\nmagnitides: %s",
 							timestamp, Arrays.toString(magnitudes)));
+					
+					for (int i = 0; i < 63; i++) {
+					Rectangle bar = (Rectangle) Display.bars.getChildren().get(i);
+					bar.setHeight((63 - magnitudes[i] * -1) * 4);
+					}
 
 				}
 
 			});
-			// vis.setBandCount(63);
-			// vis.setEnabled(true);
 
 		}
 	}
