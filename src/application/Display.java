@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public class Display {
 
 	public static Text author = new Text("No file currently selected"),
-			title = new Text("Press \"O\" to select a file");
+			title = new Text("Press \"O\" to select a file"), volumeHUD = new Text(240,700,"Volume: 75%");
 
 	public static BorderPane root = new BorderPane();
 
@@ -109,40 +109,30 @@ public class Display {
 		title.setRotate(180);
 		title.setFill(Color.WHITE);
 		root.getChildren().add(title);
+		
+		volumeHUD.setFont(Font.font(20));
+		volumeHUD.setRotate(180);
+		volumeHUD.setFill(Color.WHITE);
+		volumeHUD.setOpacity(0);
+		root.getChildren().add(volumeHUD);
 
 		root.getChildren().add(Display.nothing);
 	}
 
 	public static void keyPresed(KeyCode key) {
 		if (key.equals(KeyCode.O)) {
+			/* Pick a song from local storage */
 			AudioPlayer.pickSong();
 		} else if (key.equals(KeyCode.P)) {
-			if (AudioPlayer.isPlaying) {
-				AudioPlayer.player.pause();
-				AudioPlayer.isPlaying = false;
-			} else {
-				try {
-					AudioPlayer.player.play();
-					AudioPlayer.isPlaying = true;
-				} catch (NullPointerException a) {
-					// foo
-				}
-			}
-		} else if (AudioPlayer.isPlaying) {
+			/* Pause/Unpasue */
+			AudioPlayer.pause();
+		} else if (AudioPlayer.isPlaying && !AudioPlayer.isPaused) {
 			if (key.equals(KeyCode.UP)) {
-				AudioPlayer.volume = AudioPlayer.volume + 0.05d;
-				if (AudioPlayer.volume > 1) {
-					AudioPlayer.volume = 1;
-				}
-				AudioPlayer.player.setVolume(AudioPlayer.volume);
-				System.out.println(AudioPlayer.player.getVolume());
+				/* Increase volume */
+				AudioPlayer.handleVolume(0.05d);
 			} else if (key.equals(KeyCode.DOWN)) {
-				AudioPlayer.volume = AudioPlayer.volume - 0.05d;
-				if (AudioPlayer.volume < 0) {
-					AudioPlayer.volume = 0;
-				}
-				AudioPlayer.player.setVolume(AudioPlayer.volume);
-				System.out.println(AudioPlayer.player.getVolume());
+				/* Increase volume */
+				AudioPlayer.handleVolume(-0.05d);
 			} else if (key.equals(KeyCode.RIGHT)) {
 				AudioPlayer.player.seek(AudioPlayer.player.getStopTime());
 			} else {
