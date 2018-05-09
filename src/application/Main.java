@@ -13,16 +13,9 @@ public class Main extends Application {
 		Display.createLoad();
 		Display.createBars();
 		Display.createInfo();
-		/*
-		 * for (int i = 0; i < 7; i++) { Group tests = ((Group) Display.bars); Rectangle
-		 * test = (Rectangle) tests.getChildren().get(i * 9); test.setHeight(59);
-		 * //test.setHeight = -60; }
-		 */
 		
 		Display.createMainStage(primaryStage);
 		//primaryStage.setOpacity(.4);
-
-		// pickSong();
 
 	}
 

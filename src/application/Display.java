@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 public class Display {
 
 	public static Text author = new Text("No file currently selected"),
-			title = new Text("Press \"O\" to select a file"), volumeHUD = new Text(240,700,"Volume: 75%");
+			title = new Text("Press \"O\" to select a file"), volumeHUD = new Text(240, 700, "Volume: 75%");
 
 	public static BorderPane root = new BorderPane();
 
@@ -42,10 +42,6 @@ public class Display {
 
 			scene.getStylesheets().add(a.getClass().getResource("application.css").toExternalForm());
 			Main.mainStage.setScene(scene);
-
-			// root.getChildren().add(bars);
-
-			// root.getChildren().add(nothing);
 
 			scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
@@ -102,14 +98,14 @@ public class Display {
 		author.setRotate(180);
 		author.setFill(Color.WHITE);
 		root.getChildren().add(author);
-		
+
 		title.setFont(Font.font(60));
 		title.setX(1012 - title.getLayoutBounds().getWidth());
 		title.setY(244);
 		title.setRotate(180);
 		title.setFill(Color.WHITE);
 		root.getChildren().add(title);
-		
+
 		volumeHUD.setFont(Font.font(20));
 		volumeHUD.setRotate(180);
 		volumeHUD.setFill(Color.WHITE);
@@ -134,7 +130,9 @@ public class Display {
 				/* Increase volume */
 				AudioPlayer.handleVolume(-0.05d);
 			} else if (key.equals(KeyCode.RIGHT)) {
-				AudioPlayer.player.seek(AudioPlayer.player.getStopTime());
+				// TODO: redo skip
+				//AudioPlayer.player.seek(AudioPlayer.player.getStopTime());
+				AudioPlayer.skip();
 			} else {
 				System.out.println(key);
 			}
