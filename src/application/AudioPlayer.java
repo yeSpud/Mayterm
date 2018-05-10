@@ -12,6 +12,8 @@ import org.jaudiotagger.tag.KeyNotFoundException;
 
 import javafx.animation.FadeTransition;
 import javafx.collections.MapChangeListener;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -36,7 +38,7 @@ public class AudioPlayer {
 
 		Display.author.setText("");
 		Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
-		
+
 		setTitleAndArtist();
 
 		player = new MediaPlayer(media);
@@ -169,15 +171,26 @@ public class AudioPlayer {
 		if (media.getSource().endsWith(".mp3")) {
 			media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
 				if (change.wasAdded()) {
+					
 					System.out.println(
 							String.format("Key: %s\nChanged value: %s", change.getKey(), change.getValueAdded()));
 					if (change.getKey().equals("title")) {
-						Display.title.setText(change.getValueAdded().toString());
+						Display.title.setText(change.getValueAdded().toString().toUpperCase());
 						Display.title.setX(1012 - Display.title.getLayoutBounds().getWidth());
 					}
 					if (change.getKey().equals("artist")) {
-						Display.author.setText(change.getValueAdded().toString());
+						Display.author.setText(change.getValueAdded().toString().toUpperCase());
 						Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
+					}
+					if (change.getKey().equals("image")) {
+						Display.coverArt = new ImageView();
+						Display.coverArt.setX(1034);
+						Display.coverArt.setY(198);
+						Display.coverArt.setImage((Image) change.getValueAdded());
+						Display.coverArt.setFitHeight(126);
+						Display.coverArt.setFitWidth(126);
+						Display.coverArt.setRotate(180);
+						Display.root.getChildren().add(Display.coverArt);
 					}
 				}
 			});
@@ -192,7 +205,7 @@ public class AudioPlayer {
 			}
 			Mp4TagReader metadata = new Mp4TagReader();
 			try {
-				Display.author.setText(metadata.read(raf).getFirst(FieldKey.ARTIST));
+				Display.author.setText(metadata.read(raf).getFirst(FieldKey.ARTIST).toUpperCase());
 				Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
 				raf.close();
 			} catch (CannotReadException e) {
@@ -211,7 +224,7 @@ public class AudioPlayer {
 				e.printStackTrace();
 			}
 			try {
-				Display.title.setText(metadata.read(raf).getFirst(FieldKey.TITLE));
+				Display.title.setText(metadata.read(raf).getFirst(FieldKey.TITLE).toUpperCase());
 			} catch (KeyNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

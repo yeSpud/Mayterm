@@ -9,7 +9,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-
+		
 		Display.createLoad();
 		Display.createBars();
 		Display.createInfo();

@@ -11,13 +11,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Display {
 
-	public static Text author = new Text("No file currently selected"),
-			title = new Text("Press \"O\" to select a file"), volumeHUD = new Text(240, 700, "Volume: 75%");
+	public static Text author = new Text("No file currently selected"/*"TRISTAM & BRAKEN"*/),
+			
+			title = new Text("Press \"O\" to select a file"/*"FRAME OF MIND"*/), volumeHUD = new Text(240, 700, "Volume: 75%");
 
 	public static BorderPane root = new BorderPane();
 
@@ -71,7 +73,7 @@ public class Display {
 			rectangle.setStrokeType(StrokeType.CENTERED);
 			// rectangle.setStroke(genre.OTHER.getColor());
 			// rectangle.setStrokeWidth(2);
-			rectangle.setFill(genre.ELECTRONIC.getColor());
+			rectangle.setFill(genre.DUBSTEP.getColor());
 			bars.getChildren().add(rectangle);
 			// bars.setRotate(180);
 
@@ -82,7 +84,7 @@ public class Display {
 	public static void createLoad() {
 
 		nothing.setStrokeType(StrokeType.CENTERED);
-		nothing.setStroke(genre.OTHER.getColor());
+		nothing.setStroke(Color.WHITE);
 		nothing.setStrokeWidth(2);
 		nothing.fillProperty();
 	}
@@ -92,18 +94,21 @@ public class Display {
 		art.setFill(genre.ELECTRONIC.getColor());
 		root.getChildren().add(Display.art);
 
-		author.setFont(Font.font(80));
+		//author.setFont(Font.font(70));
+		author.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 68.75));
 		author.setX(1012 - author.getLayoutBounds().getWidth());
 		author.setY(306);
 		author.setRotate(180);
 		author.setFill(Color.WHITE);
+		author.setId("artist");
 		root.getChildren().add(author);
 
-		title.setFont(Font.font(60));
+		title.setFont(Font.font("Arial", 35));
 		title.setX(1012 - title.getLayoutBounds().getWidth());
 		title.setY(244);
 		title.setRotate(180);
 		title.setFill(Color.WHITE);
+		title.setId("title");
 		root.getChildren().add(title);
 
 		volumeHUD.setFont(Font.font(20));
@@ -131,7 +136,7 @@ public class Display {
 				AudioPlayer.handleVolume(-0.05d);
 			} else if (key.equals(KeyCode.RIGHT)) {
 				// TODO: redo skip
-				//AudioPlayer.player.seek(AudioPlayer.player.getStopTime());
+				// AudioPlayer.player.seek(AudioPlayer.player.getStopTime());
 				AudioPlayer.skip();
 			} else {
 				System.out.println(key);

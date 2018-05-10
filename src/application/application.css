@@ -1,5 +1,25 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property*/ 
 .stage {
-	-fx-rotate: 180
+	-fx-rotate: 180.0
 	
 }
+
+@font-face {
+    font-family: Gotham-Book;
+    src: url(/Mayterm/src/application/Gotham-Book.otf);
+}
+@font-face {
+	font-family: Gotham-Medium;
+	src: url(/Mayterm/src/application/Gotham-Medium.otf);
+}
+
+/*
+#title {
+	-fx-font-family: Gotham-Book;
+}
+
+#artist {
+	-fx-font-family: Gotham-Medium;
+}
+*  
+*/
