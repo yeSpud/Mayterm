@@ -1,6 +1,7 @@
 package application;
 
-import javafx.collections.ObservableList;
+import java.io.IOException;
+
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -9,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.media.EqualizerBand;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
@@ -39,7 +39,7 @@ public class Display {
 
 	public static Rectangle art = new Rectangle(1034, 198, 126, 126);
 
-	public static ImageView coverArt = new ImageView();
+	public static ImageView coverArt = new ImageView(), cat = new ImageView();
 
 	public static void createMainStage(Stage primaryStage) {
 		try {
@@ -93,7 +93,23 @@ public class Display {
 
 	public static void createInfo() {
 
-		root.getChildren().add(Display.art);
+		root.getChildren().add(art);
+		
+		cat.setX(1034);
+		cat.setY(198);
+		cat.setFitHeight(126);
+		cat.setFitWidth(126);
+		cat.setRotate(180);
+		Main a = new Main();
+		Image catLogo = null;
+		try {
+			catLogo = new Image(a.getClass().getResource("mcatTransparent.png").openStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		cat.setImage(catLogo);
+		root.getChildren().add(cat);
 
 		author.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 68.75));
 		author.setX(1012 - author.getLayoutBounds().getWidth());
@@ -146,6 +162,7 @@ public class Display {
 	public static void setGenre(Color genre) {
 		
 		nothing.setFill(genre);
+		nothing.setStroke(genre);
 		art.setFill(genre);
 		for (int i = 0; i < 63; i++) {
 			Rectangle bar = (Rectangle) bars.getChildren().get(i);
@@ -167,6 +184,7 @@ public class Display {
 		
 	}
 	
+	/*
 	public static void createSpectrumBars() {
 		//spectrumBars = new SpectrumBar[BAND_COUNT];
 		final ObservableList<EqualizerBand> bands = AudioPlayer.player.getAudioEqualizer().getBands();
@@ -180,5 +198,6 @@ public class Display {
 		}
 		// System.out.println(bands.size()); // 63
 	}
+	*/
 	
 }
