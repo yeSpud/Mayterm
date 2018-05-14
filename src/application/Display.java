@@ -1,5 +1,6 @@
 package application;
 
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -8,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.EqualizerBand;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
@@ -25,6 +27,9 @@ public class Display {
 	public static BorderPane root = new BorderPane();
 
 	public static Scene scene = new Scene(root, 1280, 720, Color.BLACK);
+	
+	public static final int BAND_COUNT = 63;
+	public static final double STARTING_FREQUENCY = 250.0;
 
 	public static int space = (int) ((scene.getWidth() - ((7 * 63) * 1.95)) / 2);
 
@@ -73,7 +78,7 @@ public class Display {
 			Rectangle rectangle = new Rectangle(115 + (i * (16.65)), 356, 12, 2); // 1.9453968254
 			rectangle.setStrokeType(StrokeType.CENTERED);
 			bars.getChildren().add(rectangle);
-
+ 
 		}
 
 	}
@@ -130,7 +135,7 @@ public class Display {
 				/* Decrase volume */
 				AudioPlayer.handleVolume(-0.05d);
 			} else if (key.equals(KeyCode.RIGHT)) {
-				// TODO: redo skip
+				/* Skip current track*/
 				AudioPlayer.skip();
 			} else {
 				System.out.println(key);
@@ -156,11 +161,24 @@ public class Display {
 		coverArt.setFitHeight(126);
 		coverArt.setFitWidth(126);
 		coverArt.setRotate(180);
-		//Display.root.getChildren().add(Display.coverArt);
 		if (!root.getChildren().contains(coverArt)) {
 			root.getChildren().add(coverArt);
 		}
 		
+	}
+	
+	public static void createSpectrumBars() {
+		//spectrumBars = new SpectrumBar[BAND_COUNT];
+		final ObservableList<EqualizerBand> bands = AudioPlayer.player.getAudioEqualizer().getBands();
+		bands.clear();
+		double min = EqualizerBand.MIN_GAIN, max = EqualizerBand.MAX_GAIN, mid = (min-max)/2, frequency = STARTING_FREQUENCY;
+		
+		for (int j = 0; j < BAND_COUNT; j++) {
+			double theta = (double)j/(double) (BAND_COUNT - 1) * (2*Math.PI), scale = 0.4 * (1+Math.cos(theta)), gain = min + max + (mid * scale);
+			bands.add(new EqualizerBand(frequency, frequency/2, gain));
+			frequency *= 2;
+		}
+		// System.out.println(bands.size()); // 63
 	}
 	
 }

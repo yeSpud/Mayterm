@@ -55,6 +55,8 @@ public class AudioPlayer {
 
 		player.play();
 		isPlaying = true;
+		
+		//Display.createeBands();
 
 		Display.root.getChildren().remove(Display.nothing);
 		try {
@@ -274,11 +276,12 @@ public class AudioPlayer {
 
 		// player.setAudioSpectrumThreshold(-100);
 		player.setAudioSpectrumListener(null);
+		//spectrumListener = new SpectrumListener(Display.STARTING_FREQUENCY, player, spectrimBars)
 		player.setAudioSpectrumListener(new AudioSpectrumListener() {
 
 			@Override
 			public void spectrumDataUpdate(double timestamp, double duration, float[] magnitudes, float[] phases) {
-				// TODO Auto-generated method stub
+				// TODO: Redo spectrum
 				/*
 				 * System.out.println(String.format("timestamp: %s\nmagnitides: %s", timestamp,
 				 * Arrays.toString(magnitudes)));
@@ -294,11 +297,9 @@ public class AudioPlayer {
 					 * 50); }
 					 */
 				}
-				
-				
 
 				//System.out.println((magnitudes[1] + 60));
-				if (Math.abs(magnitudes[0] - pmag) > 7.71875) { // 7.75 was close
+				if (Math.abs(magnitudes[0] - pmag) > 7.75) { // works for blossom, doesnt work for anything else 🙄
 					if (!up) {
 						up = true;
 					}
