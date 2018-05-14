@@ -1,7 +1,9 @@
-package application;
+package application.UI;
 
 import java.io.IOException;
 
+import application.Main;
+import application.Audio.AudioPlayer;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;

@@ -1,4 +1,4 @@
-package application;
+package application.UI;
 
 import javafx.scene.paint.Color;
 

@@ -1,4 +1,4 @@
-package application;
+package application.Audio;
 
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
@@ -11,6 +11,7 @@ import org.jaudiotagger.audio.mp4.Mp4TagReader;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.KeyNotFoundException;
 
+import application.UI.Display;
 import javafx.animation.FadeTransition;
 import javafx.collections.MapChangeListener;
 import javafx.embed.swing.SwingFXUtils;

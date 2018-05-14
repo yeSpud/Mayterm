@@ -1,5 +1,7 @@
 package application;
 
+import application.UI.Display;
+import application.UI.Genre;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
