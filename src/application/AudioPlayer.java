@@ -1,5 +1,6 @@
 package application;
 
+import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -12,8 +13,8 @@ import org.jaudiotagger.tag.KeyNotFoundException;
 
 import javafx.animation.FadeTransition;
 import javafx.collections.MapChangeListener;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -27,17 +28,25 @@ public class AudioPlayer {
 	public static Media media;
 	public static MediaPlayer player;
 	public static Stack<String> queue = new Stack<String>();
-	public static boolean isPlaying = false, isPaused = false;
-	public static double volume = 0.75d;
+	public static boolean isPlaying = false, isPaused = false, up = false;
+	public static double volume = 0.75d, pmag = 0;
+	public static int BPM = 0, beat = 0;
 
 	public static void play() {
-		media = new Media(queue.pop());
+		media = new Media(queue.get(0));
+		queue.remove(0);
+
+		BPM = 0;
+		beat = 0;
+		pmag = 0;
 
 		Display.title.setText(media.getSource());
 		Display.title.setX(1012 - Display.title.getLayoutBounds().getWidth());
 
 		Display.author.setText("");
 		Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
+
+		Display.setCoverArt(null);
 
 		setTitleAndArtist();
 
@@ -60,7 +69,6 @@ public class AudioPlayer {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				if (!queue.isEmpty()) {
 					play();
 				} else {
@@ -70,13 +78,13 @@ public class AudioPlayer {
 					Display.title.setText("Press \"O\" to select a file");
 					Display.title.setX(1012 - Display.title.getLayoutBounds().getWidth());
 					Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
+					Display.setCoverArt(null);
 				}
 
 			}
 
 		});
 
-		// TODO: Spectrum freezes on change
 		setupSpectrum();
 
 	}
@@ -88,7 +96,10 @@ public class AudioPlayer {
 				isPaused = true;
 				isPlaying = false;
 
-				// TODO: Reset bars on pause
+				for (int i = 0; i < 63; i++) {
+					Rectangle bar = (Rectangle) Display.bars.getChildren().get(i);
+					bar.setHeight(12);
+				}
 			} else {
 				player.play();
 				isPaused = false;
@@ -158,7 +169,7 @@ public class AudioPlayer {
 	}
 
 	public static void addToQueue(String filePath) {
-		queue.add(String.format("file://%s", filePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D")));
+		queue.push(String.format("file://%s", filePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D")));
 
 		if (!isPlaying && !isPaused) {
 			play();
@@ -168,10 +179,11 @@ public class AudioPlayer {
 	}
 
 	public static void setTitleAndArtist() {
-		if (media.getSource().endsWith(".mp3")) {
+
+		if (media.getSource().contains(".mp3")) {
 			media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
 				if (change.wasAdded()) {
-					
+
 					System.out.println(
 							String.format("Key: %s\nChanged value: %s", change.getKey(), change.getValueAdded()));
 					if (change.getKey().equals("title")) {
@@ -183,25 +195,19 @@ public class AudioPlayer {
 						Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
 					}
 					if (change.getKey().equals("image")) {
-						Display.coverArt = new ImageView();
-						Display.coverArt.setX(1034);
-						Display.coverArt.setY(198);
-						Display.coverArt.setImage((Image) change.getValueAdded());
-						Display.coverArt.setFitHeight(126);
-						Display.coverArt.setFitWidth(126);
-						Display.coverArt.setRotate(180);
-						Display.root.getChildren().add(Display.coverArt);
+						Display.setCoverArt((Image) change.getValueAdded());
 					}
 				}
 			});
 		} else {
+
 			RandomAccessFile raf = null;
 			try {
 				raf = new RandomAccessFile(media.getSource().replace("file:", "").replace("%20", " ")
 						.replace("%5B", "[").replace("%5D", "]"), "r");
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				pause();
 			}
 			Mp4TagReader metadata = new Mp4TagReader();
 			try {
@@ -209,41 +215,65 @@ public class AudioPlayer {
 				Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
 				raf.close();
 			} catch (CannotReadException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				pause();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				pause();
 			}
 
 			try {
 				raf = new RandomAccessFile(media.getSource().replace("file:", "").replace("%20", " ")
 						.replace("%5B", "[").replace("%5D", "]"), "r");
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				pause();
 			}
 			try {
 				Display.title.setText(metadata.read(raf).getFirst(FieldKey.TITLE).toUpperCase());
+				Display.title.setX(1012 - Display.title.getLayoutBounds().getWidth());
+				raf.close();
 			} catch (KeyNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				pause();
 			} catch (CannotReadException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				pause();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				pause();
 			}
-			Display.title.setX(1012 - Display.title.getLayoutBounds().getWidth());
+
+			try {
+				raf = new RandomAccessFile(media.getSource().replace("file:", "").replace("%20", " ")
+						.replace("%5B", "[").replace("%5D", "]"), "r");
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				pause();
+			}
+			try {
+				try {
+					Display.setCoverArt(SwingFXUtils
+							.toFXImage((BufferedImage) (metadata.read(raf).getArtworkList().get(0)).getImage(), null));
+				} catch (IndexOutOfBoundsException e1) {
+					Display.setCoverArt(null);
+				}
+			} catch (CannotReadException e) {
+				e.printStackTrace();
+				pause();
+			} catch (IOException e) {
+				e.printStackTrace();
+				pause();
+			}
 		}
 	}
 
 	public static void setupSpectrum() {
 		player.setAudioSpectrumNumBands(63); // 7
-		player.setAudioSpectrumInterval(0.0167d);
+		player.setAudioSpectrumInterval(0.033d); // 0.0167d
 
 		// player.setAudioSpectrumThreshold(-100);
+		player.setAudioSpectrumListener(null);
 		player.setAudioSpectrumListener(new AudioSpectrumListener() {
 
 			@Override
@@ -264,6 +294,25 @@ public class AudioPlayer {
 					 * 50); }
 					 */
 				}
+				
+				
+
+				//System.out.println((magnitudes[1] + 60));
+				if (Math.abs(magnitudes[1] - pmag) > 5) {
+					if (!up) {
+						up = true;
+					}
+				} else {
+					if (up) {
+						up = false;
+						beat++;
+						System.out.println(BPM);
+					}
+				}
+
+				BPM = (int) ((beat / timestamp) * 60);
+				
+				pmag = magnitudes[1];
 
 				/*
 				 * for (int i = 0; i < 7; i++) { Group tests = ((Group) Display.bars); Rectangle

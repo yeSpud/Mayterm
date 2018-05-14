@@ -3,6 +3,7 @@ package application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -71,11 +72,7 @@ public class Display {
 		for (int i = 0; i < 63; i++) {
 			Rectangle rectangle = new Rectangle(115 + (i * (16.65)), 356, 12, 2); // 1.9453968254
 			rectangle.setStrokeType(StrokeType.CENTERED);
-			// rectangle.setStroke(genre.OTHER.getColor());
-			// rectangle.setStrokeWidth(2);
-			rectangle.setFill(genre.DUBSTEP.getColor());
 			bars.getChildren().add(rectangle);
-			// bars.setRotate(180);
 
 		}
 
@@ -91,10 +88,8 @@ public class Display {
 
 	public static void createInfo() {
 
-		art.setFill(genre.ELECTRONIC.getColor());
 		root.getChildren().add(Display.art);
 
-		//author.setFont(Font.font(70));
 		author.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 68.75));
 		author.setX(1012 - author.getLayoutBounds().getWidth());
 		author.setY(306);
@@ -132,11 +127,10 @@ public class Display {
 				/* Increase volume */
 				AudioPlayer.handleVolume(0.05d);
 			} else if (key.equals(KeyCode.DOWN)) {
-				/* Increase volume */
+				/* Decrase volume */
 				AudioPlayer.handleVolume(-0.05d);
 			} else if (key.equals(KeyCode.RIGHT)) {
 				// TODO: redo skip
-				// AudioPlayer.player.seek(AudioPlayer.player.getStopTime());
 				AudioPlayer.skip();
 			} else {
 				System.out.println(key);
@@ -144,4 +138,29 @@ public class Display {
 		}
 	}
 
+	public static void setGenre(Color genre) {
+		
+		nothing.setFill(genre);
+		art.setFill(genre);
+		for (int i = 0; i < 63; i++) {
+			Rectangle bar = (Rectangle) bars.getChildren().get(i);
+			bar.setFill(genre);
+		}
+		
+	}
+	
+	public static void setCoverArt(Image image) {
+		coverArt.setX(1034);
+		coverArt.setY(198);
+		coverArt.setImage(image);
+		coverArt.setFitHeight(126);
+		coverArt.setFitWidth(126);
+		coverArt.setRotate(180);
+		//Display.root.getChildren().add(Display.coverArt);
+		if (!root.getChildren().contains(coverArt)) {
+			root.getChildren().add(coverArt);
+		}
+		
+	}
+	
 }
