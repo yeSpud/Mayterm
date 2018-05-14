@@ -8,5 +8,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/Mayterm/jaudiotagger-2.2.3-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="querydsl-sql-4.2.1-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

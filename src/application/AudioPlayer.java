@@ -298,7 +298,7 @@ public class AudioPlayer {
 				
 
 				//System.out.println((magnitudes[1] + 60));
-				if (Math.abs(magnitudes[1] - pmag) > 5) {
+				if (Math.abs(magnitudes[0] - pmag) > 7.71875) { // 7.75 was close
 					if (!up) {
 						up = true;
 					}
@@ -306,13 +306,16 @@ public class AudioPlayer {
 					if (up) {
 						up = false;
 						beat++;
-						System.out.println(BPM);
 					}
 				}
 
 				BPM = (int) ((beat / timestamp) * 60);
 				
 				pmag = magnitudes[1];
+				
+				if (timestamp > 5 && !(Math.abs(magnitudes[0] - pmag) > 7.625) && up) {
+					System.out.println(BPM);
+				}
 
 				/*
 				 * for (int i = 0; i < 7; i++) { Group tests = ((Group) Display.bars); Rectangle

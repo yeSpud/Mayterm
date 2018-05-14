@@ -9,7 +9,7 @@ public enum Genre {
 	ELECTRO(230, 206, 0), // Electro: ~128 bpm
 	HARDDANCE(1, 151, 0), // Harddance: 150 or 170 bpm
 	GLITCHHOP(11, 151, 87), // Glitch: 110 or 108 bpm
-	NUDISCO(28, 171, 179), // NuDisco: 115 - 126 bpm
+	NUDISCO(28, 171, 179), // NuDisco: 84 - 159 bpm
 	FUTUREBASS(154, 152, 252), // Future bass: 75 - 175 bpm
 	TRANCE(0, 126, 231), // Trance: 125 (135) - 150 bpm
 	DUBSTEP(141, 4, 225), // Dubstep: 70 bpm or 140 - 150 bpm
