@@ -11,6 +11,7 @@ import org.jaudiotagger.audio.mp4.Mp4TagReader;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.KeyNotFoundException;
 
+import application.UI.CoverArt;
 import application.UI.Display;
 import javafx.animation.FadeTransition;
 import javafx.collections.MapChangeListener;
@@ -47,7 +48,7 @@ public class AudioPlayer {
 		Display.author.setText("");
 		Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
 
-		Display.setCoverArt(null);
+		CoverArt.setArt(null);
 
 		setTitleAndArtist();
 
@@ -81,7 +82,7 @@ public class AudioPlayer {
 					Display.title.setText("Press \"O\" to select a file");
 					Display.title.setX(1012 - Display.title.getLayoutBounds().getWidth());
 					Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
-					Display.setCoverArt(null);
+					CoverArt.setArt(null);
 				}
 
 			}
@@ -198,7 +199,7 @@ public class AudioPlayer {
 						Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
 					}
 					if (change.getKey().equals("image")) {
-						Display.setCoverArt((Image) change.getValueAdded());
+						CoverArt.setArt((Image) change.getValueAdded());
 					}
 				}
 			});
@@ -256,10 +257,10 @@ public class AudioPlayer {
 			}
 			try {
 				try {
-					Display.setCoverArt(SwingFXUtils
+					CoverArt.setArt(SwingFXUtils
 							.toFXImage((BufferedImage) (metadata.read(raf).getArtworkList().get(0)).getImage(), null));
 				} catch (IndexOutOfBoundsException e1) {
-					Display.setCoverArt(null);
+					CoverArt.setArt(null);
 				}
 			} catch (CannotReadException e) {
 				e.printStackTrace();

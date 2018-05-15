@@ -1,14 +1,10 @@
 package application.UI;
 
-import java.io.IOException;
-
 import application.Main;
 import application.Audio.AudioPlayer;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -38,10 +34,6 @@ public class Display {
 	public static Group bars = new Group();
 
 	public static Rectangle nothing = new Rectangle(115, 356, 1046, 2);
-
-	public static Rectangle art = new Rectangle(1034, 198, 126, 126);
-
-	public static ImageView coverArt = new ImageView(), cat = new ImageView();
 
 	public static void createMainStage(Stage primaryStage) {
 		try {
@@ -95,24 +87,6 @@ public class Display {
 
 	public static void createInfo() {
 
-		root.getChildren().add(art);
-		
-		cat.setX(1034);
-		cat.setY(198);
-		cat.setFitHeight(126);
-		cat.setFitWidth(126);
-		cat.setRotate(180);
-		Main a = new Main();
-		Image catLogo = null;
-		try {
-			catLogo = new Image(a.getClass().getResource("Resources/mcatTransparent.png").openStream());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		cat.setImage(catLogo);
-		root.getChildren().add(cat);
-
 		author.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 68.75));
 		author.setX(1012 - author.getLayoutBounds().getWidth());
 		author.setY(306);
@@ -161,30 +135,9 @@ public class Display {
 		}
 	}
 
-	public static void setGenre(Color genre) {
-		
-		nothing.setFill(genre);
-		nothing.setStroke(genre);
-		art.setFill(genre);
-		for (int i = 0; i < 63; i++) {
-			Rectangle bar = (Rectangle) bars.getChildren().get(i);
-			bar.setFill(genre);
-		}
-		
-	}
 	
-	public static void setCoverArt(Image image) {
-		coverArt.setX(1034);
-		coverArt.setY(198);
-		coverArt.setImage(image);
-		coverArt.setFitHeight(126);
-		coverArt.setFitWidth(126);
-		coverArt.setRotate(180);
-		if (!root.getChildren().contains(coverArt)) {
-			root.getChildren().add(coverArt);
-		}
-		
-	}
+	
+	
 	
 	/*
 	public static void createSpectrumBars() {

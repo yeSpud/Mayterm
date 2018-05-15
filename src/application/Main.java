@@ -15,7 +15,7 @@ public class Main extends Application {
 		Display.createLoad();
 		Display.createBars();
 		Display.createInfo();
-		Display.setGenre(Genre.ELECTRONIC.getColor());
+		Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
 		
 		Display.createMainStage(primaryStage);
 		//primaryStage.setOpacity(.4);
