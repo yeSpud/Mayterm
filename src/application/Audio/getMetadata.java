@@ -23,7 +23,11 @@ public class getMetadata {
 
 	static FieldKey artist = (FieldKey.ARTIST), title = FieldKey.TITLE;
 	
-	public static void getMp3(File file) {
+	/*
+	 * "Music", "*.wav", "*.m3u8", "*.flv", "*.fxm", "*.aif", "*.aiff"
+	 */
+	
+	public static String[] getMp3(File file) {
 		String[] returnedData = new String[2];
 		MP3File metadata = null;
 		try {
@@ -33,6 +37,18 @@ public class getMetadata {
 			e.printStackTrace();
 		}
 		Tag data = metadata.getTag();
+		returnedData[0] = data.getFirst(artist).toUpperCase();
+		returnedData[1] = data.getFirst(title).toUpperCase();
+		
+		try {
+			CoverArt.setArt(SwingFXUtils.toFXImage((BufferedImage) (data.getArtworkList().get(0)).getImage(), null));
+		} catch (IOException | IndexOutOfBoundsException e) {
+			// Nothing :P
+		}
+		
+		System.out.println(data);
+		
+		return returnedData;
 		
 	}
 	
@@ -41,7 +57,6 @@ public class getMetadata {
 		try {
 			raf = new RandomAccessFile(file,"r");
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		String[] returnedData = new String[2];
@@ -51,21 +66,37 @@ public class getMetadata {
 			data = metadata.read(raf);
 			raf.close();
 		} catch (CannotReadException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		returnedData[0] = data.getFirst(artist).toUpperCase();
 		returnedData[1] = data.getFirst(title).toUpperCase();
 		
+		System.out.println(data);
+		
 		try {
 			CoverArt.setArt(SwingFXUtils.toFXImage((BufferedImage) (data.getArtworkList().get(0)).getImage(), null));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (IOException | IndexOutOfBoundsException e) {
+			// Lol :P
 		}
 		
 		return returnedData;
+		
+	}
+	
+	public static void getWAV(File file) {
+		
+	}
+	
+	public static void getM3U8(File file) {
+		
+	}
+	
+	public static void getFLV(File file) {
+		
+	}
+	
+	public static void getAIF(File file) {
 		
 	}
 	

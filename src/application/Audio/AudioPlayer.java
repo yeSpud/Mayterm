@@ -6,8 +6,6 @@ import java.util.Stack;
 import application.UI.CoverArt;
 import application.UI.Display;
 import application.UI.DisplayText;
-import javafx.collections.MapChangeListener;
-import javafx.scene.image.Image;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -144,25 +142,13 @@ public class AudioPlayer {
 
 	public static void setTitleAndArtist() {
 
-		// TODO: {ID3=java.nio.HeapByteBufferR[pos=222 lim=10343 cap=10343]}
-
 		if (media.getSource().contains(".mp3")) {
-			media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
-				if (change.wasAdded()) {
-					System.out.println(
-							String.format("Key: %s\nChanged value: %s", change.getKey(), change.getValueAdded()));
-					if (change.getKey().equals("title")) {
-						DisplayText.setTitle(change.getValueAdded().toString().toUpperCase());
-					}
-					if (change.getKey().equals("artist")) {
-						DisplayText.setAuthor(change.getValueAdded().toString().toUpperCase());
-					}
-					if (change.getKey().equals("image")) {
-						CoverArt.setArt((Image) change.getValueAdded());
-					}
-				}
-			});
-		} else {
+			
+			String[] stuff = getMetadata.getMp3(new File(media.getSource().replace("file:", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]")));
+			DisplayText.setAuthor(stuff[0]);
+			DisplayText.setTitle(stuff[1]);
+			
+		} else if (media.getSource().contains(".mp4") || media.getSource().contains(".m4a") || media.getSource().contains(".m4v")) {
 				String[] stuff = getMetadata.getMp4(new File(media.getSource().replace("file:", "").replace("%20", " ")
 							.replace("%5B", "[").replace("%5D", "]")));
 				DisplayText.setAuthor(stuff[0]);
