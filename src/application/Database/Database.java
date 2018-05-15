@@ -1,4 +1,6 @@
-package application;
+package application.Database;
+
+import application.Errors.UnrecognizableOperatingSystem;
 
 public class Database {
 	

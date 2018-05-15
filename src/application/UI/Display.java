@@ -50,7 +50,7 @@ public class Display {
 
 			Main a = new Main();
 
-			scene.getStylesheets().add(a.getClass().getResource("application.css").toExternalForm());
+			scene.getStylesheets().add(a.getClass().getResource("Resources/application.css").toExternalForm());
 			Main.mainStage.setScene(scene);
 
 			scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -105,7 +105,7 @@ public class Display {
 		Main a = new Main();
 		Image catLogo = null;
 		try {
-			catLogo = new Image(a.getClass().getResource("mcatTransparent.png").openStream());
+			catLogo = new Image(a.getClass().getResource("Resources/mcatTransparent.png").openStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

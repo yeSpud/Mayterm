@@ -1,4 +1,4 @@
-package application;
+package application.Errors;
 
 @SuppressWarnings("serial")
 public class UnrecognizableOperatingSystem extends Exception {
