@@ -1,23 +1,12 @@
 package application.Audio;
 
-import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.File;
 import java.util.Stack;
-
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.generic.AbstractTag;
-import org.jaudiotagger.audio.mp4.Mp4TagReader;
-import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.KeyNotFoundException;
-import org.jaudiotagger.tag.mp4.Mp4Tag;
 
 import application.UI.CoverArt;
 import application.UI.Display;
 import application.UI.DisplayText;
 import javafx.collections.MapChangeListener;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.media.Media;
@@ -174,80 +163,10 @@ public class AudioPlayer {
 				}
 			});
 		} else {
-			RandomAccessFile raf = null;
-			try {
-				raf = new RandomAccessFile(media.getSource().replace("file:", "").replace("%20", " ")
-						.replace("%5B", "[").replace("%5D", "]"), "r");
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				pause();
-			}
-			
-			Mp4TagReader metadata = new Mp4TagReader();
-			Mp4Tag data = null;
-			try {
-				data = metadata.read(raf);
-				raf.close();
-			} catch (CannotReadException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println(data);
-			/*
-			try {
-				DisplayText.setAuthor(metadata.read(raf).getFirst(FieldKey.ARTIST).toUpperCase());
-				raf.close();
-			} catch (CannotReadException e) {
-				e.printStackTrace();
-				pause();
-			} catch (IOException e) {
-				e.printStackTrace();
-				pause();
-			}
-
-			try {
-				raf = new RandomAccessFile(media.getSource().replace("file:", "").replace("%20", " ")
-						.replace("%5B", "[").replace("%5D", "]"), "r");
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				pause();
-			}
-			try {
-				DisplayText.setTitle(metadata.read(raf).getFirst(FieldKey.TITLE).toUpperCase());
-				raf.close();
-			} catch (KeyNotFoundException e) {
-				e.printStackTrace();
-				pause();
-			} catch (CannotReadException e) {
-				e.printStackTrace();
-				pause();
-			} catch (IOException e) {
-				e.printStackTrace();
-				pause();
-			}
-
-			try {
-				raf = new RandomAccessFile(media.getSource().replace("file:", "").replace("%20", " ")
-						.replace("%5B", "[").replace("%5D", "]"), "r");
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				pause();
-			}
-			try {
-				try {
-					CoverArt.setArt(SwingFXUtils
-							.toFXImage((BufferedImage) (metadata.read(raf).getArtworkList().get(0)).getImage(), null));
-				} catch (IndexOutOfBoundsException e1) {
-					CoverArt.setArt(null);
-				}
-			} catch (CannotReadException e) {
-				e.printStackTrace();
-				pause();
-			} catch (IOException e) {
-				e.printStackTrace();
-				pause();
-			}
-			*/
+				String[] stuff = getMetadata.getMp4(new File(media.getSource().replace("file:", "").replace("%20", " ")
+							.replace("%5B", "[").replace("%5D", "]")));
+				DisplayText.setAuthor(stuff[0]);
+				DisplayText.setTitle(stuff[1]);
 		}
 	}
 
