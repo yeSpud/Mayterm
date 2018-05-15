@@ -16,6 +16,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
+//TODO Seperate some of the functions
 public class Display {
 
 	public static Text author = new Text("No file currently selected"/*"TRISTAM & BRAKEN"*/),

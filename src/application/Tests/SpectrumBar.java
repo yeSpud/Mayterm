@@ -27,7 +27,7 @@
  *
  *  SpectrumBar.java - An example from the Pro JavaFX Platform book.
  */
-package application.Audio.Tests;
+package application.Tests;
 
 import com.sun.javafx.util.Utils;
 

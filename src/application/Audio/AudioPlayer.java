@@ -25,6 +25,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Duration;
 
+//TODO Seperate some of the functions
 public class AudioPlayer {
 
 	public static Media media;

@@ -1,4 +1,4 @@
-package application.Audio.Tests;
+package application.Tests;
 
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.media.MediaPlayer;
