@@ -11,20 +11,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
 //TODO Seperate some of the functions
 public class Display {
-
-	
-	//public static Text author = new Text("No file currently selected"/*"TRISTAM & BRAKEN"*/),
-			
-	//		title = new Text("Press \"O\" to select a file"/*"FRAME OF MIND"*/), volumeHUD = new Text(240, 700, "Volume: 75%");
-	
 
 	public static BorderPane root = new BorderPane();
 
@@ -91,27 +82,9 @@ public class Display {
 
 	public static void createInfo() {
 
-		author.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, 68.75));
-		author.setX(1012 - author.getLayoutBounds().getWidth());
-		author.setY(306);
-		author.setRotate(180);
-		author.setFill(Color.WHITE);
-		author.setId("artist");
-		root.getChildren().add(author);
-
-		title.setFont(Font.font("Arial", 35));
-		title.setX(1012 - title.getLayoutBounds().getWidth());
-		title.setY(244);
-		title.setRotate(180);
-		title.setFill(Color.WHITE);
-		title.setId("title");
-		root.getChildren().add(title);
-
-		volumeHUD.setFont(Font.font(20));
-		volumeHUD.setRotate(180);
-		volumeHUD.setFill(Color.WHITE);
-		volumeHUD.setOpacity(0);
-		root.getChildren().add(volumeHUD);
+		
+		DisplayText.setupText();
+		CoverArt.createCoverArt();
 
 		root.getChildren().add(Display.nothing);
 	}
@@ -126,10 +99,10 @@ public class Display {
 		} else if (AudioPlayer.isPlaying && !AudioPlayer.isPaused) {
 			if (key.equals(KeyCode.UP)) {
 				/* Increase volume */
-				AudioPlayer.handleVolume(0.05d);
+				DisplayText.handleVolume(0.05d);
 			} else if (key.equals(KeyCode.DOWN)) {
 				/* Decrase volume */
-				AudioPlayer.handleVolume(-0.05d);
+				DisplayText.handleVolume(-0.05d);
 			} else if (key.equals(KeyCode.RIGHT)) {
 				/* Skip current track*/
 				AudioPlayer.skip();

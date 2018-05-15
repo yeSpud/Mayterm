@@ -7,13 +7,15 @@ import java.io.RandomAccessFile;
 import java.util.Stack;
 
 import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.generic.AbstractTag;
 import org.jaudiotagger.audio.mp4.Mp4TagReader;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.KeyNotFoundException;
+import org.jaudiotagger.tag.mp4.Mp4Tag;
 
 import application.UI.CoverArt;
 import application.UI.Display;
-import javafx.animation.FadeTransition;
+import application.UI.DisplayText;
 import javafx.collections.MapChangeListener;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -23,16 +25,15 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.util.Duration;
 
-//TODO Seperate some of the functions
+// TODO Seperate some of the functions
 public class AudioPlayer {
 
 	public static Media media;
 	public static MediaPlayer player;
 	public static Stack<String> queue = new Stack<String>();
 	public static boolean isPlaying = false, isPaused = false, up = false;
-	public static double volume = 0.75d, pmag = 0;
+	public static double pmag = 0;
 	public static int BPM = 0, beat = 0;
 
 	public static void play() {
@@ -43,23 +44,18 @@ public class AudioPlayer {
 		beat = 0;
 		pmag = 0;
 
-		Display.title.setText(media.getSource());
-		Display.title.setX(1012 - Display.title.getLayoutBounds().getWidth());
-
-		Display.author.setText("");
-		Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
+		DisplayText.setTitle(media.getSource());
+		DisplayText.setAuthor("");
 
 		CoverArt.setArt(null);
 
 		setTitleAndArtist();
 
 		player = new MediaPlayer(media);
-		player.setVolume(volume);
+		player.setVolume(DisplayText.volume);
 
 		player.play();
 		isPlaying = true;
-		
-		//Display.createeBands();
 
 		Display.root.getChildren().remove(Display.nothing);
 		try {
@@ -79,10 +75,8 @@ public class AudioPlayer {
 				} else {
 					Display.root.getChildren().remove(Display.bars);
 					Display.root.getChildren().add(Display.nothing);
-					Display.author.setText("No file currently selected");
-					Display.title.setText("Press \"O\" to select a file");
-					Display.title.setX(1012 - Display.title.getLayoutBounds().getWidth());
-					Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
+					DisplayText.setAuthor("No file currently selected");
+					DisplayText.setTitle("Press \"O\" to select a file");
 					CoverArt.setArt(null);
 				}
 
@@ -115,29 +109,6 @@ public class AudioPlayer {
 		}
 	}
 
-	public static void handleVolume(double vol) {
-
-		volume = Double.parseDouble(String.format("%.2f", volume + vol));
-
-		if (volume > 1) {
-			volume = 1;
-		}
-		if (volume < 0) {
-			volume = 0;
-		}
-
-		AudioPlayer.player.setVolume(AudioPlayer.volume);
-
-		Display.volumeHUD.setText(String.format("Volume: %d%%", (int) (volume * 100)));
-
-		FadeTransition volumeFade = new FadeTransition(Duration.millis(3000), Display.volumeHUD);
-		volumeFade.setFromValue(1);
-		volumeFade.setToValue(0);
-
-		volumeFade.play();
-
-	}
-
 	public static void pickSong() {
 
 		FileChooser pickFile = new FileChooser();
@@ -166,10 +137,9 @@ public class AudioPlayer {
 		} else {
 			Display.root.getChildren().remove(Display.bars);
 			Display.root.getChildren().add(Display.nothing);
-			Display.author.setText("No file currently selected");
-			Display.title.setText("Press \"O\" to select a file");
-			Display.title.setX(1012 - Display.title.getLayoutBounds().getWidth());
-			Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
+			DisplayText.setAuthor("No file currently selected");
+			DisplayText.setTitle("Press \"O\" to select a file");
+			CoverArt.setArt(null);
 		}
 	}
 
@@ -185,19 +155,18 @@ public class AudioPlayer {
 
 	public static void setTitleAndArtist() {
 
+		// TODO: {ID3=java.nio.HeapByteBufferR[pos=222 lim=10343 cap=10343]}
+
 		if (media.getSource().contains(".mp3")) {
 			media.getMetadata().addListener((MapChangeListener<String, Object>) change -> {
 				if (change.wasAdded()) {
-
 					System.out.println(
 							String.format("Key: %s\nChanged value: %s", change.getKey(), change.getValueAdded()));
 					if (change.getKey().equals("title")) {
-						Display.title.setText(change.getValueAdded().toString().toUpperCase());
-						Display.title.setX(1012 - Display.title.getLayoutBounds().getWidth());
+						DisplayText.setTitle(change.getValueAdded().toString().toUpperCase());
 					}
 					if (change.getKey().equals("artist")) {
-						Display.author.setText(change.getValueAdded().toString().toUpperCase());
-						Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
+						DisplayText.setAuthor(change.getValueAdded().toString().toUpperCase());
 					}
 					if (change.getKey().equals("image")) {
 						CoverArt.setArt((Image) change.getValueAdded());
@@ -205,7 +174,6 @@ public class AudioPlayer {
 				}
 			});
 		} else {
-
 			RandomAccessFile raf = null;
 			try {
 				raf = new RandomAccessFile(media.getSource().replace("file:", "").replace("%20", " ")
@@ -214,10 +182,20 @@ public class AudioPlayer {
 				e.printStackTrace();
 				pause();
 			}
+			
 			Mp4TagReader metadata = new Mp4TagReader();
+			Mp4Tag data = null;
 			try {
-				Display.author.setText(metadata.read(raf).getFirst(FieldKey.ARTIST).toUpperCase());
-				Display.author.setX(1012 - Display.author.getLayoutBounds().getWidth());
+				data = metadata.read(raf);
+				raf.close();
+			} catch (CannotReadException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(data);
+			/*
+			try {
+				DisplayText.setAuthor(metadata.read(raf).getFirst(FieldKey.ARTIST).toUpperCase());
 				raf.close();
 			} catch (CannotReadException e) {
 				e.printStackTrace();
@@ -235,8 +213,7 @@ public class AudioPlayer {
 				pause();
 			}
 			try {
-				Display.title.setText(metadata.read(raf).getFirst(FieldKey.TITLE).toUpperCase());
-				Display.title.setX(1012 - Display.title.getLayoutBounds().getWidth());
+				DisplayText.setTitle(metadata.read(raf).getFirst(FieldKey.TITLE).toUpperCase());
 				raf.close();
 			} catch (KeyNotFoundException e) {
 				e.printStackTrace();
@@ -270,6 +247,7 @@ public class AudioPlayer {
 				e.printStackTrace();
 				pause();
 			}
+			*/
 		}
 	}
 
@@ -279,7 +257,8 @@ public class AudioPlayer {
 
 		// player.setAudioSpectrumThreshold(-100);
 		player.setAudioSpectrumListener(null);
-		//spectrumListener = new SpectrumListener(Display.STARTING_FREQUENCY, player, spectrimBars)
+		// spectrumListener = new SpectrumListener(Display.STARTING_FREQUENCY, player,
+		// spectrimBars)
 		player.setAudioSpectrumListener(new AudioSpectrumListener() {
 
 			@Override
@@ -301,7 +280,7 @@ public class AudioPlayer {
 					 */
 				}
 
-				//System.out.println((magnitudes[1] + 60));
+				// System.out.println((magnitudes[1] + 60));
 				if (Math.abs(magnitudes[0] - pmag) > 7.75) { // works for blossom, doesnt work for anything else 🙄
 					if (!up) {
 						up = true;
@@ -314,9 +293,9 @@ public class AudioPlayer {
 				}
 
 				BPM = (int) ((beat / timestamp) * 60);
-				
+
 				pmag = magnitudes[1];
-				
+
 				if (timestamp > 5 && !(Math.abs(magnitudes[0] - pmag) > 7.625) && up) {
 					System.out.println(BPM);
 				}
