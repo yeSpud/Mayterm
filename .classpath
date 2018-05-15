@@ -3,11 +3,11 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry kind="lib" path="jaudiotagger-2.2.3.jar" sourcepath="jaudiotagger-2.2.3-sources.jar">
+	<classpathentry kind="lib" path="/Users/stephenogden/Documents/GitHub/Mayterm/3rd-party-libs/jaudiotagger-2.2.3.jar" sourcepath="3rd-party-libs/jaudiotagger-2.2.3-sources.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/Mayterm/jaudiotagger-2.2.3-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Mayterm/3rd-party-libs/jaudiotagger-2.2.3-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="querydsl-sql-4.2.1-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/stephenogden/Documents/GitHub/Mayterm/3rd-party-libs/querydsl-sql-4.2.1-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
