@@ -20,9 +20,11 @@ import javafx.stage.Stage;
 //TODO Seperate some of the functions
 public class Display {
 
-	public static Text author = new Text("No file currently selected"/*"TRISTAM & BRAKEN"*/),
+	
+	//public static Text author = new Text("No file currently selected"/*"TRISTAM & BRAKEN"*/),
 			
-			title = new Text("Press \"O\" to select a file"/*"FRAME OF MIND"*/), volumeHUD = new Text(240, 700, "Volume: 75%");
+	//		title = new Text("Press \"O\" to select a file"/*"FRAME OF MIND"*/), volumeHUD = new Text(240, 700, "Volume: 75%");
+	
 
 	public static BorderPane root = new BorderPane();
 

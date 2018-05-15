@@ -27,7 +27,6 @@ public class CoverArt {
 		try {
 			catLogo = new Image(a.getClass().getResource("Resources/mcatTransparent.png").openStream());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		cat.setImage(catLogo);
