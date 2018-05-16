@@ -1,6 +1,6 @@
 package application.Audio;
 
-import java.io.File;
+import java.net.URI;
 import java.util.Stack;
 
 import application.UI.CoverArt;
@@ -29,11 +29,11 @@ public class AudioPlayer {
 		pmag = 0;
 
 		DisplayText.setTitle(media.getSource());
-		DisplayText.setAuthor("");
+		DisplayText.setArtist("");
 
 		CoverArt.setArt(null);
 
-		setTitleAndArtist();
+		DisplayText.setTitleAndArtist(URI.create(media.getSource()).getPath());
 
 		player = new MediaPlayer(media);
 		player.setVolume(DisplayText.volume);
@@ -50,7 +50,6 @@ public class AudioPlayer {
 		}
 
 		player.setOnEndOfMedia(new Runnable() {
-
 			@Override
 			public void run() {
 				if (!queue.isEmpty()) {
@@ -58,11 +57,9 @@ public class AudioPlayer {
 				} else {
 					Spectrum.disableSpectrum(false);
 				}
-
 			}
-
 		});
-		
+
 		Spectrum.setupSpectrumMovement();
 
 	}
@@ -75,7 +72,7 @@ public class AudioPlayer {
 				isPlaying = false;
 
 				Spectrum.clearSpectrum();
-				
+
 			} else {
 				player.play();
 				isPaused = false;
@@ -118,27 +115,8 @@ public class AudioPlayer {
 
 	public static void addToQueue(String filePath) {
 		queue.push(String.format("file://%s", filePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D")));
-
 		if (!isPlaying && !isPaused) {
 			play();
-		}
-		System.out.println(queue);
-
-	}
-
-	public static void setTitleAndArtist() {
-
-		if (media.getSource().contains(".mp3")) {
-			
-			String[] stuff = getMetadata.getMp3(new File(media.getSource().replace("file:", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]")));
-			DisplayText.setAuthor(stuff[0]);
-			DisplayText.setTitle(stuff[1]);
-			
-		} else if (media.getSource().contains(".mp4") || media.getSource().contains(".m4a") || media.getSource().contains(".m4v")) {
-				String[] stuff = getMetadata.getMp4(new File(media.getSource().replace("file:", "").replace("%20", " ")
-							.replace("%5B", "[").replace("%5D", "]")));
-				DisplayText.setAuthor(stuff[0]);
-				DisplayText.setTitle(stuff[1]);
 		}
 	}
 }

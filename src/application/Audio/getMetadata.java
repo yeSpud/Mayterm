@@ -21,12 +21,12 @@ import javafx.embed.swing.SwingFXUtils;
 
 public class getMetadata {
 
-	static FieldKey artist = (FieldKey.ARTIST), title = FieldKey.TITLE;
-	
+	static FieldKey artist = (FieldKey.ARTIST), title = FieldKey.TITLE, art = FieldKey.COVER_ART;
+
 	/*
 	 * "Music", "*.wav", "*.m3u8", "*.flv", "*.fxm", "*.aif", "*.aiff"
 	 */
-	
+
 	public static String[] getMp3(File file) {
 		String[] returnedData = new String[2];
 		MP3File metadata = null;
@@ -39,23 +39,30 @@ public class getMetadata {
 		Tag data = metadata.getTag();
 		returnedData[0] = data.getFirst(artist).toUpperCase();
 		returnedData[1] = data.getFirst(title).toUpperCase();
-		
-		try {
-			CoverArt.setArt(SwingFXUtils.toFXImage((BufferedImage) (data.getArtworkList().get(0)).getImage(), null));
-		} catch (IOException | IndexOutOfBoundsException e) {
-			// Nothing :P
+
+		if (!data.getFirst(art).isEmpty()) {
+			try {
+				CoverArt.setArt(SwingFXUtils.toFXImage((BufferedImage) (data.getFirstArtwork().getImage()), null));
+			} catch (Exception uhhh) {
+				try {
+					CoverArt.setArt(
+							SwingFXUtils.toFXImage((BufferedImage) (data.getArtworkList().get(0)).getImage(), null));
+				} catch (IOException | IndexOutOfBoundsException e) {
+					// Lol :P
+				}
+			}
 		}
-		
+
 		System.out.println(data);
-		
+
 		return returnedData;
-		
+
 	}
-	
+
 	public static String[] getMp4(File file) {
 		RandomAccessFile raf = null;
 		try {
-			raf = new RandomAccessFile(file,"r");
+			raf = new RandomAccessFile(file, "r");
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
@@ -68,36 +75,43 @@ public class getMetadata {
 		} catch (CannotReadException | IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		returnedData[0] = data.getFirst(artist).toUpperCase();
 		returnedData[1] = data.getFirst(title).toUpperCase();
-		
+
 		System.out.println(data);
-		
-		try {
-			CoverArt.setArt(SwingFXUtils.toFXImage((BufferedImage) (data.getArtworkList().get(0)).getImage(), null));
-		} catch (IOException | IndexOutOfBoundsException e) {
-			// Lol :P
+
+		if (!data.getFirst(art).isEmpty()) {
+			try {
+				CoverArt.setArt(SwingFXUtils.toFXImage((BufferedImage) (data.getFirstArtwork().getImage()), null));
+			} catch (Exception uhhh) {
+				try {
+					CoverArt.setArt(
+							SwingFXUtils.toFXImage((BufferedImage) (data.getArtworkList().get(0)).getImage(), null));
+				} catch (IOException | IndexOutOfBoundsException e) {
+					// Lol :P
+				}
+			}
 		}
-		
+
 		return returnedData;
-		
+
 	}
-	
+
 	public static void getWAV(File file) {
-		
+
 	}
-	
+
 	public static void getM3U8(File file) {
-		
+
 	}
-	
+
 	public static void getFLV(File file) {
-		
+
 	}
-	
+
 	public static void getAIF(File file) {
-		
+
 	}
-	
+
 }

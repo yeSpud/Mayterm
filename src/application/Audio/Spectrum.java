@@ -33,7 +33,7 @@ public class Spectrum {
 		VisulizerDisplay.root.getChildren().remove(Spectrum.spectrum);
 		VisulizerDisplay.root.getChildren().add(VisulizerDisplay.nothing);
 		if (!retry) {
-			DisplayText.setAuthor("No file currently selected");
+			DisplayText.setArtist("No file currently selected");
 			DisplayText.setTitle("Press \"O\" to select a file");
 		}
 		CoverArt.setArt(null);

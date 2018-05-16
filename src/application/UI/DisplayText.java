@@ -1,9 +1,11 @@
 package application.UI;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
 import application.Audio.AudioPlayer;
+import application.Audio.getMetadata;
 import javafx.animation.FadeTransition;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
@@ -77,13 +79,12 @@ public class DisplayText {
 
 	}
 
-	public static void setAuthor(String athr) {
+	public static void setArtist(String athr) {
 		author.setText(athr);
 		author.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, authorSize));
 		author.setX(1012 - author.getLayoutBounds().getWidth());
 		/*
-		 * int i = 0;
-		 * while ((author.getLayoutBounds().getWidth() + 1012) > 1280) { i++;
+		 * int i = 0; while ((author.getLayoutBounds().getWidth() + 1012) > 1280) { i++;
 		 * author.setFont(Font.font(author.getFont().getSize() - i)); if (i > 58) {
 		 * author.setText("Artist name too long to display");
 		 * author.setFont(Font.font(authorSize)); author.setX(1012 -
@@ -98,8 +99,7 @@ public class DisplayText {
 		// TODO: Fix spacing
 		System.out.println("Title: " + title.getWrappingWidth() + 1012);
 		/*
-		 * int i = 0;
-		 * while ((title.getLayoutBounds().getWidth() + 1012) > 1280) { i++;
+		 * int i = 0; while ((title.getLayoutBounds().getWidth() + 1012) > 1280) { i++;
 		 * title.setFont(Font.font(title.getFont().getSize() - i)); if (i > 58) {
 		 * title.setText("Title too long to display");
 		 * title.setFont(Font.font(titleSize)); title.setX(1012 -
@@ -129,12 +129,26 @@ public class DisplayText {
 		volumeFade.play();
 
 	}
-	
+
 	public static void handleInfo() {
 		FadeTransition pauseFade = new FadeTransition(Duration.millis(10000), pauseInfo);
 		pauseFade.setFromValue(1);
 		pauseFade.setToValue(0);
 		pauseFade.play();
+	}
+
+	public static void setTitleAndArtist(String source) {
+		File file = new File(source.replace("file:", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]"));
+		if (source.contains(".mp3")) {
+			String[] stuff = getMetadata.getMp3(file);
+			setArtist(stuff[0]);
+			setTitle(stuff[1]);
+
+		} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
+			String[] stuff = getMetadata.getMp4(file);
+			setArtist(stuff[0]);
+			setTitle(stuff[1]);
+		}
 	}
 
 }
