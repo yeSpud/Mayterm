@@ -82,6 +82,9 @@ public class VisulizerDisplay {
 		} else if (key.equals(KeyCode.P)) {
 			/* Pause/Unpasue */
 			AudioPlayer.pause();
+		} else if (key.equals(KeyCode.SEMICOLON) && !(SettingsDisplay.isDisplayed || !SettingsDisplay.settingsroot.isVisible())) {
+			/* Settings */
+			SettingsDisplay.createAndShowSettings();
 		} else if (AudioPlayer.isPlaying && !AudioPlayer.isPaused) {
 			if (key.equals(KeyCode.UP)) {
 				/* Increase volume */
