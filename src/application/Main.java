@@ -1,6 +1,7 @@
 package application;
 
-import application.UI.Display;
+import application.UI.VisulizerDisplay;
+import application.Audio.Spectrum;
 import application.UI.Genre;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -12,12 +13,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		
-		Display.createLoad();
-		Display.createBars();
-		Display.createInfo();
+		VisulizerDisplay.createLoad();
+		Spectrum.createSpectrum();
+		VisulizerDisplay.createInfo();
 		Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
 		
-		Display.createMainStage(primaryStage);
+		VisulizerDisplay.createMainStage(primaryStage);
 		//primaryStage.setOpacity(.4);
 
 	}

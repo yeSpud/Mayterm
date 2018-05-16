@@ -14,7 +14,7 @@ public class CoverArt {
 	public static ImageView coverArt = new ImageView(), cat = new ImageView();
 
 	public static void createCoverArt() {
-		Display.root.getChildren().add(art);
+		VisulizerDisplay.root.getChildren().add(art);
 
 		cat.setX(1034);
 		cat.setY(198);
@@ -30,7 +30,7 @@ public class CoverArt {
 			e.printStackTrace();
 		}
 		cat.setImage(catLogo);
-		Display.root.getChildren().add(cat);
+		VisulizerDisplay.root.getChildren().add(cat);
 	}
 	
 	public static void setArt(Image image) {
@@ -40,8 +40,8 @@ public class CoverArt {
 		coverArt.setFitHeight(126);
 		coverArt.setFitWidth(126);
 		coverArt.setRotate(180);
-		if (!Display.root.getChildren().contains(coverArt)) {
-			Display.root.getChildren().add(coverArt);
+		if (!VisulizerDisplay.root.getChildren().contains(coverArt)) {
+			VisulizerDisplay.root.getChildren().add(coverArt);
 		}
 		
 	}

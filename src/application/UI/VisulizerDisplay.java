@@ -3,7 +3,6 @@ package application.UI;
 import application.Main;
 import application.Audio.AudioPlayer;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -15,7 +14,7 @@ import javafx.stage.Stage;
 
 
 //TODO Seperate some of the functions
-public class Display {
+public class VisulizerDisplay {
 
 	public static BorderPane root = new BorderPane();
 
@@ -25,8 +24,6 @@ public class Display {
 	public static final double STARTING_FREQUENCY = 250.0;
 
 	public static int space = (int) ((scene.getWidth() - ((7 * 63) * 1.95)) / 2);
-
-	public static Group bars = new Group();
 
 	public static Rectangle nothing = new Rectangle(115, 356, 1046, 2);
 
@@ -45,7 +42,7 @@ public class Display {
 				@Override
 				public void handle(KeyEvent event) {
 
-					Display.keyPresed(event.getCode());
+					VisulizerDisplay.keyPresed(event.getCode());
 
 				}
 
@@ -59,17 +56,6 @@ public class Display {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static void createBars() {
-
-		for (int i = 0; i < 63; i++) {
-			Rectangle rectangle = new Rectangle(115 + (i * (16.65)), 356, 12, 2); // 1.9453968254
-			rectangle.setStrokeType(StrokeType.CENTERED);
-			bars.getChildren().add(rectangle);
- 
-		}
-
 	}
 
 	public static void createLoad() {
@@ -86,7 +72,7 @@ public class Display {
 		DisplayText.setupText();
 		CoverArt.createCoverArt();
 
-		root.getChildren().add(Display.nothing);
+		root.getChildren().add(VisulizerDisplay.nothing);
 	}
 
 	public static void keyPresed(KeyCode key) {
@@ -111,9 +97,6 @@ public class Display {
 			}
 		}
 	}
-
-	
-	
 	
 	
 	/*

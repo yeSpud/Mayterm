@@ -31,27 +31,28 @@ public class DisplayText {
 		author.setY(306);
 		author.setRotate(180);
 		author.setFill(Color.WHITE);
-		Display.root.getChildren().add(author);
+		VisulizerDisplay.root.getChildren().add(author);
 
 		title.setFont(Font.font("Arial", titleSize));
 		title.setX(1012 - title.getLayoutBounds().getWidth());
 		title.setY(244);
 		title.setRotate(180);
 		title.setFill(Color.WHITE);
-		Display.root.getChildren().add(title);
+		VisulizerDisplay.root.getChildren().add(title);
 
 		volumeHUD.setFont(Font.font(volumeSize));
 		volumeHUD.setRotate(180);
 		volumeHUD.setFill(Color.WHITE);
 		volumeHUD.setOpacity(0);
-		Display.root.getChildren().add(volumeHUD);
+		VisulizerDisplay.root.getChildren().add(volumeHUD);
 
 		pauseInfo.setFont(Font.font(otherSize));
 		pauseInfo.setX(1260 - pauseInfo.getLayoutBounds().getWidth());
 		pauseInfo.setY(10 + pauseInfo.getLayoutBounds().getHeight());
 		pauseInfo.setRotate(180);
 		pauseInfo.setFill(Color.WHITE);
-		Display.root.getChildren().add(pauseInfo);
+		pauseInfo.setOpacity(0);
+		VisulizerDisplay.root.getChildren().add(pauseInfo);
 
 		gitLink.setFont(Font.font(otherSize));
 		gitLink.setUnderline(true);
@@ -72,16 +73,16 @@ public class DisplayText {
 			}
 
 		});
-		Display.root.getChildren().add(gitLink);
+		VisulizerDisplay.root.getChildren().add(gitLink);
 
 	}
 
 	public static void setAuthor(String athr) {
 		author.setText(athr);
-		author.setFont(Font.font(authorSize));
+		author.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, authorSize));
 		author.setX(1012 - author.getLayoutBounds().getWidth());
-		int i = 0;
 		/*
+		 * int i = 0;
 		 * while ((author.getLayoutBounds().getWidth() + 1012) > 1280) { i++;
 		 * author.setFont(Font.font(author.getFont().getSize() - i)); if (i > 58) {
 		 * author.setText("Artist name too long to display");
@@ -92,12 +93,12 @@ public class DisplayText {
 
 	public static void setTitle(String ttl) {
 		title.setText(ttl);
-		title.setFont(Font.font(titleSize));
+		title.setFont(Font.font("Arial", titleSize));
 		title.setX(1012 - title.getLayoutBounds().getWidth());
-		int i = 0;
 		// TODO: Fix spacing
 		System.out.println("Title: " + title.getWrappingWidth() + 1012);
 		/*
+		 * int i = 0;
 		 * while ((title.getLayoutBounds().getWidth() + 1012) > 1280) { i++;
 		 * title.setFont(Font.font(title.getFont().getSize() - i)); if (i > 58) {
 		 * title.setText("Title too long to display");
@@ -127,6 +128,13 @@ public class DisplayText {
 
 		volumeFade.play();
 
+	}
+	
+	public static void handleInfo() {
+		FadeTransition pauseFade = new FadeTransition(Duration.millis(10000), pauseInfo);
+		pauseFade.setFromValue(1);
+		pauseFade.setToValue(0);
+		pauseFade.play();
 	}
 
 }

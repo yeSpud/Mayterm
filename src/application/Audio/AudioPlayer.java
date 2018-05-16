@@ -4,12 +4,9 @@ import java.io.File;
 import java.util.Stack;
 
 import application.UI.CoverArt;
-import application.UI.Display;
 import application.UI.DisplayText;
-import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -43,14 +40,13 @@ public class AudioPlayer {
 
 		player.play();
 		isPlaying = true;
+		DisplayText.handleInfo();
 
-		Display.root.getChildren().remove(Display.nothing);
 		try {
-			Display.root.getChildren().add(Display.bars);
+			Spectrum.enableSpectrum();
 		} catch (IllegalArgumentException Duplicate) {
-			Display.root.getChildren().removeAll(Display.bars);
-			Display.root.getChildren().add(Display.bars);
-
+			Spectrum.disableSpectrum(true);
+			Spectrum.enableSpectrum();
 		}
 
 		player.setOnEndOfMedia(new Runnable() {
@@ -60,18 +56,14 @@ public class AudioPlayer {
 				if (!queue.isEmpty()) {
 					play();
 				} else {
-					Display.root.getChildren().remove(Display.bars);
-					Display.root.getChildren().add(Display.nothing);
-					DisplayText.setAuthor("No file currently selected");
-					DisplayText.setTitle("Press \"O\" to select a file");
-					CoverArt.setArt(null);
+					Spectrum.disableSpectrum(false);
 				}
 
 			}
 
 		});
-
-		setupSpectrum();
+		
+		Spectrum.setupSpectrumMovement();
 
 	}
 
@@ -82,10 +74,8 @@ public class AudioPlayer {
 				isPaused = true;
 				isPlaying = false;
 
-				for (int i = 0; i < 63; i++) {
-					Rectangle bar = (Rectangle) Display.bars.getChildren().get(i);
-					bar.setHeight(12);
-				}
+				Spectrum.clearSpectrum();
+				
 			} else {
 				player.play();
 				isPaused = false;
@@ -122,11 +112,7 @@ public class AudioPlayer {
 		if (!queue.isEmpty()) {
 			play();
 		} else {
-			Display.root.getChildren().remove(Display.bars);
-			Display.root.getChildren().add(Display.nothing);
-			DisplayText.setAuthor("No file currently selected");
-			DisplayText.setTitle("Press \"O\" to select a file");
-			CoverArt.setArt(null);
+			Spectrum.disableSpectrum(false);
 		}
 	}
 
@@ -154,71 +140,5 @@ public class AudioPlayer {
 				DisplayText.setAuthor(stuff[0]);
 				DisplayText.setTitle(stuff[1]);
 		}
-	}
-
-	public static void setupSpectrum() {
-		player.setAudioSpectrumNumBands(63); // 7
-		player.setAudioSpectrumInterval(0.033d); // 0.0167d
-
-		// player.setAudioSpectrumThreshold(-100);
-		player.setAudioSpectrumListener(null);
-		// spectrumListener = new SpectrumListener(Display.STARTING_FREQUENCY, player,
-		// spectrimBars)
-		player.setAudioSpectrumListener(new AudioSpectrumListener() {
-
-			@Override
-			public void spectrumDataUpdate(double timestamp, double duration, float[] magnitudes, float[] phases) {
-				// TODO: Redo spectrum
-				/*
-				 * System.out.println(String.format("timestamp: %s\nmagnitides: %s", timestamp,
-				 * Arrays.toString(magnitudes)));
-				 */
-
-				for (int i = 0; i < 63; i++) { // 7
-					Rectangle bar = (Rectangle) Display.bars.getChildren().get(i);
-					bar.setHeight((63 - magnitudes[i] * -1) * 4);
-					/*
-					 * Group tests = ((Group) Display.bars); Rectangle test = (Rectangle)
-					 * tests.getChildren().get(57 - (i * 9)); if ((60 - magnitudes[i] * -1) < 2) {
-					 * test.setHeight(2); } else { test.setHeight(Math.pow(60 - magnitudes[i], 2) /
-					 * 50); }
-					 */
-				}
-
-				// System.out.println((magnitudes[1] + 60));
-				if (Math.abs(magnitudes[0] - pmag) > 7.75) { // works for blossom, doesnt work for anything else 🙄
-					if (!up) {
-						up = true;
-					}
-				} else {
-					if (up) {
-						up = false;
-						beat++;
-					}
-				}
-
-				BPM = (int) ((beat / timestamp) * 60);
-
-				pmag = magnitudes[1];
-
-				if (timestamp > 5 && !(Math.abs(magnitudes[0] - pmag) > 7.625) && up) {
-					System.out.println(BPM);
-				}
-
-				/*
-				 * for (int i = 0; i < 7; i++) { Group tests = ((Group) Display.bars); Rectangle
-				 * test = (Rectangle) tests.getChildren().get(56 - (i * 9)); if ((60 -
-				 * magnitudes[i] * -1) < 2) { test.setHeight(2); } else { test.setHeight((60 -
-				 * magnitudes[i])); } }
-				 * 
-				 * for (int i = 0; i < 7; i++) { Group tests = ((Group) Display.bars); Rectangle
-				 * test = (Rectangle) tests.getChildren().get(58 - (i * 9)); if ((60 -
-				 * magnitudes[i] * -1) < 2) { test.setHeight(2); } else { test.setHeight((60 -
-				 * magnitudes[i])); } }
-				 */
-
-			}
-
-		});
 	}
 }

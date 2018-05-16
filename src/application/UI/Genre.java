@@ -1,5 +1,6 @@
 package application.UI;
 
+import application.Audio.Spectrum;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -34,11 +35,11 @@ public class Genre {
 
 	public static void setGenre(Color genre) {
 
-		Display.nothing.setFill(genre);
-		Display.nothing.setStroke(genre);
+		VisulizerDisplay.nothing.setFill(genre);
+		VisulizerDisplay.nothing.setStroke(genre);
 		CoverArt.art.setFill(genre);
 		for (int i = 0; i < 63; i++) {
-			Rectangle bar = (Rectangle) Display.bars.getChildren().get(i);
+			Rectangle bar = (Rectangle) Spectrum.spectrum.getChildren().get(i);
 			bar.setFill(genre);
 		}
 
