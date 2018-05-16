@@ -86,8 +86,8 @@ public class AudioPlayer {
 	public static void pickSong() {
 
 		FileChooser pickFile = new FileChooser();
-		ExtensionFilter fileFilter = new ExtensionFilter("Music", "*.mp3", "*.m4a", "*.mp4", "*.m4v", "*.wav", "*.m3u8",
-				"*.flv", "*.fxm", "*.aif", "*.aiff");
+		ExtensionFilter fileFilter = new ExtensionFilter("Music", "*.mp3", "*.m4a", "*.mp4", "*.m4v", "*.wav", "*.aif",
+				"*.aiff");
 		pickFile.getExtensionFilters().addAll(fileFilter);
 		String filePath;
 		try {

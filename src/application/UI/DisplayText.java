@@ -83,28 +83,14 @@ public class DisplayText {
 		author.setText(athr);
 		author.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, authorSize));
 		author.setX(1012 - author.getLayoutBounds().getWidth());
-		/*
-		 * int i = 0; while ((author.getLayoutBounds().getWidth() + 1012) > 1280) { i++;
-		 * author.setFont(Font.font(author.getFont().getSize() - i)); if (i > 58) {
-		 * author.setText("Artist name too long to display");
-		 * author.setFont(Font.font(authorSize)); author.setX(1012 -
-		 * author.getLayoutBounds().getWidth()); } }
-		 */
+		checkTextSpacing(author, FontWeight.EXTRA_BOLD, authorSize);
 	}
 
 	public static void setTitle(String ttl) {
 		title.setText(ttl);
 		title.setFont(Font.font("Arial", titleSize));
 		title.setX(1012 - title.getLayoutBounds().getWidth());
-		// TODO: Fix spacing
-		System.out.println("Title: " + title.getWrappingWidth() + 1012);
-		/*
-		 * int i = 0; while ((title.getLayoutBounds().getWidth() + 1012) > 1280) { i++;
-		 * title.setFont(Font.font(title.getFont().getSize() - i)); if (i > 58) {
-		 * title.setText("Title too long to display");
-		 * title.setFont(Font.font(titleSize)); title.setX(1012 -
-		 * title.getLayoutBounds().getWidth()); } }
-		 */
+		checkTextSpacing(title, null, titleSize);
 	}
 
 	public static void handleVolume(double vol) {
@@ -143,12 +129,29 @@ public class DisplayText {
 			String[] stuff = getMetadata.getMp3(file);
 			setArtist(stuff[0]);
 			setTitle(stuff[1]);
-
 		} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
 			String[] stuff = getMetadata.getMp4(file);
+			setArtist(stuff[0]);
+			setTitle(stuff[1]);
+		} else if (source.contains(".wav")) {
+			String[] stuff = getMetadata.getWAV(file);
+			setArtist(stuff[0]);
+			setTitle(stuff[1]);
+		} else if (source.contains(".aif")) {
+			String[] stuff = getMetadata.getAIF(file);
 			setArtist(stuff[0]);
 			setTitle(stuff[1]);
 		}
 	}
 
+	public static void checkTextSpacing(Text text, FontWeight weight, double fontSize) {
+		double overSize = (text.getLayoutBounds().getWidth() + 20) - 1012;
+		if (overSize > 0) {
+			text.setFont(Font.font("Arial", weight, fontSize - 1));
+			text.setX(1012 - text.getLayoutBounds().getWidth());
+			checkTextSpacing(text, weight, fontSize - 1);
+		}
+		
+	}
+	
 }
