@@ -1,8 +1,9 @@
 package application;
 
-import application.UI.VisulizerDisplay;
 import application.Audio.Spectrum;
+import application.Database.Database;
 import application.UI.Genre;
+import application.UI.VisulizerDisplay;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -12,7 +13,11 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		
+		System.out.println(Database.databaseExist());
+		if (!Database.databaseExist()) {
+			System.out.println("Creating Database");
+			Database.createDatabase();
+		}
 		VisulizerDisplay.createLoad();
 		Spectrum.createSpectrum();
 		VisulizerDisplay.createInfo();
