@@ -13,6 +13,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/Mayterm/3rd-party-libs/javax.json-api-1.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="3rd-party-libs/javax.json-1.0.4.jar"/>
+	<classpathentry kind="lib" path="/Users/stephenogden/Documents/GitHub/Mayterm/3rd-party-libs/javax.json-1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
