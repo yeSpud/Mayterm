@@ -44,11 +44,12 @@ import javafx.scene.shape.Rectangle;
  *
  * @author dean
  */
+@SuppressWarnings("restriction")
 public class SpectrumBar extends VBox {
   private static final double SPACING = 1.0;
   private static final double ASPECT_RATIO = 3;
   private static final double MIN_BAR_HEIGHT = 3;
-  private static final double SPACING_RATIO = 0.1;
+  //private static final double SPACING_RATIO = 0.1;
   
   private final int maxValue;
   private final int barCount;
@@ -56,7 +57,7 @@ public class SpectrumBar extends VBox {
   private double lastWidth = 0;
   private double lastHeight = 0;
   
-  public SpectrumBar(int maxValue, int barCount) {
+public SpectrumBar(int maxValue, int barCount) {
     this.maxValue = maxValue;
     this.barCount = barCount;
     

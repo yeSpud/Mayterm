@@ -3,6 +3,7 @@ package application.Tests;
 import application.Audio.AudioPlayer;
 
 // Ripped directly from: https://github.com/caseif/vis.js/blob/4beea1390a3dae879610a7d9f7c283b575cfc4b2/js/analysis/spectrum_algorithms.js
+@Deprecated
 public class spectrum_algorithms {
 
 	/* *************************** */
@@ -16,7 +17,7 @@ public class spectrum_algorithms {
 	double audioDelay = 0.4d; // audio will lag behind the rendered spectrum by this amount of time (in
 								// seconds)
 	// BASIC TRANSFORMATION
-	static double spectrumStart = 4; // the first bin rendered in the spectrum
+	static int spectrumStart = 4; // the first bin rendered in the spectrum
 	static int spectrumEnd = 1200; // the last bin rendered in the spectrum
 	static double spectrumScale = 2.5d; // the logarithmic scale to adjust spectrum values to
 	// EXPONENTIAL TRANSFORMATION
@@ -80,8 +81,7 @@ public class spectrum_algorithms {
 		double newArray[] = new double[spectrumSize];
 		for (int i = 0; i < spectrumSize; i++) {
 			double bin = Math.pow(i / spectrumSize, spectrumScale) * (spectrumEnd - spectrumStart) + spectrumStart;
-			newArray[i] = array[(int) (Math.floor(bin) + spectrumStart)] * (bin % 1)
-					+ array[(int) (Math.floor(bin + 1) + spectrumStart)] * (1 - (bin % 1));
+			newArray[i] = array[(int)(Math.floor(bin) + spectrumStart)] * (bin % 1) + array[(int)(Math.floor(bin + 1) + spectrumStart)] * (1 - (bin % 1));
 		}
 		return newArray;
 	}

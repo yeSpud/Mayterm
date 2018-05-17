@@ -61,7 +61,15 @@ public class Spectrum {
 				 * System.out.println(String.format("timestamp: %s\nmagnitides: %s", timestamp,
 				 * Arrays.toString(magnitudes)));
 				 */
-
+				
+				/*
+				double t[] = new double[magnitudes.length];
+				for (int a = 0; a < magnitudes.length; a++) {
+					t[a] = (double) magnitudes[a];
+				}
+				TestSpectrtum.foo(t);
+				*/
+				
 				for (int i = 0; i < 63; i++) { // 7
 					Rectangle bar = (Rectangle) spectrum.getChildren().get(i);
 					bar.setHeight((63 - magnitudes[i] * -1) * 4);
@@ -91,7 +99,7 @@ public class Spectrum {
 				AudioPlayer.pmag = magnitudes[1];
 
 				if (timestamp > 5 && !(Math.abs(magnitudes[0] - AudioPlayer.pmag) > 7.625) && AudioPlayer.up) {
-					System.out.println(AudioPlayer.BPM);
+					//System.out.println(AudioPlayer.BPM);
 				}
 
 				/*
