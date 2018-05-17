@@ -1,5 +1,6 @@
 package application.Database;
 
+import java.io.File;
 import application.Errors.UnrecognizableOperatingSystem;
 
 public class Environment {
@@ -27,6 +28,20 @@ public class Environment {
 		}
 
 		return getOS;
+	}
+	
+	public static File getFile() {
+		String FileFolder = null;
+		File file = null;
+		if (Environment.getOS().equals(Environment.OS.WINDOWS)) {
+			FileFolder = System.getenv("APPDATA") + "\\Spud\\visulizer.json";
+		} else if (Environment.getOS().equals(Environment.OS.MACOS)) {
+			FileFolder = System.getProperty("user.home") + "/Library/Application Support/Spud/visulizer.json";
+		} else if (Environment.getOS().equals(Environment.OS.LINUX)) {
+			FileFolder = System.getProperty("user.dir") + ".Spud/visulizer.json";
+		}
+		file = new File(FileFolder);
+		return file;
 	}
 
 }
