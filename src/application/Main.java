@@ -11,7 +11,6 @@ public class Main extends Application {
 
 	public static Stage mainStage;
 
-	// TODO: File for formatting the source to URL and back?
 	@Override
 	public void start(Stage primaryStage) {
 		System.out.println("Does database exist? " + Database.databaseExist());

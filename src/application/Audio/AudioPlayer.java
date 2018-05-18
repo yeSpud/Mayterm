@@ -16,17 +16,11 @@ public class AudioPlayer {
 	public static MediaPlayer player;
 	public static Stack<String> queue = new Stack<String>();
 	public static boolean isPlaying = false, isPaused = false, up = false;
-	public static double pmag = 0;
-	public static int BPM = 0, beat = 0;
 
 	public static void play() {
 		// TODO: Fix issue of playing once more after ended and set to stop
 		media = new Media(queue.get(0));
 		queue.remove(0);
-
-		BPM = 0;
-		beat = 0;
-		pmag = 0;
 
 		// TODO: Fix cover art being null
 		//CoverArt.autoSetArt(media.getSource());
@@ -70,6 +64,7 @@ public class AudioPlayer {
 				} else {
 					Spectrum.disableSpectrum(false);
 				}
+				isPlaying = false;
 			}
 		});
 

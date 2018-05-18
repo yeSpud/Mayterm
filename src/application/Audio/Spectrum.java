@@ -13,13 +13,11 @@ public class Spectrum {
 	public static Group spectrum = new Group();
 
 	public static void createSpectrum() {
-
 		for (int i = 0; i < 63; i++) {
 			Rectangle rectangle = new Rectangle(115 + (i * (16.65)), 356, 12, 2); // 1.9453968254
 			rectangle.setStrokeType(StrokeType.CENTERED);
 			spectrum.getChildren().add(rectangle);
 		}
-
 	}
 
 	public static void clearSpectrum() {
@@ -85,26 +83,6 @@ public class Spectrum {
 					 */
 				}
 
-				// System.out.println((magnitudes[1] + 60));
-				if (Math.abs(magnitudes[0] - AudioPlayer.pmag) > 7.75) { // works for blossom, doesnt work for anything
-																			// else 🙄
-					if (!AudioPlayer.up) {
-						AudioPlayer.up = true;
-					}
-				} else {
-					if (AudioPlayer.up) {
-						AudioPlayer.up = false;
-						AudioPlayer.beat++;
-					}
-				}
-
-				AudioPlayer.BPM = (int) ((AudioPlayer.beat / timestamp) * 60);
-
-				AudioPlayer.pmag = magnitudes[1];
-
-				if (timestamp > 5 && !(Math.abs(magnitudes[0] - AudioPlayer.pmag) > 7.625) && AudioPlayer.up) {
-					//System.out.println(AudioPlayer.BPM);
-				}
 
 				/*
 				 * for (int i = 0; i < 7; i++) { Group tests = ((Group) Display.bars); Rectangle

@@ -37,12 +37,9 @@ public class VisulizerDisplay {
 			Main.mainStage.setScene(scene);
 
 			scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
 				@Override
 				public void handle(KeyEvent event) {
-
 					VisulizerDisplay.keyPresed(event.getCode());
-
 				}
 
 			});
@@ -69,7 +66,6 @@ public class VisulizerDisplay {
 
 		DisplayText.setupText();
 		CoverArt.createCoverArt();
-
 		root.getChildren().add(VisulizerDisplay.nothing);
 	}
 
@@ -80,10 +76,9 @@ public class VisulizerDisplay {
 		} else if (key.equals(KeyCode.P)) {
 			/* Pause/Unpasue */
 			AudioPlayer.pause();
-		} else if (key.equals(KeyCode.SEMICOLON)/*
-				&& !(SettingsDisplay.isDisplayed || !SettingsDisplay.settingsroot.isVisible())*/) {
+		} else if (key.equals(KeyCode.SEMICOLON)) {
 			/* Settings */
-			//SettingsDisplay.createAndShowSettings();
+			// SettingsDisplay.createAndShowSettings();
 			// TODO: Finish settings
 		} else if (AudioPlayer.isPlaying && !AudioPlayer.isPaused) {
 			if (key.equals(KeyCode.UP)) {
@@ -121,18 +116,5 @@ public class VisulizerDisplay {
 		}
 
 	}
-
-	/*
-	 * public static void createSpectrumBars() { //spectrumBars = new
-	 * SpectrumBar[BAND_COUNT]; final ObservableList<EqualizerBand> bands =
-	 * AudioPlayer.player.getAudioEqualizer().getBands(); bands.clear(); double min
-	 * = EqualizerBand.MIN_GAIN, max = EqualizerBand.MAX_GAIN, mid = (min-max)/2,
-	 * frequency = STARTING_FREQUENCY;
-	 * 
-	 * for (int j = 0; j < BAND_COUNT; j++) { double theta = (double)j/(double)
-	 * (BAND_COUNT - 1) * (2*Math.PI), scale = 0.4 * (1+Math.cos(theta)), gain = min
-	 * + max + (mid * scale); bands.add(new EqualizerBand(frequency, frequency/2,
-	 * gain)); frequency *= 2; } // System.out.println(bands.size()); // 63 }
-	 */
 
 }
