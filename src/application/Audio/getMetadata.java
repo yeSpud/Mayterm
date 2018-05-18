@@ -184,7 +184,7 @@ public class getMetadata {
 	public static String getArtist(String source) {
 		String artist = null;
 		
-		File file = new File(source.replace("file:", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("%3A", ":").replace("%5C", "\\"));
+		File file = new File(AudioFile.toFilePath(source));
 		if (source.contains(".mp3")) {
 			String[] stuff = getMetadata.getMp3(file);
 			artist = (stuff[0]);
@@ -205,7 +205,7 @@ public class getMetadata {
 	public static String getTitle(String source) {
 		String title = null;
 		
-		File file = new File(source.replace("file:", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("%3A", ":").replace("%5C", "\\"));
+		File file = new File(AudioFile.toFilePath(source));
 		if (source.contains(".mp3")) {
 			String[] stuff = getMetadata.getMp3(file);
 			title = (stuff[1]);

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import application.Main;
+import application.Audio.AudioFile;
 import application.Audio.getMetadata;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -49,7 +50,7 @@ public class CoverArt {
 	}
 	
 	public static void autoSetArt(String source) {
-		File file = new File(source.replace("file:", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("%3A", ":").replace("%5C", "\\"));
+		File file = new File(AudioFile.toFilePath(source));
 		if (source.contains(".mp3")) {
 			getMetadata.getMp3(file);
 		} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {

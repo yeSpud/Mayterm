@@ -31,8 +31,7 @@ public class AudioFile {
 	}
 	
 	public static void addToQueue(String filePath) {
-		AudioPlayer.queue.push(String.format("file://%s", filePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D")
-				.replace(":", "%3A").replace("\\", "%5C")));
+		AudioPlayer.queue.push(toURL(filePath));
 		if (!AudioPlayer.isPlaying && !AudioPlayer.isPaused) {
 			AudioPlayer.play();
 		}
@@ -43,7 +42,8 @@ public class AudioFile {
 	}
 	
 	public static String toFilePath(String URL) {
-		return URL.replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C");
+		URL = URL.replace("file://", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("\\", "%5C");
+		return URL.replace(":", "%3A");
 	}
 	
 }

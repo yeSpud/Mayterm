@@ -34,11 +34,11 @@ public class Environment {
 		String FileFolder = null;
 		File file = null;
 		if (Environment.getOS().equals(Environment.OS.WINDOWS)) {
-			FileFolder = System.getenv("APPDATA") + "\\Spud\\visulizer.json";
+			FileFolder = System.getenv("APPDATA") + "\\Spud\\vis.json";
 		} else if (Environment.getOS().equals(Environment.OS.MACOS)) {
-			FileFolder = System.getProperty("user.home") + "/Library/Application Support/Spud/visulizer.json";
+			FileFolder = System.getProperty("user.home") + "/Library/Application Support/Spud/vis.json";
 		} else if (Environment.getOS().equals(Environment.OS.LINUX)) {
-			FileFolder = System.getProperty("user.dir") + ".Spud/visulizer.json";
+			FileFolder = System.getProperty("user.dir") + ".Spud/vis.json";
 		}
 		file = new File(FileFolder);
 		return file;

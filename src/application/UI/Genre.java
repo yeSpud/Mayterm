@@ -1,5 +1,6 @@
 package application.UI;
 
+import application.Audio.AudioFile;
 import application.Audio.AudioPlayer;
 import application.Audio.Spectrum;
 import application.Database.Database;
@@ -48,8 +49,7 @@ public class Genre {
 	}
 
 	public static void rotateGenre(int number) {
-		String path = AudioPlayer.media.getSource().replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[")
-				.replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C");
+		String path = AudioFile.toFilePath(AudioPlayer.media.getSource());
 		if (number > 11) {
 			number = 0;
 		}

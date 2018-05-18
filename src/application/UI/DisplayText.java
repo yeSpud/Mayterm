@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
+import application.Audio.AudioFile;
 import application.Audio.AudioPlayer;
 import application.Audio.getMetadata;
 import javafx.animation.FadeTransition;
@@ -124,7 +125,7 @@ public class DisplayText {
 	}
 
 	public static void setTitleAndArtist(String source) {
-		File file = new File(source.replace("file:", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("%3A", ":").replace("%5C", "\\"));
+		File file = new File(AudioFile.toFilePath(source));
 		if (source.contains(".mp3")) {
 			String[] stuff = getMetadata.getMp3(file);
 			setArtist(stuff[0]);

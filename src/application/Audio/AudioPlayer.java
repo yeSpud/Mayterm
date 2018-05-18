@@ -35,10 +35,8 @@ public class AudioPlayer {
 		DisplayText.setTitle(media.getSource());
 		DisplayText.setArtist("");
 
-		if (Database.isInDatabase(media.getSource().replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[")
-				.replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C"))) {
-			String path = media.getSource().replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[")
-					.replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C");
+		if (Database.isInDatabase(AudioFile.toFilePath(media.getSource()))) {
+			String path = AudioFile.toFilePath(media.getSource());
 			System.out.println("Already in database");
 			DisplayText.setTitle(Database.getTitle(path));
 			DisplayText.setArtist(Database.getArtist(path));
@@ -47,11 +45,7 @@ public class AudioPlayer {
 			System.out.println("Adding to database");
 			DisplayText.setTitleAndArtist(URI.create(media.getSource()).getPath());
 			Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
-			Database.addSong(
-					media.getSource().replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[")
-							.replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C"),
-					Genre.genre.ELECTRONIC, getMetadata.getTitle(media.getSource()),
-					getMetadata.getArtist(media.getSource()));
+			Database.addSong(AudioFile.toFilePath(media.getSource()),Genre.genre.ELECTRONIC, getMetadata.getTitle(media.getSource()),getMetadata.getArtist(media.getSource()));
 		}
 
 		player = new MediaPlayer(media);
@@ -101,7 +95,6 @@ public class AudioPlayer {
 			return;
 		}
 	}
-
 	public static void skip() {
 		player.stop();
 		isPaused = false;
