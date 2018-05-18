@@ -1,8 +1,10 @@
 package application.UI;
 
+import java.io.File;
 import java.io.IOException;
 
 import application.Main;
+import application.Audio.getMetadata;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
@@ -42,6 +44,20 @@ public class CoverArt {
 		coverArt.setRotate(180);
 		if (!VisulizerDisplay.root.getChildren().contains(coverArt)) {
 			VisulizerDisplay.root.getChildren().add(coverArt);
+		}
+		
+	}
+	
+	public static void autoSetArt(String source) {
+		File file = new File(source.replace("file:", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("%3A", ":").replace("%5C", "\\"));
+		if (source.contains(".mp3")) {
+			getMetadata.getMp3(file);
+		} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
+			getMetadata.getMp4(file);
+		} else if (source.contains(".wav")) {
+			getMetadata.getWAV(file);
+		} else if (source.contains(".aif")) {
+			getMetadata.getAIF(file);
 		}
 		
 	}

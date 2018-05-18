@@ -12,6 +12,8 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
+import application.UI.Genre.genre;
+
 public class Database {
 
 	public static boolean databaseExist() {
@@ -105,13 +107,11 @@ public class Database {
 
 	}
 
-	public static void addSong(String path, String genre, String title, String artist) {
+	public static void addSong(String path, genre genre, String title, String artist) {
 		JsonObject song_info = Json.createObjectBuilder().add("Color", genre.toString()).add("Title", title)
 				.add("Artist", artist).build();
 
-		String data = retrieveFromDatabase();
-
-		JsonReader read = Json.createReader(new StringReader(data));
+		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
 
 		JsonObject full = read.readObject();
 		read.close();
@@ -133,6 +133,42 @@ public class Database {
 
 	}
 
-	// TODO: Add a check to see if song is in datdabase
+	public static boolean isInDatabase(String path) {
+		
+		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
+		JsonObject fill = read.readObject();
+		read.close();
+		JsonObject songs = fill.getJsonObject("Songs");
+		
+		return songs.containsKey(path);
+		
+	}
 	
+	public static String getArtist(String path) {
+		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
+		JsonObject fill = read.readObject();
+		read.close();
+		JsonObject songs = fill.getJsonObject("Songs");
+		JsonObject specific_song = songs.getJsonObject(path);
+		return specific_song.get("Artist").toString().replace("\"", "");
+	}
+	
+	public static String getTitle(String path) {
+		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
+		JsonObject fill = read.readObject();
+		read.close();
+		JsonObject songs = fill.getJsonObject("Songs");
+		JsonObject specific_song = songs.getJsonObject(path);
+		return specific_song.get("Title").toString().replace("\"", "");
+	}
+	
+	public static String getGenre(String path) {
+		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
+		JsonObject fill = read.readObject();
+		read.close();
+		JsonObject songs = fill.getJsonObject("Songs");
+		JsonObject specific_song = songs.getJsonObject(path);
+		return specific_song.get("Color").toString().replace("\"", "");
+	}
+
 }

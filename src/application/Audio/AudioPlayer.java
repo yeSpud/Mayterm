@@ -32,18 +32,28 @@ public class AudioPlayer {
 		beat = 0;
 		pmag = 0;
 		
+		// TODO: Fix cover art being null
 		CoverArt.setArt(null);
 		
 		DisplayText.setTitle(media.getSource());
 		DisplayText.setArtist("");
 
+		if (Database.isInDatabase(media.getSource().replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C"))) {
+			String path = media.getSource().replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C");
+			System.out.println("Already in database");
+			DisplayText.setTitle(Database.getTitle(path));
+			DisplayText.setArtist(Database.getArtist(path));
+			Genre.setGenre(Genre.genre.valueOf(Database.getGenre(path)).getColor());
+			CoverArt.autoSetArt(media.getSource());
+		} else {
+		System.out.println("Adding to database");
 		DisplayText.setTitleAndArtist(URI.create(media.getSource()).getPath());
-
-		
+		Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
 		Database.addSong(
 				media.getSource().replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C"),
-				Genre.genre.ELECTRONIC.name(), getMetadata.getTitle(media.getSource()),
+				Genre.genre.ELECTRONIC, getMetadata.getTitle(media.getSource()),
 				getMetadata.getArtist(media.getSource()));
+		}
 				
 
 		player = new MediaPlayer(media);
