@@ -26,6 +26,9 @@ public class getMetadata {
 
 	static FieldKey artist = (FieldKey.ARTIST), title = FieldKey.TITLE, art = FieldKey.COVER_ART;
 
+	/**
+	 * Retuns a string array of 2. The first argument is the artist, the second is the title.
+	*/
 	public static String[] getMp3(File file) {
 		String[] returnedData = new String[2];
 		MP3File metadata = null;
@@ -58,6 +61,9 @@ public class getMetadata {
 
 	}
 
+	/**
+	 * Retuns a string array of 2. The first argument is the artist, the second is the title.
+	*/
 	public static String[] getMp4(File file) {
 		RandomAccessFile raf = null;
 		String[] returnedData = new String[2];
@@ -99,6 +105,9 @@ public class getMetadata {
 
 	}
 
+	/**
+	 * Retuns a string array of 2. The first argument is the artist, the second is the title.
+	*/
 	public static String[] getWAV(File file) {
 		String[] returnedData = new String[2];
 		WavFileReader metadata = new WavFileReader();
@@ -130,6 +139,9 @@ public class getMetadata {
 		return returnedData;
 	}
 
+	/**
+	 * Retuns a string array of 2. The first argument is the artist, the second is the title.
+	*/
 	public static String[] getAIF(File file) {
 		String[] returnedData = new String[2];
 		AiffFileReader metadata = new AiffFileReader();
@@ -164,4 +176,46 @@ public class getMetadata {
 		return returnedData;
 	}
 
+	public static String getArtist(String source) {
+		String artist = null;
+		
+		File file = new File(source.replace("file:", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("%3A", ":").replace("%5C", "\\"));
+		if (source.contains(".mp3")) {
+			String[] stuff = getMetadata.getMp3(file);
+			artist = (stuff[0]);
+		} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
+			String[] stuff = getMetadata.getMp4(file);
+			artist = (stuff[0]);
+		} else if (source.contains(".wav")) {
+			String[] stuff = getMetadata.getWAV(file);
+			artist = (stuff[0]);
+		} else if (source.contains(".aif")) {
+			String[] stuff = getMetadata.getAIF(file);
+			artist = (stuff[0]);
+		}
+		
+		return artist;
+	}
+	
+	public static String getTitle(String source) {
+		String title = null;
+		
+		File file = new File(source.replace("file:", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("%3A", ":").replace("%5C", "\\"));
+		if (source.contains(".mp3")) {
+			String[] stuff = getMetadata.getMp3(file);
+			title = (stuff[1]);
+		} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
+			String[] stuff = getMetadata.getMp4(file);
+			title = (stuff[1]);
+		} else if (source.contains(".wav")) {
+			String[] stuff = getMetadata.getWAV(file);
+			title = (stuff[1]);
+		} else if (source.contains(".aif")) {
+			String[] stuff = getMetadata.getAIF(file);
+			title = (stuff[1]);
+		}
+		
+		return title;
+	}
+	
 }

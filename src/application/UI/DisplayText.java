@@ -124,7 +124,7 @@ public class DisplayText {
 	}
 
 	public static void setTitleAndArtist(String source) {
-		File file = new File(source.replace("file:", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]"));
+		File file = new File(source.replace("file:", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("%3A", ":").replace("%5C", "\\"));
 		if (source.contains(".mp3")) {
 			String[] stuff = getMetadata.getMp3(file);
 			setArtist(stuff[0]);

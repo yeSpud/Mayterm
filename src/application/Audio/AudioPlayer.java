@@ -3,8 +3,12 @@ package application.Audio;
 import java.net.URI;
 import java.util.Stack;
 
+import application.Database.Database;
+import application.Database.Environment;
+import application.Database.Environment.OS;
 import application.UI.CoverArt;
 import application.UI.DisplayText;
+import application.UI.Genre;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
@@ -27,13 +31,20 @@ public class AudioPlayer {
 		BPM = 0;
 		beat = 0;
 		pmag = 0;
-
+		
+		CoverArt.setArt(null);
+		
 		DisplayText.setTitle(media.getSource());
 		DisplayText.setArtist("");
 
-		CoverArt.setArt(null);
-
 		DisplayText.setTitleAndArtist(URI.create(media.getSource()).getPath());
+
+		
+		Database.addSong(
+				media.getSource().replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C"),
+				Genre.genre.ELECTRONIC.name(), getMetadata.getTitle(media.getSource()),
+				getMetadata.getArtist(media.getSource()));
+				
 
 		player = new MediaPlayer(media);
 		player.setVolume(DisplayText.volume);
@@ -91,7 +102,11 @@ public class AudioPlayer {
 		pickFile.getExtensionFilters().addAll(fileFilter);
 		String filePath;
 		try {
+			if (Environment.getOS().equals(OS.WINDOWS)) {
+				filePath = "/" +pickFile.showOpenDialog(null).getAbsolutePath().toString();
+			} else {
 			filePath = pickFile.showOpenDialog(null).getAbsolutePath().toString();
+			}
 		} catch (NullPointerException a) {
 			filePath = "";
 		}
@@ -114,7 +129,7 @@ public class AudioPlayer {
 	}
 
 	public static void addToQueue(String filePath) {
-		queue.push(String.format("file://%s", filePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D")));
+		queue.push(String.format("file://%s", filePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D").replace(":", "%3A").replace("\\", "%5C")));
 		if (!isPlaying && !isPaused) {
 			play();
 		}
