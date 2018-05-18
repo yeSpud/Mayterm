@@ -21,7 +21,7 @@ public class VisulizerDisplay {
 	public static final int BAND_COUNT = 63;
 	public static final double STARTING_FREQUENCY = 250.0;
 
-	public static int space = (int) ((scene.getWidth() - ((7 * 63) * 1.95)) / 2);
+	public static int space = (int) ((scene.getWidth() - ((7 * 63) * 1.95)) / 2), rotatoe = 4;
 
 	public static Rectangle nothing = new Rectangle(115, 356, 1046, 2);
 
@@ -93,7 +93,27 @@ public class VisulizerDisplay {
 			} else if (key.equals(KeyCode.RIGHT)) {
 				/* Skip current track */
 				AudioPlayer.skip();
-			} // TODO: Key for swithching genres
+			} else if (key.equals(KeyCode.PERIOD)) {
+				/* Rotate current genre */
+				rotatoe++;
+				if (rotatoe > 11) {
+					rotatoe = 0;
+				}
+				if (rotatoe < 0) {
+					rotatoe = 11;
+				}
+				Genre.rotateGenre(rotatoe);
+			} else if (key.equals(KeyCode.COMMA)) {
+				/* Rotate current genre */
+				rotatoe--;
+				if (rotatoe > 11) {
+					rotatoe = 0;
+				}
+				if (rotatoe < 0) {
+					rotatoe = 11;
+				}
+				Genre.rotateGenre(rotatoe);
+			}
 		} else {
 			System.out.println(key);
 		}

@@ -11,6 +11,7 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.json.JsonValue;
 
 import application.UI.Genre.genre;
 
@@ -141,6 +142,27 @@ public class Database {
 		JsonObject songs = fill.getJsonObject("Songs");
 		JsonObject specific_song = songs.getJsonObject(path);
 		return specific_song.get("Color").toString().replace("\"", "");
+	}
+	
+	public static void editArtist(String path, String newArtist) {
+		// TODO: Finish this
+	}
+	
+	public static void editTitle(String path, String newTitle) {
+		// TODO: Finish this
+	}
+	
+	public static void editGenre(String path, genre newGenre) {
+		// TODO: Finish this
+		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
+		JsonObject fill = read.readObject();
+		read.close();
+		JsonObject songs = fill.getJsonObject("Songs");
+		JsonObject specific_song = songs.getJsonObject(path);
+		JsonValue oldGenre = specific_song.get("Color");
+		System.out.println(oldGenre.toString().replace("\"", ""));
+		
+		
 	}
 
 }

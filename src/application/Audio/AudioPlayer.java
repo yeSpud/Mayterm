@@ -24,6 +24,7 @@ public class AudioPlayer {
 	public static int BPM = 0, beat = 0;
 
 	public static void play() {
+		// TODO: Fix issue of playing once more after ended and set to stop
 		media = new Media(queue.get(0));
 		queue.remove(0);
 
