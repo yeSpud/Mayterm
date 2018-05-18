@@ -11,7 +11,6 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.json.JsonValue;
 
 import application.UI.Genre.genre;
 
@@ -153,15 +152,22 @@ public class Database {
 	}
 	
 	public static void editGenre(String path, genre newGenre) {
-		// TODO: Finish this
 		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
-		JsonObject fill = read.readObject();
+		JsonObject full = read.readObject();
 		read.close();
-		JsonObject songs = fill.getJsonObject("Songs");
-		JsonObject specific_song = songs.getJsonObject(path);
-		JsonValue oldGenre = specific_song.get("Color");
-		System.out.println(oldGenre.toString().replace("\"", ""));
-		
+		JsonObject songs = full.getJsonObject("Songs");
+		JsonObject song_info = Json.createObjectBuilder().add("Color", newGenre.toString()).add("Title", getTitle(path))
+				.add("Artist", getArtist(path)).build();
+		String songsArray = songs.toString();
+		if (songsArray.isEmpty() || songsArray.equals("{}")) {
+			songsArray = String.format("{\"%s\":%s}", path, song_info.toString());
+		} else {
+			songsArray = String.format("%s,\"%s\":%s}", songsArray.replace("}}", "}"), path, song_info.toString());
+		}
+		JsonReader newread = Json.createReader(new StringReader(songsArray));
+		JsonObject newValue = Json.createObjectBuilder().add("Settings", full.get("Settings")).add("Songs", newread.read()).build();
+		newread.close();
+		writeToDatabase(newValue.toString());
 		
 	}
 
