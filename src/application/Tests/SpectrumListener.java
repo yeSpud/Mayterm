@@ -18,7 +18,7 @@ public class SpectrumListener implements AudioSpectrumListener {
 	
 	@Override
 	public void spectrumDataUpdate(double timestamp, double duration, float[] magnitudes, float[] phases) {
-		// TODO Finish this
+		
 		
 	}
 	

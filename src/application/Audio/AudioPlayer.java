@@ -6,7 +6,6 @@ import java.util.Stack;
 import application.Database.Database;
 import application.Database.Environment;
 import application.Database.Environment.OS;
-import application.UI.CoverArt;
 import application.UI.DisplayText;
 import application.UI.Genre;
 import javafx.scene.media.Media;
@@ -14,7 +13,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-// TODO Seperate some of the functions
+// TODO: Cleanup functions
 public class AudioPlayer {
 
 	public static Media media;
@@ -31,30 +30,32 @@ public class AudioPlayer {
 		BPM = 0;
 		beat = 0;
 		pmag = 0;
-		
+
 		// TODO: Fix cover art being null
-		CoverArt.setArt(null);
-		
+		//CoverArt.autoSetArt(media.getSource());
+		// Since it wasnt updating properly, I moved it to the spectum update to spam update it. FIX THIS
+
 		DisplayText.setTitle(media.getSource());
 		DisplayText.setArtist("");
 
-		if (Database.isInDatabase(media.getSource().replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C"))) {
-			String path = media.getSource().replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C");
+		if (Database.isInDatabase(media.getSource().replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[")
+				.replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C"))) {
+			String path = media.getSource().replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[")
+					.replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C");
 			System.out.println("Already in database");
 			DisplayText.setTitle(Database.getTitle(path));
 			DisplayText.setArtist(Database.getArtist(path));
 			Genre.setGenre(Genre.genre.valueOf(Database.getGenre(path)).getColor());
-			CoverArt.autoSetArt(media.getSource());
 		} else {
-		System.out.println("Adding to database");
-		DisplayText.setTitleAndArtist(URI.create(media.getSource()).getPath());
-		Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
-		Database.addSong(
-				media.getSource().replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C"),
-				Genre.genre.ELECTRONIC, getMetadata.getTitle(media.getSource()),
-				getMetadata.getArtist(media.getSource()));
+			System.out.println("Adding to database");
+			DisplayText.setTitleAndArtist(URI.create(media.getSource()).getPath());
+			Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
+			Database.addSong(
+					media.getSource().replace("file:\\\\", "").replace("%20", " ").replace("%5B", "[")
+							.replace("%5D", "]").replace(":", "%3A").replace("\\", "%5C"),
+					Genre.genre.ELECTRONIC, getMetadata.getTitle(media.getSource()),
+					getMetadata.getArtist(media.getSource()));
 		}
-				
 
 		player = new MediaPlayer(media);
 		player.setVolume(DisplayText.volume);
@@ -113,9 +114,9 @@ public class AudioPlayer {
 		String filePath;
 		try {
 			if (Environment.getOS().equals(OS.WINDOWS)) {
-				filePath = "/" +pickFile.showOpenDialog(null).getAbsolutePath().toString();
+				filePath = "/" + pickFile.showOpenDialog(null).getAbsolutePath().toString();
 			} else {
-			filePath = pickFile.showOpenDialog(null).getAbsolutePath().toString();
+				filePath = pickFile.showOpenDialog(null).getAbsolutePath().toString();
 			}
 		} catch (NullPointerException a) {
 			filePath = "";
@@ -139,7 +140,8 @@ public class AudioPlayer {
 	}
 
 	public static void addToQueue(String filePath) {
-		queue.push(String.format("file://%s", filePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D").replace(":", "%3A").replace("\\", "%5C")));
+		queue.push(String.format("file://%s", filePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D")
+				.replace(":", "%3A").replace("\\", "%5C")));
 		if (!isPlaying && !isPaused) {
 			play();
 		}

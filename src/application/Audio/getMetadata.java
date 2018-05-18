@@ -24,10 +24,15 @@ import javafx.embed.swing.SwingFXUtils;
 
 public class getMetadata {
 
+	// TODO: I think I found what was resetting all the artwork!
+	
 	static FieldKey artist = (FieldKey.ARTIST), title = FieldKey.TITLE, art = FieldKey.COVER_ART;
 
 	/**
-	 * Retuns a string array of 2. The first argument is the artist, the second is the title.
+	 * Retuns a string array of 2. The first argument is the artist, the second is the title. Oh, and it also tries to set the album art.
+	 * 
+	 * @param file - The file locaion, or path. This needs to be formatted in a way that is URL friendly!
+	 * @return String[] - Retruns a string array, containing the artist (0), and the title (1).
 	*/
 	public static String[] getMp3(File file) {
 		String[] returnedData = new String[2];

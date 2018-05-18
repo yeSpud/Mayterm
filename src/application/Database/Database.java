@@ -33,8 +33,8 @@ public class Database {
 			Environment.getFile().getParentFile().mkdirs();
 			Environment.getFile().createNewFile();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return;
 		}
 
 		writeToDatabase(result);
@@ -45,29 +45,12 @@ public class Database {
 		FileWriter fileWriter = null;
 		try {
 			fileWriter = new FileWriter(Environment.getFile());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		try {
 			fileWriter.write(data);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		try {
 			fileWriter.flush();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		try {
 			fileWriter.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return;
 		}
 	}
 
@@ -77,30 +60,19 @@ public class Database {
 		try {
 			reader = new FileReader(Environment.getFile());
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
 
 		BufferedReader bufferedReader = new BufferedReader(reader);
 
 		try {
 			data = bufferedReader.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
 			bufferedReader.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		try {
 			reader.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
 
 		return data;

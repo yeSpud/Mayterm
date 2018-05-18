@@ -70,6 +70,10 @@ public class Spectrum {
 				TestSpectrtum.foo(t);
 				*/
 				
+				if (timestamp < .125d) {
+					CoverArt.autoSetArt(AudioPlayer.media.getSource());
+				}
+				
 				for (int i = 0; i < 63; i++) { // 7
 					Rectangle bar = (Rectangle) spectrum.getChildren().get(i);
 					bar.setHeight((63 - magnitudes[i] * -1) * 4);
