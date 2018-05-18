@@ -1,6 +1,7 @@
 package application.UI;
 
 import application.Main;
+import application.Audio.AudioFile;
 import application.Audio.AudioPlayer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -75,7 +76,7 @@ public class VisulizerDisplay {
 	public static void keyPresed(KeyCode key) {
 		if (key.equals(KeyCode.O)) {
 			/* Pick a song from local storage */
-			AudioPlayer.pickSong();
+			AudioFile.pickSong();
 		} else if (key.equals(KeyCode.P)) {
 			/* Pause/Unpasue */
 			AudioPlayer.pause();
