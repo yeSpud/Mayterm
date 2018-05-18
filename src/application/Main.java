@@ -10,10 +10,11 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	public static Stage mainStage;
+
 	// TODO: File for formatting the source to URL and back?
 	@Override
 	public void start(Stage primaryStage) {
-		System.out.println("Does database exist? "+Database.databaseExist());
+		System.out.println("Does database exist? " + Database.databaseExist());
 		if (!Database.databaseExist()) {
 			System.out.println("Creating Database");
 			Database.createDatabase();
@@ -26,10 +27,10 @@ public class Main extends Application {
 		VisulizerDisplay.createInfo();
 		System.out.println("Setting genre");
 		Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
-		
+
 		System.out.println("Displaying window");
 		VisulizerDisplay.createMainStage(primaryStage);
-		//primaryStage.setOpacity(.4);
+		// primaryStage.setOpacity(.4);
 
 	}
 
