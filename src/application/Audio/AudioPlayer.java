@@ -10,6 +10,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 // TODO: Cleanup functions
+// TODO: Fix handoff
 public class AudioPlayer {
 
 	public static Media media;

@@ -43,58 +43,78 @@ public class Spectrum {
 	}
 
 	public static void setupSpectrumMovement() {
-		AudioPlayer.player.setAudioSpectrumNumBands(63); // 7
-		AudioPlayer.player.setAudioSpectrumInterval(0.033d); // 0.0167d
-
-		// player.setAudioSpectrumThreshold(-100);
-		AudioPlayer.player.setAudioSpectrumListener(null);
-		// spectrumListener = new SpectrumListener(Display.STARTING_FREQUENCY, player,
-		// spectrimBars)
+		/*
+		AudioEqualizer EQ = AudioPlayer.player.getAudioEqualizer();
+		EQ.getBands().clear();
+		// Note to self, gain is gain in volume, not what the current decible level is
+		double startHz = 20;
+		for (int i = 0; i < 7; i++) {
+			System.out.println(startHz);
+			EqualizerBand EQB = new EqualizerBand(startHz + ((4.29d)/2), 4.29d, 0);
+			startHz = (EQB.getCenterFrequency() + (4.29d));
+			EQ.getBands().add(EQB);
+		}
+		*/
+		
+		//EQB1.setBandwidth(4.29d);
+		//EQB1.setCenterFrequency(22.145d);
+		//EQB1.setGain(60);
+		
+		/*
+		EqualizerBand EQB2 = new EqualizerBand();
+		EQB2.setBandwidth(4.29);
+		EQB2.setCenterFrequency(26.435);
+		
+		EqualizerBand EQB3 = new EqualizerBand();
+		EQB3.setBandwidth(4.29);
+		EQB3.setCenterFrequency(30.725);
+		
+		
+		
+		EQ.getBands().add(EQB1);
+		EQ.getBands().add(EQB2);
+		EQ.getBands().add(EQB3);
+		EQ.setEnabled(true);
+	*/
+		
+		AudioPlayer.player.setAudioSpectrumNumBands(63); // 63
+		AudioPlayer.player.setAudioSpectrumInterval(0.033d); // 0.0167
+		//AudioPlayer.player.setAudioSpectrumListener(new SpectrumListener(12000));
 		AudioPlayer.player.setAudioSpectrumListener(new AudioSpectrumListener() {
 
 			@Override
 			public void spectrumDataUpdate(double timestamp, double duration, float[] magnitudes, float[] phases) {
 				// TODO: Redo spectrum
-				/*
-				 * System.out.println(String.format("timestamp: %s\nmagnitides: %s", timestamp,
-				 * Arrays.toString(magnitudes)));
-				 */
 				
-				/*
-				double t[] = new double[magnitudes.length];
-				for (int a = 0; a < magnitudes.length; a++) {
-					t[a] = (double) magnitudes[a];
-				}
-				TestSpectrtum.foo(t);
-				*/
-				
-				if (timestamp < .125d) {
+				if (timestamp < .07d) {
 					CoverArt.autoSetArt(AudioPlayer.media.getSource());
 				}
 				
 				for (int i = 0; i < 63; i++) { // 7
 					Rectangle bar = (Rectangle) spectrum.getChildren().get(i);
 					bar.setHeight((63 - magnitudes[i] * -1) * 4);
-					/*
-					 * Group tests = ((Group) Display.bars); Rectangle test = (Rectangle)
-					 * tests.getChildren().get(57 - (i * 9)); if ((60 - magnitudes[i] * -1) < 2) {
-					 * test.setHeight(2); } else { test.setHeight(Math.pow(60 - magnitudes[i], 2) /
-					 * 50); }
-					 */
 				}
-
-
+				
 				/*
-				 * for (int i = 0; i < 7; i++) { Group tests = ((Group) Display.bars); Rectangle
-				 * test = (Rectangle) tests.getChildren().get(56 - (i * 9)); if ((60 -
-				 * magnitudes[i] * -1) < 2) { test.setHeight(2); } else { test.setHeight((60 -
-				 * magnitudes[i])); } }
 				 * 
-				 * for (int i = 0; i < 7; i++) { Group tests = ((Group) Display.bars); Rectangle
-				 * test = (Rectangle) tests.getChildren().get(58 - (i * 9)); if ((60 -
-				 * magnitudes[i] * -1) < 2) { test.setHeight(2); } else { test.setHeight((60 -
-				 * magnitudes[i])); } }
+				 * I think I may have figured it out! So heres how Im going to set up the visulalizer:
+				 * Yes, it needs to be a histogram, but what are the ranges?
+				 * Well theres going to be 9 major rangesc (Bands), spread out among 7 lines like so:
+				 * 
+				 * Range 1 will be from 20 Hz to 50 Hz.
+				 * Range 2 will be from 50 Hz to 100 Hz.
+				 * Range 3 will be from 100 Hz to 200 Hz.
+				 * Range 4 will be from 200 Hz to 500 Hz.
+				 * Range 5 will be from 500 Hz to 1,000 Hz.
+				 * Range 6 will be from 1,000 Hz to 2,000 Hz.
+				 * Range 7 will be from 2,000 Hz to 5,000 Hz.
+				 * Range 8 will be from 5,000 Hz to 10,000 Hz.
+				 * And range 9 will be from 10,000 Hz to 20,000 Hz
+				 * 
+				 * If I need a refresheer, just take a look at the EQ in garage band
+				 * 
 				 */
+
 
 			}
 
