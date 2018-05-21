@@ -4,7 +4,6 @@ import application.Audio.AudioPlayer;
 import application.Audio.Spectrum;
 import application.UI.CoverArt;
 import javafx.scene.media.AudioSpectrumListener;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 
 public class SpectrumListener implements AudioSpectrumListener {

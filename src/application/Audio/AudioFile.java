@@ -31,11 +31,12 @@ public class AudioFile {
 		}
 
 	}
-	
+
 	/**
 	 * Adds the entered file to the queue of the media player.
 	 * 
-	 * @param filePath The full path of the file.
+	 * @param filePath
+	 *            The full path of the file.
 	 */
 	public static void addToQueue(String filePath) {
 		AudioPlayer.queue.push(toURL(filePath));
@@ -43,26 +44,30 @@ public class AudioFile {
 			AudioPlayer.play();
 		}
 	}
-	
+
 	/**
 	 * Formats the given path to a URL friendly string.
 	 * 
-	 * @param FilePath The absolute path of the file.
+	 * @param FilePath
+	 *            The absolute path of the file.
 	 * @return String - The formatted URL.
 	 */
 	public static String toURL(String FilePath) {
-		return String.format("file://%s", FilePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D").replace(":", "%3A").replace("\\", "%5C"));
+		return String.format("file://%s", FilePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D")
+				.replace(":", "%3A").replace("\\", "%5C"));
 	}
-	
+
 	/**
 	 * Formats the given URL to a file-path friendly string.
 	 * 
-	 * @param URL The URL of the file
+	 * @param URL
+	 *            The URL of the file
 	 * @return String - The formatted URL.
 	 */
 	public static String toFilePath(String URL) {
-		URL = URL.replace("file://", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("\\", "%5C");
+		URL = URL.replace("file://", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("\\",
+				"%5C");
 		return URL.replace(":", "%3A");
 	}
-	
+
 }

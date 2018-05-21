@@ -73,6 +73,9 @@ public class AudioPlayer {
 
 	}
 
+	/**
+	 * Pauses the current track, or resumes it if it's already paused.
+	 */
 	public static void pause() {
 		try {
 			if (isPlaying) {
@@ -91,6 +94,10 @@ public class AudioPlayer {
 			return;
 		}
 	}
+	
+	/**
+	 * Skips the current track.
+	 */
 	public static void skip() {
 		player.stop();
 		isPaused = false;

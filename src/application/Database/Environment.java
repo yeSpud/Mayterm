@@ -5,15 +5,27 @@ import application.Errors.UnrecognizableOperatingSystem;
 
 public class Environment {
 
+	/**
+	 * The three main types of operating systems: Windows, MacOS (Or Mac OS X), and
+	 * Linux.
+	 *
+	 */
 	public enum OS {
-		WINDOWS,MACOS,LINUX;
+		WINDOWS, MACOS, LINUX;
 	}
-	
+
+	/**
+	 * 
+	 * @return The current operating system.
+	 * @throws UnrecognizableOperatingSystem
+	 *             If the current operating system is not detected, or is not
+	 *             Windows, MacOS, or Linux, a UnrecognizableOperatingSystem error
+	 *             will be thrown.
+	 */
 	public static Enum<?> getOS() {
 		String os = System.getProperty("os.name").toUpperCase();
 		Enum<?> getOS = null;
 		if (os.contains("WIN")) {
-			// FileFolder = System.getenv("APPDATA") + "\\" + "Launcher";
 			getOS = OS.WINDOWS;
 		} else if (os.contains("MAC")) {
 			getOS = OS.MACOS;
@@ -29,7 +41,11 @@ public class Environment {
 
 		return getOS;
 	}
-	
+
+	/**
+	 * 
+	 * @return The file location for the database depending on the operating system.
+	 */
 	public static File getFile() {
 		String FileFolder = null;
 		File file = null;
