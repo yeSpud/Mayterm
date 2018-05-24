@@ -15,6 +15,8 @@ public class CoverArt {
 	public static Rectangle art = new Rectangle(1034, 198, 126, 126);
 
 	public static ImageView coverArt = new ImageView(), cat = new ImageView();
+	
+	public static Image catLogo, catLogoBlack;
 
 	public static void createCoverArt() {
 		VisulizerDisplay.root.getChildren().add(art);
@@ -26,9 +28,11 @@ public class CoverArt {
 		cat.setRotate(180);
 
 		Main a = new Main();
-		Image catLogo = null;
+		catLogo = null;
+		catLogoBlack = null;
 		try {
 			catLogo = new Image(a.getClass().getResource("Resources/mcatTransparent.png").openStream());
+			catLogoBlack = new Image(a.getClass().getResource("Resources/mcatTransparentBlack.png").openStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -61,6 +65,14 @@ public class CoverArt {
 			getMetadata.getAIF(file);
 		}
 		
+	}
+	
+	public static void blackCat(boolean blackCat) {
+		if (blackCat) {
+			cat.setImage(catLogoBlack);
+		} else {
+			cat.setImage(catLogo);
+		}
 	}
 
 }

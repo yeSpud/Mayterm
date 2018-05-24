@@ -20,7 +20,8 @@ public class Genre {
 		TRANCE(0, 126, 231), // Trance: 125 (135) - 150 bpm
 		DUBSTEP(141, 4, 225), // Dubstep: 70 bpm or 140 - 150 bpm
 		DRUMSTEP(243, 33, 136), // Drumstep: 160 - 180 bpm
-		ELECTRONIC(193, 193, 193); // Catch all
+		ELECTRONIC(193, 193, 193), // Catch all
+		OTHER(255,255,255); // Other
 
 		private final int r, g, b;
 
@@ -50,71 +51,89 @@ public class Genre {
 
 	public static void rotateGenre(int number) {
 		String path = AudioFile.toFilePath(AudioPlayer.media.getSource());
-		if (number > 11) {
+		if (number > 12) {
 			number = 0;
 		}
 		if (number < 0) {
-			number = 11;
+			number = 12;
 		}
 		switch (number) {
 		case 0: {
 			setGenre(genre.DNB.getColor());
 			Database.editGenre(path, genre.DNB);
+			CoverArt.blackCat(false);
 			break;
 		}
 		case 1: {
 			setGenre(genre.DRUMSTEP.getColor());
 			Database.editGenre(path, genre.DRUMSTEP);
+			CoverArt.blackCat(false);
 			break;
 		}
 		case 2: {
 			setGenre(genre.DUBSTEP.getColor());
 			Database.editGenre(path, genre.DUBSTEP);
+			CoverArt.blackCat(false);
 			break;
 		}
 		case 3: {
 			setGenre(genre.ELECTRO.getColor());
 			Database.editGenre(path, genre.ELECTRO);
+			CoverArt.blackCat(false);
 			break;
 		}
 		case 4: {
 			setGenre(genre.ELECTRONIC.getColor());
 			Database.editGenre(path, genre.ELECTRONIC);
+			CoverArt.blackCat(false);
 			break;
 		}
 		case 5: {
 			setGenre(genre.FUTUREBASS.getColor());
 			Database.editGenre(path, genre.FUTUREBASS);
+			CoverArt.blackCat(false);
 			break;
 		}
 		case 6: {
 			setGenre(genre.GLITCHHOP.getColor());
 			Database.editGenre(path, genre.GLITCHHOP);
+			CoverArt.blackCat(false);
 			break;
 		}
 		case 7: {
 			setGenre(genre.HARDDANCE.getColor());
 			Database.editGenre(path, genre.HARDDANCE);
+			CoverArt.blackCat(false);
 			break;
 		}
 		case 8: {
 			setGenre(genre.HOUSE.getColor());
 			Database.editGenre(path, genre.HOUSE);
+			CoverArt.blackCat(false);
 			break;
 		}
 		case 9: {
 			setGenre(genre.NUDISCO.getColor());
 			Database.editGenre(path, genre.NUDISCO);
+			CoverArt.blackCat(false);
 			break;
 		}
 		case 10: {
 			setGenre(genre.TRANCE.getColor());
 			Database.editGenre(path, genre.TRANCE);
+			CoverArt.blackCat(false);
 			break;
 		}
 		case 11: {
 			setGenre(genre.TRAP.getColor());
 			Database.editGenre(path, genre.TRAP);
+			CoverArt.blackCat(false);
+			break;
+		}
+		case 12: {
+			setGenre(genre.OTHER.getColor());
+			Database.editGenre(path, genre.OTHER);
+			CoverArt.blackCat(true);
 			break;
 		}
 		}

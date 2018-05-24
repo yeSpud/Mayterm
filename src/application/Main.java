@@ -11,6 +11,10 @@ public class Main extends Application {
 
 	public static Stage mainStage;
 
+	// TODO: Fix spectrum
+	// TODO: Other background stuffs
+	// TODO: Moar controlls
+	
 	@Override
 	public void start(Stage primaryStage) {
 		System.out.println("Does database exist? " + Database.databaseExist());

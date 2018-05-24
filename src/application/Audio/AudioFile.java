@@ -41,7 +41,7 @@ public class AudioFile {
 	public static void addToQueue(String filePath) {
 		AudioPlayer.queue.push(toURL(filePath));
 		if (!AudioPlayer.isPlaying && !AudioPlayer.isPaused) {
-			AudioPlayer.play();
+			AudioPlayer.rotate();
 		}
 	}
 

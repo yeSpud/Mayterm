@@ -93,23 +93,26 @@ public class VisulizerDisplay {
 			} else if (key.equals(KeyCode.PERIOD)) {
 				/* Rotate current genre */
 				rotatoe++;
-				if (rotatoe > 11) {
+				if (rotatoe > 12) {
 					rotatoe = 0;
 				}
 				if (rotatoe < 0) {
-					rotatoe = 11;
+					rotatoe = 12;
 				}
 				Genre.rotateGenre(rotatoe);
 			} else if (key.equals(KeyCode.COMMA)) {
 				/* Rotate current genre */
 				rotatoe--;
-				if (rotatoe > 11) {
+				if (rotatoe > 12) {
 					rotatoe = 0;
 				}
 				if (rotatoe < 0) {
-					rotatoe = 11;
+					rotatoe = 12;
 				}
 				Genre.rotateGenre(rotatoe);
+			} else if (key.equals(KeyCode.LEFT)) {
+				/* Restart track */
+				// TODO: Finsih this
 			}
 		} else {
 			System.out.println(key);
