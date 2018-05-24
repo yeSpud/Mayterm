@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.Stack;
 
 import application.Database.Database;
+import application.SpectrumThings.Spectrum;
 import application.UI.DisplayText;
 import application.UI.Genre;
 import javafx.scene.media.Media;

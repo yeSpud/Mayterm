@@ -2,8 +2,8 @@ package application.UI;
 
 import application.Audio.AudioFile;
 import application.Audio.AudioPlayer;
-import application.Audio.Spectrum;
 import application.Database.Database;
+import application.SpectrumThings.Spectrum;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 

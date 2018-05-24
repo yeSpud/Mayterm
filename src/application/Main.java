@@ -1,7 +1,8 @@
 package application;
 
-import application.Audio.Spectrum;
 import application.Database.Database;
+import application.SpectrumThings.Spectrum;
+import application.SpectrumThings.SpectrumDebug;
 import application.UI.Genre;
 import application.UI.VisulizerDisplay;
 import javafx.application.Application;
@@ -36,6 +37,8 @@ public class Main extends Application {
 		VisulizerDisplay.createMainStage(primaryStage);
 		// primaryStage.setOpacity(.4);
 
+			SpectrumDebug.createAndEnableDebug();
+		
 	}
 
 	public static void main(String[] args) {

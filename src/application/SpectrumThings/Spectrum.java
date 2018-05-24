@@ -1,5 +1,6 @@
-package application.Audio;
+package application.SpectrumThings;
 
+import application.Audio.AudioPlayer;
 import application.UI.CoverArt;
 import application.UI.DisplayText;
 import application.UI.VisulizerDisplay;
@@ -7,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
+import javafx.scene.text.Text;
 
 public class Spectrum {
 
@@ -22,13 +24,13 @@ public class Spectrum {
 
 	public static void clearSpectrum() {
 		for (int i = 0; i < 63; i++) {
-			Rectangle bar = (Rectangle) Spectrum.spectrum.getChildren().get(i);
+			Rectangle bar = (Rectangle) spectrum.getChildren().get(i);
 			bar.setHeight(12);
 		}
 	}
 
 	public static void disableSpectrum(boolean retry) {
-		VisulizerDisplay.root.getChildren().remove(Spectrum.spectrum);
+		VisulizerDisplay.root.getChildren().remove(spectrum);
 		VisulizerDisplay.root.getChildren().add(VisulizerDisplay.nothing);
 		if (!retry) {
 			DisplayText.setArtist("No file currently selected");
@@ -39,7 +41,7 @@ public class Spectrum {
 
 	public static void enableSpectrum() {
 		VisulizerDisplay.root.getChildren().remove(VisulizerDisplay.nothing);
-		VisulizerDisplay.root.getChildren().add(Spectrum.spectrum);
+		VisulizerDisplay.root.getChildren().add(spectrum);
 	}
 
 	public static void setupSpectrumMovement() {
@@ -91,8 +93,12 @@ public class Spectrum {
 				}
 				
 				for (int i = 0; i < 63; i++) { // 7
+					Text text = (Text) SpectrumDebug.spectrumText.getChildren().get(i);
 					Rectangle bar = (Rectangle) spectrum.getChildren().get(62 - i);
 					bar.setHeight((63 - magnitudes[i] * -1) * 4);
+					text.setText(String.valueOf((int) bar.getHeight()));
+					text.setX(bar.getX());
+					text.setY(bar.getY() - 15);
 				}
 				/*
 				AudioProcessor fftProcessor = new AudioProcessor() {
