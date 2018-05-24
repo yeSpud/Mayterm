@@ -1,8 +1,13 @@
 package application.Audio;
 
+import java.util.Arrays;
+
 import application.UI.CoverArt;
 import application.UI.DisplayText;
 import application.UI.VisulizerDisplay;
+import be.tarsos.dsp.AudioEvent;
+import be.tarsos.dsp.AudioProcessor;
+import be.tarsos.dsp.util.fft.FFT;
 import javafx.scene.Group;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.shape.Rectangle;
@@ -94,6 +99,30 @@ public class Spectrum {
 					Rectangle bar = (Rectangle) spectrum.getChildren().get(62 - i);
 					bar.setHeight((63 - magnitudes[i] * -1) * 4);
 				}
+				/*
+				AudioProcessor fftProcessor = new AudioProcessor() {
+
+					FFT fft = new FFT(4096);
+					float[] amplitudes = new float[4096/2];
+					
+					@Override
+					public boolean process(AudioEvent audioEvent) {
+						// TODO Auto-generated method stub
+						return false;
+					}
+
+					@Override
+					public void processingFinished() {
+						// TODO Auto-generated method stub
+						float[] audioFloatBuffer = audioEvent.getFloatBuffer();
+						float[] transformbuffer = new float[4096*2];
+						System.arraycopy(audioFloatBuffer, 0, transformbuffer, 0, audioFloatBuffer.length); 
+						fft.forwardTransform(transformbuffer);
+						fft.modulus(transformbuffer, amplitudes);
+					}
+					
+				};
+				*/
 				
 				/*
 				 * 

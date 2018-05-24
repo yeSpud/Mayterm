@@ -14,9 +14,10 @@ public class Main extends Application {
 	// TODO: Fix spectrum
 	// TODO: Other background stuffs
 	// TODO: Moar controlls
-	
+
 	@Override
 	public void start(Stage primaryStage) {
+
 		System.out.println("Does database exist? " + Database.databaseExist());
 		if (!Database.databaseExist()) {
 			System.out.println("Creating Database");
