@@ -18,7 +18,6 @@ public class AudioPlayer {
 	public static boolean isPlaying = false, isPaused = false, up = false;
 
 	public static void play() {
-		// TODO: Fix issue of playing once more after ended and set to stop
 
 		// TODO: Fix cover art being null
 		// CoverArt.autoSetArt(media.getSource());
@@ -70,7 +69,7 @@ public class AudioPlayer {
 			});
 
 			Spectrum.setupSpectrumMovement();
-			
+
 			player.play();
 			isPlaying = true;
 			isPaused = false;
@@ -116,20 +115,18 @@ public class AudioPlayer {
 	}
 
 	public static void stop() {
-		// TODO: Finish
 		try {
-		player.stop();
-		isPlaying = false;
-		isPaused = false;
-		Spectrum.disableSpectrum(false);
-		player.dispose();
+			player.stop();
+			isPlaying = false;
+			isPaused = false;
+			Spectrum.disableSpectrum(false);
+			player.dispose();
 		} catch (NullPointerException NPE) {
 			return;
 		}
 	}
 
 	public static void rotate() {
-		// TODO: Finish
 		stop();
 		media = new Media(queue.get(0));
 		queue.remove(0);

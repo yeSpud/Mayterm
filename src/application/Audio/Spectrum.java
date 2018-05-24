@@ -76,9 +76,9 @@ public class Spectrum {
 		EQ.getBands().add(EQB3);
 		EQ.setEnabled(true);
 	*/
-		
 		AudioPlayer.player.setAudioSpectrumNumBands(63); // 63
 		AudioPlayer.player.setAudioSpectrumInterval(0.033d); // 0.0167
+		AudioPlayer.player.setAudioSpectrumThreshold(-60);
 		//AudioPlayer.player.setAudioSpectrumListener(new SpectrumListener(12000));
 		AudioPlayer.player.setAudioSpectrumListener(new AudioSpectrumListener() {
 
@@ -91,7 +91,7 @@ public class Spectrum {
 				}
 				
 				for (int i = 0; i < 63; i++) { // 7
-					Rectangle bar = (Rectangle) spectrum.getChildren().get(i);
+					Rectangle bar = (Rectangle) spectrum.getChildren().get(62 - i);
 					bar.setHeight((63 - magnitudes[i] * -1) * 4);
 				}
 				

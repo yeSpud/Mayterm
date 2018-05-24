@@ -46,6 +46,11 @@ public class Genre {
 			Rectangle bar = (Rectangle) Spectrum.spectrum.getChildren().get(i);
 			bar.setFill(genre);
 		}
+		if (genre.equals(Genre.genre.OTHER.getColor())) {
+			CoverArt.blackCat(true);
+		} else {
+			CoverArt.blackCat(false);
+		}
 
 	}
 
