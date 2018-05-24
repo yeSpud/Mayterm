@@ -1,13 +1,8 @@
 package application.Audio;
 
-import java.util.Arrays;
-
 import application.UI.CoverArt;
 import application.UI.DisplayText;
 import application.UI.VisulizerDisplay;
-import be.tarsos.dsp.AudioEvent;
-import be.tarsos.dsp.AudioProcessor;
-import be.tarsos.dsp.util.fft.FFT;
 import javafx.scene.Group;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.shape.Rectangle;
@@ -107,13 +102,11 @@ public class Spectrum {
 					
 					@Override
 					public boolean process(AudioEvent audioEvent) {
-						// TODO Auto-generated method stub
 						return false;
 					}
 
 					@Override
 					public void processingFinished() {
-						// TODO Auto-generated method stub
 						float[] audioFloatBuffer = audioEvent.getFloatBuffer();
 						float[] transformbuffer = new float[4096*2];
 						System.arraycopy(audioFloatBuffer, 0, transformbuffer, 0, audioFloatBuffer.length); 

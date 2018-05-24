@@ -9,7 +9,6 @@ import application.UI.Genre;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-// TODO: Cleanup functions
 public class AudioPlayer {
 
 	public static Media media;
@@ -18,11 +17,6 @@ public class AudioPlayer {
 	public static boolean isPlaying = false, isPaused = false, up = false;
 
 	public static void play() {
-
-		// TODO: Fix cover art being null
-		// CoverArt.autoSetArt(media.getSource());
-		// Since it wasnt updating properly, I moved it to the spectum update to spam
-		// update it. FIX THIS
 
 		if (!isPaused && !isPlaying) {
 
