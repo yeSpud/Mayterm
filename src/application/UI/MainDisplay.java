@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
 
-public class VisulizerDisplay {
+public class MainDisplay {
 
 	public static BorderPane root = new BorderPane();
 
@@ -39,7 +39,7 @@ public class VisulizerDisplay {
 			scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 				@Override
 				public void handle(KeyEvent event) {
-					VisulizerDisplay.keyPresed(event.getCode());
+					MainDisplay.keyPresed(event.getCode());
 				}
 
 			});
@@ -66,7 +66,7 @@ public class VisulizerDisplay {
 
 		DisplayText.setupText();
 		CoverArt.createCoverArt();
-		root.getChildren().add(VisulizerDisplay.nothing);
+		root.getChildren().add(MainDisplay.nothing);
 	}
 
 	public static void keyPresed(KeyCode key) {

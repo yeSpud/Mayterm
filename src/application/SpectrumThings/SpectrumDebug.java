@@ -1,6 +1,6 @@
 package application.SpectrumThings;
 
-import application.UI.VisulizerDisplay;
+import application.UI.MainDisplay;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -18,7 +18,7 @@ public class SpectrumDebug {
 			debug.setFill(Color.WHITE);
 			spectrumText.getChildren().add(debug);
 		}
-		VisulizerDisplay.root.getChildren().add(spectrumText);
+		MainDisplay.root.getChildren().add(spectrumText);
 	}
 	
 }

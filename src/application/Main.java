@@ -4,7 +4,7 @@ import application.Database.Database;
 import application.SpectrumThings.Spectrum;
 import application.SpectrumThings.SpectrumDebug;
 import application.UI.Genre;
-import application.UI.VisulizerDisplay;
+import application.UI.MainDisplay;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -25,16 +25,16 @@ public class Main extends Application {
 			Database.createDatabase();
 		}
 		System.out.println("Creating load bar");
-		VisulizerDisplay.createLoad();
+		MainDisplay.createLoad();
 		System.out.println("Creating specturm");
 		Spectrum.createSpectrum();
 		System.out.println("Creating info stuff");
-		VisulizerDisplay.createInfo();
+		MainDisplay.createInfo();
 		System.out.println("Setting genre");
 		Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
 
 		System.out.println("Displaying window");
-		VisulizerDisplay.createMainStage(primaryStage);
+		MainDisplay.createMainStage(primaryStage);
 		// primaryStage.setOpacity(.4);
 
 			SpectrumDebug.createAndEnableDebug();

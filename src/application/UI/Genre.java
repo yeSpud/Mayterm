@@ -39,8 +39,8 @@ public class Genre {
 
 	public static void setGenre(Color genre) {
 
-		VisulizerDisplay.nothing.setFill(genre);
-		VisulizerDisplay.nothing.setStroke(genre);
+		MainDisplay.nothing.setFill(genre);
+		MainDisplay.nothing.setStroke(genre);
 		CoverArt.art.setFill(genre);
 		for (int i = 0; i < 63; i++) {
 			Rectangle bar = (Rectangle) Spectrum.spectrum.getChildren().get(i);

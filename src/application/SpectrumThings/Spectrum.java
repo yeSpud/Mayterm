@@ -3,12 +3,10 @@ package application.SpectrumThings;
 import application.Audio.AudioPlayer;
 import application.UI.CoverArt;
 import application.UI.DisplayText;
-import application.UI.VisulizerDisplay;
+import application.UI.MainDisplay;
 import javafx.scene.Group;
-import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
-import javafx.scene.text.Text;
 
 public class Spectrum {
 
@@ -30,8 +28,8 @@ public class Spectrum {
 	}
 
 	public static void disableSpectrum(boolean retry) {
-		VisulizerDisplay.root.getChildren().remove(spectrum);
-		VisulizerDisplay.root.getChildren().add(VisulizerDisplay.nothing);
+		MainDisplay.root.getChildren().remove(spectrum);
+		MainDisplay.root.getChildren().add(MainDisplay.nothing);
 		if (!retry) {
 			DisplayText.setArtist("No file currently selected");
 			DisplayText.setTitle("Press \"O\" to select a file");
@@ -40,8 +38,8 @@ public class Spectrum {
 	}
 
 	public static void enableSpectrum() {
-		VisulizerDisplay.root.getChildren().remove(VisulizerDisplay.nothing);
-		VisulizerDisplay.root.getChildren().add(spectrum);
+		MainDisplay.root.getChildren().remove(MainDisplay.nothing);
+		MainDisplay.root.getChildren().add(spectrum);
 	}
 
 	public static void setupSpectrumMovement() {
@@ -82,71 +80,8 @@ public class Spectrum {
 		AudioPlayer.player.setAudioSpectrumInterval(0.033d); // 0.0167
 		AudioPlayer.player.setAudioSpectrumThreshold(-60);
 		//AudioPlayer.player.setAudioSpectrumListener(new SpectrumListener(12000));
-		AudioPlayer.player.setAudioSpectrumListener(new AudioSpectrumListener() {
-
-			@Override
-			public void spectrumDataUpdate(double timestamp, double duration, float[] magnitudes, float[] phases) {
-				// TODO: Redo spectrum
-				
-				if (timestamp < .07d) {
-					CoverArt.autoSetArt(AudioPlayer.media.getSource());
-				}
-				
-				for (int i = 0; i < 63; i++) { // 7
-					Text text = (Text) SpectrumDebug.spectrumText.getChildren().get(i);
-					Rectangle bar = (Rectangle) spectrum.getChildren().get(62 - i);
-					bar.setHeight((63 - magnitudes[i] * -1) * 4);
-					text.setText(String.valueOf((int) bar.getHeight()));
-					text.setX(bar.getX());
-					text.setY(bar.getY() - 15);
-				}
-				/*
-				AudioProcessor fftProcessor = new AudioProcessor() {
-
-					FFT fft = new FFT(4096);
-					float[] amplitudes = new float[4096/2];
-					
-					@Override
-					public boolean process(AudioEvent audioEvent) {
-						return false;
-					}
-
-					@Override
-					public void processingFinished() {
-						float[] audioFloatBuffer = audioEvent.getFloatBuffer();
-						float[] transformbuffer = new float[4096*2];
-						System.arraycopy(audioFloatBuffer, 0, transformbuffer, 0, audioFloatBuffer.length); 
-						fft.forwardTransform(transformbuffer);
-						fft.modulus(transformbuffer, amplitudes);
-					}
-					
-				};
-				*/
-				
-				/*
-				 * 
-				 * I think I may have figured it out! So heres how Im going to set up the visulalizer:
-				 * Yes, it needs to be a histogram, but what are the ranges?
-				 * Well theres going to be 9 major rangesc (Bands), spread out among 7 lines like so:
-				 * 
-				 * Range 1 will be from 20 Hz to 50 Hz.
-				 * Range 2 will be from 50 Hz to 100 Hz.
-				 * Range 3 will be from 100 Hz to 200 Hz.
-				 * Range 4 will be from 200 Hz to 500 Hz.
-				 * Range 5 will be from 500 Hz to 1,000 Hz.
-				 * Range 6 will be from 1,000 Hz to 2,000 Hz.
-				 * Range 7 will be from 2,000 Hz to 5,000 Hz.
-				 * Range 8 will be from 5,000 Hz to 10,000 Hz.
-				 * And range 9 will be from 10,000 Hz to 20,000 Hz
-				 * 
-				 * If I need a refresheer, just take a look at the EQ in garage band
-				 * 
-				 */
-
-
-			}
-
-		});
+		AudioPlayer.player.setAudioSpectrumListener(new SpectrumListener());
+		
 	}
 
 }

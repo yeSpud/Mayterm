@@ -34,20 +34,20 @@ public class DisplayText {
 		author.setY(306);
 		author.setRotate(180);
 		author.setFill(Color.WHITE);
-		VisulizerDisplay.root.getChildren().add(author);
+		MainDisplay.root.getChildren().add(author);
 
 		title.setFont(Font.font("Arial", titleSize));
 		title.setX(1012 - title.getLayoutBounds().getWidth());
 		title.setY(244);
 		title.setRotate(180);
 		title.setFill(Color.WHITE);
-		VisulizerDisplay.root.getChildren().add(title);
+		MainDisplay.root.getChildren().add(title);
 
 		volumeHUD.setFont(Font.font(volumeSize));
 		volumeHUD.setRotate(180);
 		volumeHUD.setFill(Color.WHITE);
 		volumeHUD.setOpacity(0);
-		VisulizerDisplay.root.getChildren().add(volumeHUD);
+		MainDisplay.root.getChildren().add(volumeHUD);
 
 		pauseInfo.setFont(Font.font(otherSize));
 		pauseInfo.setX(1260 - pauseInfo.getLayoutBounds().getWidth());
@@ -55,7 +55,7 @@ public class DisplayText {
 		pauseInfo.setRotate(180);
 		pauseInfo.setFill(Color.WHITE);
 		pauseInfo.setOpacity(0);
-		VisulizerDisplay.root.getChildren().add(pauseInfo);
+		MainDisplay.root.getChildren().add(pauseInfo);
 
 		gitLink.setFont(Font.font(otherSize));
 		gitLink.setUnderline(true);
@@ -76,7 +76,7 @@ public class DisplayText {
 			}
 
 		});
-		VisulizerDisplay.root.getChildren().add(gitLink);
+		MainDisplay.root.getChildren().add(gitLink);
 
 	}
 

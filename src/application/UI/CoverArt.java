@@ -19,7 +19,7 @@ public class CoverArt {
 	public static Image catLogo, catLogoBlack;
 
 	public static void createCoverArt() {
-		VisulizerDisplay.root.getChildren().add(art);
+		MainDisplay.root.getChildren().add(art);
 
 		cat.setX(1034);
 		cat.setY(198);
@@ -37,7 +37,7 @@ public class CoverArt {
 			e.printStackTrace();
 		}
 		cat.setImage(catLogo);
-		VisulizerDisplay.root.getChildren().add(cat);
+		MainDisplay.root.getChildren().add(cat);
 	}
 	
 	public static void setArt(Image image) {
@@ -47,8 +47,8 @@ public class CoverArt {
 		coverArt.setFitHeight(126);
 		coverArt.setFitWidth(126);
 		coverArt.setRotate(180);
-		if (!VisulizerDisplay.root.getChildren().contains(coverArt)) {
-			VisulizerDisplay.root.getChildren().add(coverArt);
+		if (!MainDisplay.root.getChildren().contains(coverArt)) {
+			MainDisplay.root.getChildren().add(coverArt);
 		}
 		
 	}
