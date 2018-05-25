@@ -130,46 +130,6 @@ public class getMetadata {
 	 * @return String[] - Retruns a string array, containing the artist (0), and the
 	 *         title (1).
 	 */
-	public static String[] getWAV(File file) {
-		String[] returnedData = new String[2];
-		WavFileReader metadata = new WavFileReader();
-		Tag data = null;
-		try {
-			data = metadata.read(file).getTag();
-		} catch (CannotReadException | IOException | TagException | ReadOnlyFileException
-				| InvalidAudioFrameException e) {
-			e.printStackTrace();
-			return returnedData;
-		}
-
-		returnedData[0] = data.getFirst(artist).toUpperCase();
-		returnedData[1] = data.getFirst(title).toUpperCase();
-
-		if (!data.getFirst(art).isEmpty()) {
-			try {
-				CoverArt.setArt(SwingFXUtils.toFXImage((BufferedImage) (data.getFirstArtwork().getImage()), null));
-			} catch (Exception uhhh) {
-				try {
-					CoverArt.setArt(
-							SwingFXUtils.toFXImage((BufferedImage) (data.getArtworkList().get(0)).getImage(), null));
-				} catch (IOException | IndexOutOfBoundsException e) {
-					// Lol :P
-				}
-			}
-		}
-		return returnedData;
-	}
-
-	/**
-	 * Retuns a string array of 2. The first argument is the artist, the second is
-	 * the title. Oh, and it also tries to set the album art.
-	 * 
-	 * @param file
-	 *            The file locaion, or path. This needs to be formatted in a way
-	 *            that is URL friendly!
-	 * @return String[] - Retruns a string array, containing the artist (0), and the
-	 *         title (1).
-	 */
 	public static String[] getAIF(File file) {
 		String[] returnedData = new String[2];
 		AiffFileReader metadata = new AiffFileReader();
@@ -217,9 +177,6 @@ public class getMetadata {
 		} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
 			String[] stuff = getMetadata.getMp4(file);
 			artist = (stuff[0]);
-		} else if (source.contains(".wav")) {
-			String[] stuff = getMetadata.getWAV(file);
-			artist = (stuff[0]);
 		} else if (source.contains(".aif")) {
 			String[] stuff = getMetadata.getAIF(file);
 			artist = (stuff[0]);
@@ -239,18 +196,20 @@ public class getMetadata {
 		String title = null;
 
 		File file = new File(AudioFile.toFilePath(source));
-		if (source.contains(".mp3")) {
-			String[] stuff = getMetadata.getMp3(file);
-			title = (stuff[1]);
-		} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
-			String[] stuff = getMetadata.getMp4(file);
-			title = (stuff[1]);
-		} else if (source.contains(".wav")) {
-			String[] stuff = getMetadata.getWAV(file);
-			title = (stuff[1]);
-		} else if (source.contains(".aif")) {
-			String[] stuff = getMetadata.getAIF(file);
-			title = (stuff[1]);
+		try {
+			if (source.contains(".mp3")) {
+				String[] stuff = getMetadata.getMp3(file);
+				title = (stuff[1]);
+			} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
+				String[] stuff = getMetadata.getMp4(file);
+				title = (stuff[1]);
+			} else if (source.contains(".aif")) {
+				String[] stuff = getMetadata.getAIF(file);
+				title = (stuff[1]);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 
 		return title;

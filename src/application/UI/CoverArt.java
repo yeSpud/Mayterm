@@ -15,7 +15,7 @@ public class CoverArt {
 	public static Rectangle art = new Rectangle(1034, 198, 126, 126);
 
 	public static ImageView coverArt = new ImageView(), cat = new ImageView();
-	
+
 	public static Image catLogo, catLogoBlack;
 
 	public static void createCoverArt() {
@@ -39,7 +39,7 @@ public class CoverArt {
 		cat.setImage(catLogo);
 		MainDisplay.root.getChildren().add(cat);
 	}
-	
+
 	public static void setArt(Image image) {
 		coverArt.setX(1034);
 		coverArt.setY(198);
@@ -50,23 +50,21 @@ public class CoverArt {
 		if (!MainDisplay.root.getChildren().contains(coverArt)) {
 			MainDisplay.root.getChildren().add(coverArt);
 		}
-		
+
 	}
-	
+
 	public static void autoSetArt(String source) {
 		File file = new File(AudioFile.toFilePath(source));
 		if (source.contains(".mp3")) {
 			getMetadata.getMp3(file);
 		} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
 			getMetadata.getMp4(file);
-		} else if (source.contains(".wav")) {
-			getMetadata.getWAV(file);
 		} else if (source.contains(".aif")) {
 			getMetadata.getAIF(file);
 		}
-		
+
 	}
-	
+
 	public static void blackCat(boolean blackCat) {
 		if (blackCat) {
 			cat.setImage(catLogoBlack);

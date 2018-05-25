@@ -1,6 +1,13 @@
 package application.SpectrumThings;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import application.Audio.AudioFile;
 import application.Audio.AudioPlayer;
+import application.Audio.WaveFile;
 import application.UI.CoverArt;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.shape.Rectangle;
@@ -50,6 +57,8 @@ public class SpectrumListener implements AudioSpectrumListener {
 			
 		};
 		*/
+		
+		//System.out.println(wav.getSampleInt((int)timestamp)/timestamp);
 		
 		/*
 		 * 

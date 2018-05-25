@@ -125,6 +125,7 @@ public class DisplayText {
 	}
 
 	public static void setTitleAndArtist(String source) {
+		try {
 		File file = new File(AudioFile.toFilePath(source));
 		if (source.contains(".mp3")) {
 			String[] stuff = getMetadata.getMp3(file);
@@ -134,14 +135,14 @@ public class DisplayText {
 			String[] stuff = getMetadata.getMp4(file);
 			setArtist(stuff[0]);
 			setTitle(stuff[1]);
-		} else if (source.contains(".wav")) {
-			String[] stuff = getMetadata.getWAV(file);
-			setArtist(stuff[0]);
-			setTitle(stuff[1]);
 		} else if (source.contains(".aif")) {
 			String[] stuff = getMetadata.getAIF(file);
 			setArtist(stuff[0]);
 			setTitle(stuff[1]);
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
 		}
 	}
 

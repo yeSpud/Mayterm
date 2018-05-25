@@ -103,23 +103,27 @@ public class Database {
 	 *            - The artist.
 	 */
 	public static void addSong(String path, genre genre, String title, String artist) {
-		JsonObject song_info = Json.createObjectBuilder().add("Color", genre.toString()).add("Title", title)
-				.add("Artist", artist).build();
-		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
-		JsonObject full = read.readObject();
-		read.close();
-		JsonObject songs = full.getJsonObject("Songs");
-		String songsArray = songs.toString();
-		if (songsArray.isEmpty() || songsArray.equals("{}")) {
-			songsArray = String.format("{\"%s\":%s}", path, song_info.toString());
-		} else {
-			songsArray = String.format("%s,\"%s\":%s}", songsArray.replace("}}", "}"), path, song_info.toString());
+		try {
+			JsonObject song_info = Json.createObjectBuilder().add("Color", genre.toString()).add("Title", title)
+					.add("Artist", artist).build();
+			JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
+			JsonObject full = read.readObject();
+			read.close();
+			JsonObject songs = full.getJsonObject("Songs");
+			String songsArray = songs.toString();
+			if (songsArray.isEmpty() || songsArray.equals("{}")) {
+				songsArray = String.format("{\"%s\":%s}", path, song_info.toString());
+			} else {
+				songsArray = String.format("%s,\"%s\":%s}", songsArray.replace("}}", "}"), path, song_info.toString());
+			}
+			JsonReader newread = Json.createReader(new StringReader(songsArray));
+			JsonObject newsong = Json.createObjectBuilder().add("Settings", full.get("Settings"))
+					.add("Songs", newread.read()).build();
+			newread.close();
+			writeToDatabase(newsong.toString());
+		} catch (Exception e) {
+			return;
 		}
-		JsonReader newread = Json.createReader(new StringReader(songsArray));
-		JsonObject newsong = Json.createObjectBuilder().add("Settings", full.get("Settings"))
-				.add("Songs", newread.read()).build();
-		newread.close();
-		writeToDatabase(newsong.toString());
 	}
 
 	/**
