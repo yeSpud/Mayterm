@@ -32,6 +32,8 @@ public class WaveFile {
         if (!file.exists()) {
             throw new FileNotFoundException(file.getAbsolutePath());
         }
+        
+        // TODO: Convert all to .wav
 
         ais = AudioSystem.getAudioInputStream(file);
 
@@ -60,6 +62,7 @@ public class WaveFile {
             canPlay = false;
             System.out.println("I can play only 8bit and 16bit music.");
         }
+        clip.close();
     }
 
     public boolean isCanPlay() {

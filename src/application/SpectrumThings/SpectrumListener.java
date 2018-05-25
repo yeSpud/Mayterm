@@ -1,20 +1,13 @@
 package application.SpectrumThings;
 
-import java.io.File;
-import java.io.IOException;
-
-import javax.sound.sampled.UnsupportedAudioFileException;
-
-import application.Audio.AudioFile;
 import application.Audio.AudioPlayer;
-import application.Audio.WaveFile;
 import application.UI.CoverArt;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class SpectrumListener implements AudioSpectrumListener {
-
+	
 	@Override
 	public void spectrumDataUpdate(double timestamp, double duration, float[] magnitudes, float[] phases) {
 		// TODO: Redo spectrum
@@ -33,6 +26,9 @@ public class SpectrumListener implements AudioSpectrumListener {
 			text.setY(bar.getY() - 15);
 		}
 
+		
+		System.out.println(FFT.getAmplitude((int) timestamp));
+		
 		//System.out.println(StackOverflow.calculate());
 		
 		/*

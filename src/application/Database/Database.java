@@ -59,6 +59,7 @@ public class Database {
 			fileWriter.flush();
 			fileWriter.close();
 		} catch (IOException e) {
+			System.out.println("Cannot write");
 			e.printStackTrace();
 			return;
 		}
@@ -122,6 +123,7 @@ public class Database {
 			newread.close();
 			writeToDatabase(newsong.toString());
 		} catch (Exception e) {
+			System.out.println("Cannot add");
 			return;
 		}
 	}
