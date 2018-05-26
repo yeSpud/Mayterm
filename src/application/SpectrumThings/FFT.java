@@ -42,7 +42,7 @@ public class FFT {
 		//System.out.println("Largest: " + greatest);
 		//System.out.println("Smallest: " + least);
 		//System.out.println("Change: " + (greatest - least));
-		return (int) (greatest - least); 
+		return greatest - least; 
 	}
 
 }

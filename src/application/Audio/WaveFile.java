@@ -6,12 +6,15 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
+import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
+import application.Database.Environment;
 
 public class WaveFile {
     public final int NOT_SPECIFIED = AudioSystem.NOT_SPECIFIED; // -1
@@ -32,10 +35,23 @@ public class WaveFile {
         if (!file.exists()) {
             throw new FileNotFoundException(file.getAbsolutePath());
         }
+        File newFile  = new File(Environment.getFile().getPath().replace("vis.json", "wav.wav"));
+        newFile.createNewFile();
+        //System.out.println(file.getAbsolutePath());
+        
+        AudioInputStream oldAis = AudioSystem.getAudioInputStream(file);
+        AudioInputStream encodedASI = AudioSystem.getAudioInputStream(AudioFormat.Encoding.PCM_SIGNED, oldAis);
+        
+        try{
+            int i = AudioSystem.write(encodedASI, AudioFileFormat.Type.WAVE, newFile);
+           // System.out.println("Bytes Written: "+i);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         
         // TODO: Convert all to .wav
 
-        ais = AudioSystem.getAudioInputStream(file);
+        ais = AudioSystem.getAudioInputStream(newFile);
 
         af = ais.getFormat();
 
