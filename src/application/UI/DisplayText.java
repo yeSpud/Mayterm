@@ -126,20 +126,16 @@ public class DisplayText {
 
 	public static void setTitleAndArtist(String source) {
 		try {
-		File file = new File(AudioFile.toFilePath(source));
-		if (source.contains(".mp3")) {
-			String[] stuff = getMetadata.getMp3(file);
-			setArtist(stuff[0]);
-			setTitle(stuff[1]);
-		} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
-			String[] stuff = getMetadata.getMp4(file);
-			setArtist(stuff[0]);
-			setTitle(stuff[1]);
-		} else if (source.contains(".aif")) {
-			String[] stuff = getMetadata.getAIF(file);
-			setArtist(stuff[0]);
-			setTitle(stuff[1]);
-		}
+			File file = new File(AudioFile.toFilePath(source));
+			if (source.contains(".mp3")) {
+				String[] stuff = getMetadata.getMp3(file);
+				setArtist(stuff[0]);
+				setTitle(stuff[1]);
+			} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
+				String[] stuff = getMetadata.getMp4(file);
+				setArtist(stuff[0]);
+				setTitle(stuff[1]);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;
@@ -153,7 +149,7 @@ public class DisplayText {
 			text.setX(1012 - text.getLayoutBounds().getWidth());
 			checkTextSpacing(text, weight, fontSize - 1);
 		}
-		
+
 	}
-	
+
 }

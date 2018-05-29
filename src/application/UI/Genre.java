@@ -21,7 +21,7 @@ public class Genre {
 		DUBSTEP(141, 4, 225), // Dubstep: 70 bpm or 140 - 150 bpm
 		DRUMSTEP(243, 33, 136), // Drumstep: 160 - 180 bpm
 		ELECTRONIC(193, 193, 193), // Catch all
-		OTHER(255,255,255); // Other
+		OTHER(255, 255, 255); // Other
 
 		private final int r, g, b;
 

@@ -119,6 +119,7 @@ public class getMetadata {
 		return returnedData;
 	}
 
+	@Deprecated
 	/**
 	 * Retuns a string array of 2. The first argument is the artist, the second is
 	 * the title. Oh, and it also tries to set the album art.
@@ -170,17 +171,18 @@ public class getMetadata {
 		String artist = null;
 
 		File file = new File(AudioFile.toFilePath(source));
-		if (source.contains(".mp3")) {
-			String[] stuff = getMetadata.getMp3(file);
-			artist = (stuff[0]);
-		} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
-			String[] stuff = getMetadata.getMp4(file);
-			artist = (stuff[0]);
-		} else if (source.contains(".aif")) {
-			String[] stuff = getMetadata.getAIF(file);
-			artist = (stuff[0]);
+		try {
+			if (source.contains(".mp3")) {
+				String[] stuff = getMetadata.getMp3(file);
+				artist = (stuff[0]);
+			} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
+				String[] stuff = getMetadata.getMp4(file);
+				artist = (stuff[0]);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
-
 		return artist;
 	}
 
@@ -202,15 +204,11 @@ public class getMetadata {
 			} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
 				String[] stuff = getMetadata.getMp4(file);
 				title = (stuff[1]);
-			} else if (source.contains(".aif")) {
-				String[] stuff = getMetadata.getAIF(file);
-				title = (stuff[1]);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-
 		return title;
 	}
 

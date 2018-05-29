@@ -14,125 +14,129 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import application.Database.Environment;
+import application.Errors.UnrecognizableOperatingSystem;
+import application.SpectrumThings.SpectrumListener;
 
 public class WaveFile {
-    public final int NOT_SPECIFIED = AudioSystem.NOT_SPECIFIED; // -1
-    public final int INT_SIZE = 4;
+	public final int NOT_SPECIFIED = AudioSystem.NOT_SPECIFIED; // -1
+	public final int INT_SIZE = 4;
 
-    private int sampleSize = NOT_SPECIFIED;
-    private long framesCount = NOT_SPECIFIED;
-    private int sampleRate = NOT_SPECIFIED;
-    private int channelsNum;
-    private byte[] data;      // wav bytes
-    private AudioInputStream ais;
-    private AudioFormat af;
+	private int sampleSize = NOT_SPECIFIED;
+	private long framesCount = NOT_SPECIFIED;
+	@SuppressWarnings("unused")
+	private int sampleRate = NOT_SPECIFIED;
+	private int channelsNum;
+	private byte[] data; // wav bytes
+	private AudioInputStream ais;
+	private AudioFormat af;
 
-    private Clip clip;
-    private boolean canPlay;
+	private Clip clip;
+	private boolean canPlay;
 
-    public WaveFile(File file) throws UnsupportedAudioFileException, IOException {
-        if (!file.exists()) {
-            throw new FileNotFoundException(file.getAbsolutePath());
-        }
-        File newFile  = new File(Environment.getFile().getPath().replace("vis.json", "wav.wav"));
-        newFile.createNewFile();
-        wavConverter.convertToWAV(file);
-        //System.out.println(file.getAbsolutePath());
-        
-        //AudioFileFormat oldAF = AudioSystem.getAudioFileFormat(file);
-        //AudioInputStream oldAis = AudioSystem.getAudioInputStream(file);
-        //AudioInputStream encodedASI = AudioSystem.getAudioInputStream(AudioFormat.Encoding.PCM_SIGNED, oldAis);
-        
-        //try{
-          //  int i = AudioSystem.write(encodedASI, AudioFileFormat.Type.WAVE, newFile);
-           // System.out.println("Bytes Written: "+i);
-        //}catch(Exception e){
-          //  e.printStackTrace();
-        //}
-        
-        // TODO: Convert all to .wav
+	public WaveFile(File file) throws UnsupportedAudioFileException, IOException {
 
-        ais = AudioSystem.getAudioInputStream(newFile);
+		// Check if the file exists
+		if (!file.exists()) {
+			throw new FileNotFoundException(file.getAbsolutePath());
+		}
+		File newFile;
+		try {
+			newFile = new File(Environment.getWavFile().getAbsolutePath());
+		} catch (UnrecognizableOperatingSystem e1) {
+			e1.printStackTrace();
+			return;
+		}
+		newFile.createNewFile();
 
-        af = ais.getFormat();
+		ais = AudioSystem.getAudioInputStream(newFile);
 
-        framesCount = ais.getFrameLength();
+		af = ais.getFormat();
 
-        sampleRate = (int) af.getSampleRate();
+		framesCount = ais.getFrameLength();
 
-        sampleSize = af.getSampleSizeInBits() / 8;
+		sampleRate = (int) af.getSampleRate();
 
-        channelsNum = af.getChannels();
+		sampleSize = af.getSampleSizeInBits() / 8;
 
-        long dataLength = framesCount * af.getSampleSizeInBits() * af.getChannels() / 8;
+		channelsNum = af.getChannels();
 
-        data = new byte[(int) dataLength];
-        ais.read(data);
+		long dataLength = framesCount * af.getSampleSizeInBits() * af.getChannels() / 8;
 
-        AudioInputStream aisForPlay = AudioSystem.getAudioInputStream(newFile);
-        try {
-            clip = AudioSystem.getClip();
-            clip.open(aisForPlay);
-            clip.setFramePosition(0);
-            canPlay = true;
-        } catch (LineUnavailableException e) {
-            canPlay = false;
-            System.out.println("I can play only 8bit and 16bit music.");
-        }
-        clip.close();
-    }
+		data = new byte[(int) dataLength];
+		ais.read(data);
 
-    public boolean isCanPlay() {
-        return canPlay;
-    }
+		AudioInputStream aisForPlay = AudioSystem.getAudioInputStream(newFile);
+		try {
+			clip = AudioSystem.getClip();
+			clip.open(aisForPlay);
+			clip.setFramePosition((int) SpectrumListener.timestamp);
+			canPlay = true;
+		} catch (LineUnavailableException e) {
+			canPlay = false;
+			System.out.println("I can play only 8bit and 16bit music.");
+		}
+		clip.close();
+	}
 
-    public void play() {
-        clip.start();
-    }
+	public boolean isCanPlay() {
+		return canPlay;
+	}
 
-    public void stop() {
-        clip.stop();
-    }
+	public void play() {
+		clip.start();
+	}
 
-    public AudioFormat getAudioFormat() {
-        return af;
-    }
+	public void stop() {
+		clip.stop();
+	}
 
-    public int getSampleSize() {
-        return sampleSize;
-    }
+	public AudioFormat getAudioFormat() {
+		return af;
+	}
 
-    public double getDurationTime() {
-        return getFramesCount() / getAudioFormat().getFrameRate();
-    }
+	/**
+	 * 
+	 * @return sampleSize
+	 */
+	public int getSampleSize() {
+		return sampleSize;
+	}
 
-    public long getFramesCount() {
-        return framesCount;
-    }
+	/**
+	 * 
+	 * @return Duration
+	 */
+	public double getDurationTime() {
+		return getFramesCount() / getAudioFormat().getFrameRate();
+	}
 
+	/**
+	 * 
+	 * @return framesCount
+	 */
+	public long getFramesCount() {
+		return framesCount;
+	}
 
-    /**
-     * Returns sample (amplitude value). Note that in case of stereo samples
-     * go one after another. I.e. 0 - first sample of left channel, 1 - first
-     * sample of the right channel, 2 - second sample of the left channel, 3 -
-     * second sample of the rigth channel, etc.
-     */
-    public int getSampleInt(int sampleNumber) {
+	/**
+	 * Returns sample (amplitude value). Note that in case of stereo samples go one
+	 * after another. I.e. 0 - first sample of left channel, 1 - first sample of the
+	 * right channel, 2 - second sample of the left channel, 3 - second sample of
+	 * the rigth channel, etc.
+	 */
+	public int getSampleInt(int sampleNumber) {
 
-        if (sampleNumber < 0 || sampleNumber >= data.length / sampleSize) {
-            throw new IllegalArgumentException(
-                    "sample number can't be < 0 or >= data.length/"
-                            + sampleSize);
-        }
+		if (sampleNumber < 0 || sampleNumber >= data.length / sampleSize) {
+			throw new IllegalArgumentException("sample number can't be < 0 or >= data.length/" + sampleSize);
+		}
 
-        byte[] sampleBytes = new byte[4]; //4byte = int
+		byte[] sampleBytes = new byte[4]; // 4byte = int
 
-        for (int i = 0; i < sampleSize; i++) {
-            sampleBytes[i] = data[sampleNumber * sampleSize * channelsNum + i];
-        }
+		for (int i = 0; i < sampleSize; i++) {
+			sampleBytes[i] = data[sampleNumber * sampleSize * channelsNum + i];
+		}
 
-        int sample = ByteBuffer.wrap(sampleBytes)
-                .order(ByteOrder.LITTLE_ENDIAN).getInt();
-        return sample;
-    }
+		int sample = ByteBuffer.wrap(sampleBytes).order(ByteOrder.LITTLE_ENDIAN).getInt();
+		return sample;
+	}
 }

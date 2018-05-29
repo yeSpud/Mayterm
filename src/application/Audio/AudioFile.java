@@ -2,6 +2,7 @@ package application.Audio;
 
 import application.Database.Environment;
 import application.Database.Environment.OS;
+import application.Errors.UnrecognizableOperatingSystem;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -22,7 +23,7 @@ public class AudioFile {
 			} else {
 				filePath = pickFile.showOpenDialog(null).getAbsolutePath().toString();
 			}
-		} catch (NullPointerException a) {
+		} catch (NullPointerException | UnrecognizableOperatingSystem a) {
 			filePath = "";
 		}
 

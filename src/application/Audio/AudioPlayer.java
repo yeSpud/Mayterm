@@ -1,5 +1,6 @@
 package application.Audio;
 
+import java.io.File;
 import java.net.URI;
 import java.util.Stack;
 
@@ -18,6 +19,7 @@ public class AudioPlayer {
 	public static boolean isPlaying = false, isPaused = false, up = false;
 
 	public static void play() {
+		// TODO: Cleanup
 
 		if (!isPaused && !isPlaying) {
 
@@ -26,6 +28,9 @@ public class AudioPlayer {
 
 			DisplayText.setTitle(media.getSource());
 			DisplayText.setArtist("");
+			
+			// TODO: Wait for file to load
+			wavConverter.convertToWAV(new File(AudioFile.toFilePath(media.getSource())));
 
 			if (Database.isInDatabase(AudioFile.toFilePath(media.getSource()))) {
 				String path = AudioFile.toFilePath(media.getSource());
@@ -109,6 +114,9 @@ public class AudioPlayer {
 		}
 	}
 
+	/**
+	 * Stops the player
+	 */
 	public static void stop() {
 		try {
 			player.stop();
@@ -121,6 +129,9 @@ public class AudioPlayer {
 		}
 	}
 
+	/**
+	 * Rotates the track queue, and then tries to play whats next
+	 */
 	public static void rotate() {
 		stop();
 		media = new Media(queue.get(0));

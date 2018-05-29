@@ -59,8 +59,6 @@ public class CoverArt {
 			getMetadata.getMp3(file);
 		} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
 			getMetadata.getMp4(file);
-		} else if (source.contains(".aif")) {
-			getMetadata.getAIF(file);
 		}
 
 	}

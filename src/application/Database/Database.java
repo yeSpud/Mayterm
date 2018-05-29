@@ -12,6 +12,8 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
+import application.Errors.DatabaseError;
+import application.Errors.UnrecognizableOperatingSystem;
 import application.UI.Genre.genre;
 
 public class Database {
@@ -19,10 +21,18 @@ public class Database {
 	/**
 	 * 
 	 * @return Boolean based on whether or not the database exists on the system,
-	 *         and if it can write to it.
+	 *         and if it can write to it. If there is an error, the application will
+	 *         terminate.
 	 */
 	public static boolean databaseExist() {
-		return (Environment.getFile().exists() && Environment.getFile().canWrite());
+		boolean r = false;
+		try {
+			r = (Environment.getDatabaseFile().exists() && Environment.getDatabaseFile().canWrite());
+		} catch (UnrecognizableOperatingSystem e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		return r;
 	}
 
 	/**
@@ -34,13 +44,18 @@ public class Database {
 		JsonObject json = Json.createObjectBuilder().add("Settings", settings).add("Songs", songs).build();
 		String result = json.toString();
 		try {
-			Environment.getFile().getParentFile().mkdirs();
-			Environment.getFile().createNewFile();
-		} catch (IOException e) {
+			Environment.getDatabaseFile().getParentFile().mkdirs();
+			Environment.getDatabaseFile().createNewFile();
+		} catch (IOException | UnrecognizableOperatingSystem e) {
 			e.printStackTrace();
 			return;
 		}
-		writeToDatabase(result);
+		try {
+			writeToDatabase(result);
+		} catch (DatabaseError e) {
+			e.printStackTrace();
+			return;
+		}
 	}
 
 	/**
@@ -50,19 +65,44 @@ public class Database {
 	 * 
 	 * @param data
 	 *            - The data that is going to be written to the file.
+	 * @throws DatabaseError
+	 *             Either Unable to write, invalid operating system, or issue closing writer.
 	 */
-	public static void writeToDatabase(String data) {
+	public static void writeToDatabase(String data) throws DatabaseError {
 		FileWriter fileWriter = null;
 		try {
-			fileWriter = new FileWriter(Environment.getFile());
+			fileWriter = new FileWriter(Environment.getDatabaseFile());
+		} catch (IOException e) {
+			throw new DatabaseError("Cannot create writer for database.");
+		} catch (UnrecognizableOperatingSystem e) {
+			throw new DatabaseError("Cannot write database, as operating system is not valid.");
+		}
+		try {
 			fileWriter.write(data);
+		} catch (IOException e) {
+			try {
+				fileWriter.close();
+			} catch (IOException e1) {
+				throw new DatabaseError("Cannot close writer for database!");
+			}
+			throw new DatabaseError("Cannot write to database.");
+		}
+		try {
 			fileWriter.flush();
+		} catch (IOException e) {
+			try {
+				fileWriter.close();
+			} catch (IOException e1) {
+				throw new DatabaseError("Cannot close writer for database!");
+			}
+			throw new DatabaseError("Cannot flush writer for database.");
+		}
+		try {
 			fileWriter.close();
 		} catch (IOException e) {
-			System.out.println("Cannot write");
-			e.printStackTrace();
-			return;
+			throw new DatabaseError("Cannot close writer for database.");
 		}
+
 	}
 
 	/**
@@ -74,8 +114,8 @@ public class Database {
 		String data = null;
 		FileReader reader = null;
 		try {
-			reader = new FileReader(Environment.getFile());
-		} catch (FileNotFoundException e) {
+			reader = new FileReader(Environment.getDatabaseFile());
+		} catch (FileNotFoundException | UnrecognizableOperatingSystem e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -216,7 +256,12 @@ public class Database {
 		JsonObject newValue = Json.createObjectBuilder().add("Settings", full.get("Settings"))
 				.add("Songs", newread.read()).build();
 		newread.close();
-		writeToDatabase(newValue.toString());
+		try {
+			writeToDatabase(newValue.toString());
+		} catch (DatabaseError e) {
+			e.printStackTrace();
+			return;
+		}
 	}
 
 	/**
@@ -244,7 +289,12 @@ public class Database {
 		JsonObject newValue = Json.createObjectBuilder().add("Settings", full.get("Settings"))
 				.add("Songs", newread.read()).build();
 		newread.close();
-		writeToDatabase(newValue.toString());
+		try {
+			writeToDatabase(newValue.toString());
+		} catch (DatabaseError e) {
+			e.printStackTrace();
+			return;
+		}
 	}
 
 	/**
@@ -272,7 +322,12 @@ public class Database {
 		JsonObject newValue = Json.createObjectBuilder().add("Settings", full.get("Settings"))
 				.add("Songs", newread.read()).build();
 		newread.close();
-		writeToDatabase(newValue.toString());
+		try {
+			writeToDatabase(newValue.toString());
+		} catch (DatabaseError e) {
+			e.printStackTrace();
+			return;
+		}
 	}
 
 }

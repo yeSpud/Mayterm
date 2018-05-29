@@ -4,10 +4,17 @@ import java.io.File;
 import application.Errors.UnrecognizableOperatingSystem;
 
 public class Environment {
+	/**
+	 * The file name for the database.
+	 */
+	static final String databaseFile = "vis.json";
+	/**
+	 * The file name for the wav file.
+	 */
+	static final String wavFile = "wav.wav";
 
 	/**
-	 * The three main types of operating systems: Windows, MacOS (Or Mac OS X), and
-	 * Linux.
+	 * The three main types of operating systems: Windows, macOS, and Linux.
 	 *
 	 */
 	public enum OS {
@@ -15,16 +22,17 @@ public class Environment {
 	}
 
 	/**
+	 * Gets the current operating system (Either macOS, Windows, or Linux).
 	 * 
 	 * @return The current operating system.
 	 * @throws UnrecognizableOperatingSystem
 	 *             If the current operating system is not detected, or is not
-	 *             Windows, MacOS, or Linux, a UnrecognizableOperatingSystem error
+	 *             Windows, macOS, or Linux, a UnrecognizableOperatingSystem error
 	 *             will be thrown.
 	 */
-	public static Enum<?> getOS() {
+	public static Enum<OS> getOS() throws UnrecognizableOperatingSystem {
 		String os = System.getProperty("os.name").toUpperCase();
-		Enum<?> getOS = null;
+		Enum<OS> getOS = null;
 		if (os.contains("WIN")) {
 			getOS = OS.WINDOWS;
 		} else if (os.contains("MAC")) {
@@ -32,32 +40,55 @@ public class Environment {
 		} else if (os.contains("NUX")) {
 			getOS = OS.LINUX;
 		} else {
-			try {
-				throw new UnrecognizableOperatingSystem();
-			} catch (UnrecognizableOperatingSystem e) {
-				return null;
-			}
+			throw new UnrecognizableOperatingSystem();
 		}
-
 		return getOS;
 	}
 
 	/**
+	 * Gets the database file location.
 	 * 
-	 * @return The file location for the database depending on the operating system.
+	 * @return File - The database file.
+	 * @throws UnrecognizableOperatingSystem
+	 *             If the current operating system is not detected, or is not
+	 *             Windows, macOS, or Linux, a UnrecognizableOperatingSystem error
+	 *             will be thrown.
 	 */
-	public static File getFile() {
+	public static File getDatabaseFile() throws UnrecognizableOperatingSystem {
 		String FileFolder = null;
-		File file = null;
 		if (Environment.getOS().equals(Environment.OS.WINDOWS)) {
-			FileFolder = System.getenv("APPDATA") + "\\Spud\\vis.json";
+			FileFolder = System.getenv("APPDATA") + "\\Spud\\";
 		} else if (Environment.getOS().equals(Environment.OS.MACOS)) {
-			FileFolder = System.getProperty("user.home") + "/Library/Application Support/Spud/vis.json";
+			FileFolder = System.getProperty("user.home") + "/Library/Application Support/Spud/";
 		} else if (Environment.getOS().equals(Environment.OS.LINUX)) {
-			FileFolder = System.getProperty("user.dir") + ".Spud/vis.json";
+			FileFolder = System.getProperty("user.dir") + ".Spud/";
+		} else {
+			throw new UnrecognizableOperatingSystem();
 		}
-		file = new File(FileFolder);
-		return file;
+		return new File(FileFolder + databaseFile);
+	}
+
+	/**
+	 * Gets the wav file location.
+	 * 
+	 * @return File - The database file.
+	 * @throws UnrecognizableOperatingSystem
+	 *             If the current operating system is not detected, or is not
+	 *             Windows, macOS, or Linux, a UnrecognizableOperatingSystem error
+	 *             will be thrown.
+	 */
+	public static File getWavFile() throws UnrecognizableOperatingSystem {
+		String FileFolder = null;
+		if (Environment.getOS().equals(Environment.OS.WINDOWS)) {
+			FileFolder = System.getenv("APPDATA") + "\\Spud\\";
+		} else if (Environment.getOS().equals(Environment.OS.MACOS)) {
+			FileFolder = System.getProperty("user.home") + "/Library/Application Support/Spud/";
+		} else if (Environment.getOS().equals(Environment.OS.LINUX)) {
+			FileFolder = System.getProperty("user.dir") + ".Spud/";
+		} else {
+			throw new UnrecognizableOperatingSystem();
+		}
+		return new File(FileFolder + wavFile);
 	}
 
 }

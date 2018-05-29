@@ -112,7 +112,7 @@ public class MainDisplay {
 				Genre.rotateGenre(rotatoe);
 			} else if (key.equals(KeyCode.LEFT)) {
 				/* Restart track */
-				// TODO: Finsih this
+				// TODO: Finish this
 			}
 		} else {
 			System.out.println(key);

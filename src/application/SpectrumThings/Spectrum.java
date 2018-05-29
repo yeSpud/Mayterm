@@ -43,39 +43,6 @@ public class Spectrum {
 	}
 
 	public static void setupSpectrumMovement() {
-		/*
-		AudioEqualizer EQ = AudioPlayer.player.getAudioEqualizer();
-		EQ.getBands().clear();
-		// Note to self, gain is gain in volume, not what the current decible level is
-		double startHz = 20;
-		for (int i = 0; i < 7; i++) {
-			System.out.println(startHz);
-			EqualizerBand EQB = new EqualizerBand(startHz + ((4.29d)/2), 4.29d, 0);
-			startHz = (EQB.getCenterFrequency() + (4.29d));
-			EQ.getBands().add(EQB);
-		}
-		*/
-		
-		//EQB1.setBandwidth(4.29d);
-		//EQB1.setCenterFrequency(22.145d);
-		//EQB1.setGain(60);
-		
-		/*
-		EqualizerBand EQB2 = new EqualizerBand();
-		EQB2.setBandwidth(4.29);
-		EQB2.setCenterFrequency(26.435);
-		
-		EqualizerBand EQB3 = new EqualizerBand();
-		EQB3.setBandwidth(4.29);
-		EQB3.setCenterFrequency(30.725);
-		
-		
-		
-		EQ.getBands().add(EQB1);
-		EQ.getBands().add(EQB2);
-		EQ.getBands().add(EQB3);
-		EQ.setEnabled(true);
-	*/
 		AudioPlayer.player.setAudioSpectrumNumBands(63); // 63
 		AudioPlayer.player.setAudioSpectrumInterval(0.033d); // 0.0167
 		AudioPlayer.player.setAudioSpectrumThreshold(-60);
