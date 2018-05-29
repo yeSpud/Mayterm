@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Mayterm/3rd-party-libs/JMF-2.1.1e/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="3rd-party-libs/jaudiotagger-2.2.3.jar" sourcepath="3rd-party-libs/jaudiotagger-2.2.3-sources.jar">
 		<attributes>
@@ -14,10 +18,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="3rd-party-libs/javax.json-1.1.jar"/>
-	<classpathentry kind="lib" path="3rd-party-libs/TarsosDSP-latest.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="https://0110.be/releases/TarsosDSP/TarsosDSP-latest/TarsosDSP-latest-Documentation/"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="3rd-party-libs/ffmpeg-0.6.1.jar" sourcepath="/Users/stephenogden/.m2/repository/net/bramp/ffmpeg/ffmpeg/0.6.1/ffmpeg-0.6.1-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="3rd-party-libs/guava-19.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="3rd-party-libs/commons-lang3-3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="3rd-party-libs/slf4j-api-1.7.25.jar"/>
+	<classpathentry exported="true" kind="lib" path="3rd-party-libs/gson-2.8.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

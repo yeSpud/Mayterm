@@ -69,7 +69,7 @@ public class WaveFile {
         data = new byte[(int) dataLength];
         ais.read(data);
 
-        AudioInputStream aisForPlay = AudioSystem.getAudioInputStream(file);
+        AudioInputStream aisForPlay = AudioSystem.getAudioInputStream(newFile);
         try {
             clip = AudioSystem.getClip();
             clip.open(aisForPlay);
