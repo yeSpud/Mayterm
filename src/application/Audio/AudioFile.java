@@ -54,8 +54,7 @@ public class AudioFile {
 	 * @return String - The formatted URL.
 	 */
 	public static String toURL(String FilePath) {
-		return String.format("file://%s", FilePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D")
-				.replace(":", "%3A").replace("\\", "%5C"));
+		return String.format("file://%s", FilePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D").replace(":", "%3A").replace("\\", "%5C"));
 	}
 
 	/**
@@ -66,9 +65,8 @@ public class AudioFile {
 	 * @return String - The formatted URL.
 	 */
 	public static String toFilePath(String URL) {
-		URL = URL.replace("file://", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("\\",
-				"%5C");
-		return URL.replace(":", "%3A");
+		URL = URL.replace("file://", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("%5C","\\");
+		return URL.replace("%3A", ":");
 	}
 
 }
