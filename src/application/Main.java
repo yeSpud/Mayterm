@@ -5,6 +5,7 @@ import application.SpectrumThings.Spectrum;
 import application.SpectrumThings.SpectrumDebug;
 import application.UI.Genre;
 import application.UI.MainDisplay;
+import application.UI.Updater;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -19,7 +20,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 
-		System.out.println("Does database exist? " + Database.databaseExist());
+		System.out.println("Checking for update");
+		System.out.println("New update avalible: " + Updater.updateAvalible());
+		
+		System.out.println("\nDoes database exist: " + Database.databaseExist());
 		if (!Database.databaseExist()) {
 			System.out.println("Creating Database");
 			Database.createDatabase();

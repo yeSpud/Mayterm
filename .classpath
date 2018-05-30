@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Mayterm/3rd-party-libs/JMF-2.1.1e/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="3rd-party-libs/jaudiotagger-2.2.3.jar" sourcepath="3rd-party-libs/jaudiotagger-2.2.3-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/Mayterm/3rd-party-libs/jaudiotagger-2.2.3-javadoc.jar!/"/>
@@ -23,5 +23,10 @@
 	<classpathentry exported="true" kind="lib" path="3rd-party-libs/slf4j-api-1.7.25.jar"/>
 	<classpathentry exported="true" kind="lib" path="3rd-party-libs/gson-2.8.5.jar"/>
 	<classpathentry exported="true" kind="lib" path="3rd-party-libs/ffmpeg-0.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="3rd-party-libs/JTransforms-3.1-with-dependencies.jar" sourcepath="3rd-party-libs/JTransforms-3.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Mayterm/3rd-party-libs/JTransforms-3.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

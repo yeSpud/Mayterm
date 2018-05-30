@@ -15,7 +15,7 @@ public class AudioPlayer {
 
 	public static Media media;
 	public static MediaPlayer player;
-	public static Stack<String> queue = new Stack<String>();
+	public static Stack<String> queue = new Stack<String>(); // TODO 2: Maybe use Queue instead of Stack
 	public static boolean isPlaying = false, isPaused = false, up = false;
 
 	public static void play() {

@@ -9,14 +9,14 @@ import application.Audio.AudioFile;
 import application.Audio.AudioPlayer;
 import application.Audio.WaveFile;
 
-public class FFT {
+@Deprecated
+public class oldFFT {
 	static WaveFile wav = null;
 	
 	public static int getAmplitude(int time) {
 		try {
 			wav = new WaveFile(new File(AudioFile.toFilePath(AudioPlayer.media.getSource())));
 		} catch (UnsupportedAudioFileException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -43,6 +43,16 @@ public class FFT {
 		//System.out.println("Smallest: " + least);
 		//System.out.println("Change: " + (greatest - least));
 		return greatest - least; 
+	}
+	
+	/*
+	public static int getFrequency() {
+		// TODO: FFT Help
+	}
+	*/
+	
+	public oldFFT() {
+		// TODO: Finish
 	}
 
 }

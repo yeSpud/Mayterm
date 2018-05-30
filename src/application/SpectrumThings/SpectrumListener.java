@@ -28,7 +28,7 @@ public class SpectrumListener implements AudioSpectrumListener {
 		}
 
 		if (timestamp - previousTime > 1) {
-			System.out.println(FFT.getAmplitude((int) timestamp));
+			System.out.println(oldFFT.getAmplitude((int) timestamp));
 			previousTime = timestamp;
 		}
 
