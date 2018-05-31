@@ -1,10 +1,6 @@
 package application.SpectrumThings;
 
-import application.Audio.AudioPlayer;
-import application.UI.CoverArt;
 import javafx.scene.media.AudioSpectrumListener;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 
 public class SpectrumListener implements AudioSpectrumListener {
 	public static double timestamp;
@@ -16,18 +12,7 @@ public class SpectrumListener implements AudioSpectrumListener {
 	public void spectrumDataUpdate(double timestamp, double duration, float[] magnitudes, float[] phases) {
 		// TODO: Redo spectrum
 		SpectrumListener.timestamp = timestamp;
-		if (timestamp < .07d) {
-			CoverArt.autoSetArt(AudioPlayer.media.getSource());
-		}
-
-		for (int i = 0; i < magnitudes.length; i++) { // 7
-			Text text = (Text) SpectrumDebug.spectrumText.getChildren().get(i);
-			Rectangle bar = (Rectangle) Spectrum.spectrum.getChildren().get(62 - i);
-			bar.setHeight((63 - magnitudes[i] * -1) * 4);
-			text.setText(String.valueOf(String.format("%.2f", bar.getHeight())));
-			text.setX(bar.getX());
-			text.setY(bar.getY() - 15);
-		}
+		
 
 		if (timestamp - previousTime > 1) {
 			//System.out.println(oldFFT.getAmplitude((int) timestamp));

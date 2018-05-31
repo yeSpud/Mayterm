@@ -22,7 +22,7 @@ public class Main extends Application {
 
 		System.out.println("Checking for update");
 		System.out.println("New update avalible: " + Updater.updateAvalible());
-		
+
 		System.out.println("\nDoes database exist: " + Database.databaseExist());
 		if (!Database.databaseExist()) {
 			System.out.println("Creating Database");
@@ -41,8 +41,8 @@ public class Main extends Application {
 		MainDisplay.createMainStage(primaryStage);
 		// primaryStage.setOpacity(.4);
 
-			SpectrumDebug.createAndEnableDebug();
-		
+		//SpectrumDebug.createAndEnableDebug();
+
 	}
 
 	public static void main(String[] args) {

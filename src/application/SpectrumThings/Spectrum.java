@@ -46,8 +46,7 @@ public class Spectrum {
 		AudioPlayer.player.setAudioSpectrumNumBands(63); // 63
 		AudioPlayer.player.setAudioSpectrumInterval(0.033d); // 0.0167
 		AudioPlayer.player.setAudioSpectrumThreshold(-60);
-		//AudioPlayer.player.setAudioSpectrumListener(new SpectrumListener(12000));
-		AudioPlayer.player.setAudioSpectrumListener(new SpectrumListener());
+		AudioPlayer.player.setAudioSpectrumListener(new Fallback());
 		
 	}
 
