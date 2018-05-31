@@ -1,6 +1,5 @@
 package application.Audio;
 
-import java.io.File;
 import java.net.URI;
 import java.util.Stack;
 
@@ -18,6 +17,9 @@ public class AudioPlayer {
 	public static Stack<String> queue = new Stack<String>(); // TODO 2: Maybe use Queue instead of Stack
 	public static boolean isPlaying = false, isPaused = false, up = false;
 
+	/**
+	 * Plays the current track in the queue.
+	 */
 	public static void play() {
 		// TODO: Cleanup
 
@@ -29,8 +31,7 @@ public class AudioPlayer {
 			DisplayText.setTitle(media.getSource());
 			DisplayText.setArtist("");
 			
-			// TODO 2: Wait for file to load
-			wavConverter.convertToWAV(new File(AudioFile.toFilePath(media.getSource())));
+			
 
 			if (Database.isInDatabase(AudioFile.toFilePath(media.getSource()))) {
 				String path = AudioFile.toFilePath(media.getSource());
@@ -130,7 +131,7 @@ public class AudioPlayer {
 	}
 
 	/**
-	 * Rotates the track queue, and then tries to play whats next
+	 * Rotates the track queue, and then tries to play what's next
 	 */
 	public static void rotate() {
 		stop();

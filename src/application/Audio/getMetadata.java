@@ -23,9 +23,12 @@ import javafx.embed.swing.SwingFXUtils;
 
 /**
  * Class for handling the metadata of different media file formats. This is what
- * sets the title, artist, and even the soruce of the coverart.
+ * sets the title, artist, and even the source of the cover art.
  * 
- * Supported formats are: mp3, mp4, wav, and aif.
+ * Supported formats are: mp3, mp4, wav, and aif*.<br>
+ * <br>
+ * <br>
+ * <i>*aif is going to be removed in the next few versions.</i>
  * 
  * @author Spud
  *
@@ -35,13 +38,13 @@ public class getMetadata {
 	static FieldKey artist = (FieldKey.ARTIST), title = FieldKey.TITLE, art = FieldKey.COVER_ART;
 
 	/**
-	 * Retuns a string array of 2. The first argument is the artist, the second is
+	 * Returns a string array of 2. The first argument is the artist, the second is
 	 * the title. Oh, and it also tries to set the album art.
 	 * 
 	 * @param file
-	 *            The file locaion, or path. This needs to be formatted in a way
+	 *            The file location, or path. This needs to be formatted in a way
 	 *            that is URL friendly!
-	 * @return String[] - Retruns a string array, containing the artist (0), and the
+	 * @return String[] - Returns a string array, containing the artist (0), and the
 	 *         title (1).
 	 */
 	public static String[] getMp3(File file) {
@@ -73,13 +76,13 @@ public class getMetadata {
 	}
 
 	/**
-	 * Retuns a string array of 2. The first argument is the artist, the second is
+	 * Returns a string array of 2. The first argument is the artist, the second is
 	 * the title. Oh, and it also tries to set the album art.
 	 * 
 	 * @param file
-	 *            The file locaion, or path. This needs to be formatted in a way
+	 *            The file location, or path. This needs to be formatted in a way
 	 *            that is URL friendly!
-	 * @return String[] - Retruns a string array, containing the artist (0), and the
+	 * @return String[] - Returns a string array, containing the artist (0), and the
 	 *         title (1).
 	 */
 	public static String[] getMp4(File file) {
@@ -119,17 +122,18 @@ public class getMetadata {
 		return returnedData;
 	}
 
-	@Deprecated
+	// TODO: Remove AIF
 	/**
-	 * Retuns a string array of 2. The first argument is the artist, the second is
+	 * Returns a string array of 2. The first argument is the artist, the second is
 	 * the title. Oh, and it also tries to set the album art.
 	 * 
 	 * @param file
-	 *            The file locaion, or path. This needs to be formatted in a way
+	 *            The file location, or path. This needs to be formatted in a way
 	 *            that is URL friendly!
-	 * @return String[] - Retruns a string array, containing the artist (0), and the
+	 * @return String[] - Returns a string array, containing the artist (0), and the
 	 *         title (1).
 	 */
+	@Deprecated
 	public static String[] getAIF(File file) {
 		String[] returnedData = new String[2];
 		AiffFileReader metadata = new AiffFileReader();
@@ -161,7 +165,7 @@ public class getMetadata {
 	}
 
 	/**
-	 * Retruns the artist of the song. The source provided needs to be URL friendly!
+	 * Returns the artist of the song. The source provided needs to be URL friendly!
 	 * 
 	 * @param source
 	 *            The URL of the file.
@@ -187,7 +191,7 @@ public class getMetadata {
 	}
 
 	/**
-	 * Retruns the title of the song. The source provided needs to be URL friendly!
+	 * Returns the title of the song. The source provided needs to be URL friendly!
 	 * 
 	 * @param source
 	 *            The URL of the file.

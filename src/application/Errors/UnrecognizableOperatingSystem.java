@@ -1,7 +1,7 @@
 package application.Errors;
 
 /**
- * Error for when the current opeating system is neither Windows, macOS, or Linux.
+ * Error for when the current operating system is neither Windows, macOS, or Linux.
  * 
  * @author Spud
  *

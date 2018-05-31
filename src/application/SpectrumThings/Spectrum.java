@@ -1,5 +1,6 @@
 package application.SpectrumThings;
 
+import application.Main;
 import application.Audio.AudioPlayer;
 import application.UI.CoverArt;
 import application.UI.DisplayText;
@@ -46,6 +47,9 @@ public class Spectrum {
 		AudioPlayer.player.setAudioSpectrumNumBands(63); // 63
 		AudioPlayer.player.setAudioSpectrumInterval(0.033d); // 0.0167
 		AudioPlayer.player.setAudioSpectrumThreshold(-60);
+		if (Main.debug) {
+			AudioPlayer.player.setAudioSpectrumListener(new FTTVis());
+		}
 		AudioPlayer.player.setAudioSpectrumListener(new Fallback());
 		
 	}

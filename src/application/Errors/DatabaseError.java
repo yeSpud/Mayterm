@@ -1,7 +1,7 @@
 package application.Errors;
 
 /**
- * Database error. Either cannot write, or doesnt exist.
+ * Database error. Either cannot write, or doesn't exist.
  * 
  * @author Spud
  *

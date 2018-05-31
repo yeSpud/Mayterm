@@ -13,9 +13,11 @@ public class Main extends Application {
 
 	public static Stage mainStage;
 
+	public static boolean debug = false;
+	
 	// TODO: Fix spectrum
 	// TODO 2: Other background stuffs
-	// TODO 2: Moar controlls
+	// TODO 2: Moar controls
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -40,13 +42,19 @@ public class Main extends Application {
 		System.out.println("Displaying window");
 		MainDisplay.createMainStage(primaryStage);
 		// primaryStage.setOpacity(.4);
-
-		//SpectrumDebug.createAndEnableDebug();
+		if (debug) {
+			SpectrumDebug.createAndEnableDebug();
+		}
 
 	}
 
 	public static void main(String[] args) {
+		try {
+			debug = Boolean.parseBoolean(args[0]);
+		} catch (Exception e) {
+			debug = false;
+		}
 		launch(args);
-
+		
 	}
 }

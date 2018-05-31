@@ -14,8 +14,9 @@ import net.bramp.ffmpeg.builder.FFmpegBuilder;
 public class wavConverter {
 
 	/**
-	 * Converts a provided file to a .wav file, stored either in the appdata folder
-	 * (Windows), the the application support folder (macOS), or .Spud (Linux)
+	 * Converts a provided file to a .wav file, stored either in the %Appdata%
+	 * folder (Windows), the the application support folder (macOS), or .Spud
+	 * (Linux)
 	 * 
 	 * @param file
 	 *            - The file to convert
@@ -34,14 +35,14 @@ public class wavConverter {
 					return;
 				}
 				try {
-					ffprobe = new FFprobe(wavConverter.class.getClassLoader().getResource("ffmpeg/windows/bin/ffprobe.exe")
-							.toURI().toURL().toString().replace("file:", ""));
+					ffprobe = new FFprobe(
+							wavConverter.class.getClassLoader().getResource("ffmpeg/windows/bin/ffprobe.exe").toURI()
+									.toURL().toString().replace("file:", ""));
 				} catch (IOException | URISyntaxException e) {
 					e.printStackTrace();
 					return;
 				}
 			} else {
-				// System.out.println(wavConverter.class.getClassLoader().getResource("ffmpeg/mac/bin/ffmpeg").getFile().toString());
 				try {
 					ffmpeg = new FFmpeg(wavConverter.class.getClassLoader().getResource("ffmpeg/mac/bin/ffmpeg").toURI()
 							.toURL().toString().replace("file:", ""));
@@ -50,8 +51,8 @@ public class wavConverter {
 					return;
 				}
 				try {
-					ffprobe = new FFprobe(wavConverter.class.getClassLoader().getResource("ffmpeg/mac/bin/ffprobe").toURI()
-							.toURL().toString().replace("file:", ""));
+					ffprobe = new FFprobe(wavConverter.class.getClassLoader().getResource("ffmpeg/mac/bin/ffprobe")
+							.toURI().toURL().toString().replace("file:", ""));
 				} catch (IOException | URISyntaxException e) {
 					e.printStackTrace();
 					return;

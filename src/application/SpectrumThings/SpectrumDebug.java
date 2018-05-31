@@ -9,7 +9,11 @@ import javafx.scene.text.Text;
 public class SpectrumDebug {
 
 	public static Group spectrumText = new Group();
-	
+
+	/**
+	 * Creates the display text for the debug values for the spectrum, and then
+	 * makes them visible when a track plays.
+	 */
 	public static void createAndEnableDebug() {
 		for (int i = 0; i < 63; i++) {
 			Text debug = new Text();
@@ -20,5 +24,5 @@ public class SpectrumDebug {
 		}
 		MainDisplay.root.getChildren().add(spectrumText);
 	}
-	
+
 }

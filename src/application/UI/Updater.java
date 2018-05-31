@@ -9,6 +9,7 @@ import java.util.Scanner;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 
+// TODO: Finish this
 public class Updater {
 	// public static BorderPane root = new BorderPane();
 

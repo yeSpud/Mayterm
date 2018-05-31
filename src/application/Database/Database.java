@@ -60,13 +60,14 @@ public class Database {
 
 	/**
 	 * Writes data to the database. It should be noted that this function will
-	 * <b><i>overwrite</i></b> pre-existing data. <b>It does not append to the
+	 * <b><i>overwrite</i></b> existing data. <b>It does not append to the
 	 * file</b>.
 	 * 
 	 * @param data
 	 *            - The data that is going to be written to the file.
 	 * @throws DatabaseError
-	 *             Either Unable to write, invalid operating system, or issue closing writer.
+	 *             Either Unable to write, invalid operating system, or issue
+	 *             closing writer.
 	 */
 	public static void writeToDatabase(String data) throws DatabaseError {
 		FileWriter fileWriter = null;

@@ -6,10 +6,18 @@ import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+/**
+ * The original spectrum algorithm.<br ><br >Yeah it's really simple, but its not accurate. That being said, if the
+ * official one never gets finished, there's always this {@code Fallback}.<br ><br ><i>See what I did there? Look I'm funny.</i>
+ * 
+ * @author Spud
+ *
+ */
 public class Fallback implements AudioSpectrumListener {
 
 	@Override
 	public void spectrumDataUpdate(double timestamp, double duration, float[] magnitudes, float[] phases) {
+
 		if (timestamp < .07d) {
 			CoverArt.autoSetArt(AudioPlayer.media.getSource());
 		}

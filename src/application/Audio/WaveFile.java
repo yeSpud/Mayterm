@@ -14,7 +14,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import application.Database.Environment;
 import application.Errors.UnrecognizableOperatingSystem;
-import application.SpectrumThings.SpectrumListener;
+import application.SpectrumThings.FTTVis;
 
 public class WaveFile {
 	public final int NOT_SPECIFIED = AudioSystem.NOT_SPECIFIED; // -1
@@ -68,7 +68,7 @@ public class WaveFile {
 		try {
 			clip = AudioSystem.getClip();
 			clip.open(aisForPlay);
-			clip.setFramePosition((int) SpectrumListener.timestamp);
+			clip.setFramePosition((int) FTTVis.timestamp);
 			canPlay = true;
 		} catch (LineUnavailableException e) {
 			canPlay = false;
