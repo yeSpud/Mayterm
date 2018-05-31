@@ -79,8 +79,10 @@ public class MainDisplay {
 		} else if (key.equals(KeyCode.SEMICOLON)) {
 			/* Settings */
 			// SettingsDisplay.createAndShowSettings();
-			// TODO: Finish settings
-		} else if (AudioPlayer.isPlaying && !AudioPlayer.isPaused) {
+			// TODO 2: Finish settings
+		} else if (key.equals(KeyCode.ESCAPE)) {
+			System.exit(0);
+		}else if (AudioPlayer.isPlaying && !AudioPlayer.isPaused) {
 			if (key.equals(KeyCode.UP)) {
 				/* Increase volume */
 				DisplayText.handleVolume(0.05d);
@@ -112,7 +114,7 @@ public class MainDisplay {
 				Genre.rotateGenre(rotatoe);
 			} else if (key.equals(KeyCode.LEFT)) {
 				/* Restart track */
-				// TODO: Finish this
+				// TODO 2: Finish this
 			}
 		} else {
 			System.out.println(key);

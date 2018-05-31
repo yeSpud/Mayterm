@@ -47,12 +47,11 @@ public class oldFFT {
 	
 	/*
 	public static int getFrequency() {
-		// TODO: FFT Help
 	}
 	*/
 	
 	public oldFFT() {
-		// TODO: Finish
+		
 	}
 
 }

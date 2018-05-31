@@ -14,8 +14,8 @@ public class Main extends Application {
 	public static Stage mainStage;
 
 	// TODO: Fix spectrum
-	// TODO: Other background stuffs
-	// TODO: Moar controlls
+	// TODO 2: Other background stuffs
+	// TODO 2: Moar controlls
 
 	@Override
 	public void start(Stage primaryStage) {

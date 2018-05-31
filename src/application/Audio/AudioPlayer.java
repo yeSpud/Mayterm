@@ -29,7 +29,7 @@ public class AudioPlayer {
 			DisplayText.setTitle(media.getSource());
 			DisplayText.setArtist("");
 			
-			// TODO: Wait for file to load
+			// TODO 2: Wait for file to load
 			wavConverter.convertToWAV(new File(AudioFile.toFilePath(media.getSource())));
 
 			if (Database.isInDatabase(AudioFile.toFilePath(media.getSource()))) {

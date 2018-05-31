@@ -10,6 +10,8 @@ public class SpectrumListener implements AudioSpectrumListener {
 	public static double timestamp;
 	double previousTime = 0;
 
+	newFFT fft = new newFFT();
+	
 	@Override
 	public void spectrumDataUpdate(double timestamp, double duration, float[] magnitudes, float[] phases) {
 		// TODO: Redo spectrum
@@ -28,8 +30,8 @@ public class SpectrumListener implements AudioSpectrumListener {
 		}
 
 		if (timestamp - previousTime > 1) {
-			System.out.println(oldFFT.getAmplitude((int) timestamp));
-			previousTime = timestamp;
+			//System.out.println(oldFFT.getAmplitude((int) timestamp));
+			//previousTime = timestamp;
 		}
 
 		

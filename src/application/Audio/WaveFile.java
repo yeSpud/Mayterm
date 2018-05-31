@@ -3,8 +3,7 @@ package application.Audio;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
+import java.nio.ShortBuffer;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -29,7 +28,7 @@ public class WaveFile {
 	private byte[] data; // wav bytes
 	private AudioInputStream ais;
 	private AudioFormat af;
-
+	
 	private Clip clip;
 	private boolean canPlay;
 
@@ -82,14 +81,6 @@ public class WaveFile {
 		return canPlay;
 	}
 
-	public void play() {
-		clip.start();
-	}
-
-	public void stop() {
-		clip.stop();
-	}
-
 	public AudioFormat getAudioFormat() {
 		return af;
 	}
@@ -126,17 +117,33 @@ public class WaveFile {
 	 */
 	public int getSampleInt(int sampleNumber) {
 
+		//int sample = 0;
+		
 		if (sampleNumber < 0 || sampleNumber >= data.length / sampleSize) {
 			throw new IllegalArgumentException("sample number can't be < 0 or >= data.length/" + sampleSize);
 		}
 
-		byte[] sampleBytes = new byte[4]; // 4byte = int
-
+		short[] sampleBytes = new short[4]; // 4byte = int, but they need to be shorts due to overflow issues :P
+		short firstSampleByte[] = new short[2];
+		short secondSampleByte[] = new short[2];
+		short[] NEWsampleBytes = new short[4]; // 4byte = int
+		//System.out.println(sampleSize); // Sample size  = 2
 		for (int i = 0; i < sampleSize; i++) {
 			sampleBytes[i] = data[sampleNumber * sampleSize * channelsNum + i];
 		}
-
-		int sample = ByteBuffer.wrap(sampleBytes).order(ByteOrder.LITTLE_ENDIAN).getInt();
+		//System.out.println("SampleBytes: " + Arrays.toString(sampleBytes));
+		firstSampleByte[0] = sampleBytes[0];
+		firstSampleByte[1] = sampleBytes[1];
+		secondSampleByte[0] = sampleBytes[2];
+		secondSampleByte[1] = sampleBytes[3];
+		NEWsampleBytes[0] = secondSampleByte[0];
+		NEWsampleBytes[1] = secondSampleByte[1];
+		NEWsampleBytes[2] = firstSampleByte[0];
+		NEWsampleBytes[3] = firstSampleByte[1];
+		//System.out.println("NEW SampleBytes™: " + Arrays.toString(NEWsampleBytes));
+	
+		//int sample = ShortBuffer.wrap(sampleBytes).get(ByteOrder.LITTLE_ENDIAN).getInt();
+		int sample = ShortBuffer.wrap(NEWsampleBytes).get(3);
 		return sample;
 	}
 }
