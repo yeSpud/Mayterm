@@ -24,6 +24,9 @@ public class Main extends Application {
 
 		System.out.println("Checking for update");
 		System.out.println("New update avalible: " + Updater.updateAvalible());
+		if (Updater.updateAvalible()) {
+			Updater.showUpdatePrompt();
+		}
 
 		System.out.println("\nDoes database exist: " + Database.databaseExist());
 		if (!Database.databaseExist()) {
