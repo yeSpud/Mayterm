@@ -43,7 +43,8 @@ public class WaveFile {
 	/**
 	 * Constructor for WaveFile.
 	 * 
-	 * @param File - the .wav file.
+	 * @param file
+	 *            - the .wav file.
 	 * @throws UnsupportedAudioFileException
 	 * @throws IOException
 	 */
@@ -152,6 +153,8 @@ public class WaveFile {
 	 * sample of left channel, 1 - first sample of the right channel, 2 - second
 	 * sample of the left channel, 3 - second sample of the right channel, etc.
 	 * 
+	 * @param sampleNumber
+	 *            - The sample number
 	 * @return int - The sample.
 	 * 
 	 */

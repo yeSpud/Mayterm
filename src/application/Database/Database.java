@@ -25,6 +25,8 @@ import application.UI.Genre.genre;
 public class Database {
 
 	/**
+	 * Check to see if the database directory exists, and if the program can write
+	 * to that location.
 	 * 
 	 * @return Boolean based on whether or not the database exists on the system,
 	 *         and if it can write to it. If there is an error, the application will
@@ -138,7 +140,7 @@ public class Database {
 	}
 
 	/**
-	 * Adds a song to the database.
+	 * Adds a track to the database.
 	 * 
 	 * @param path
 	 *            - The file path of the song.
@@ -178,7 +180,7 @@ public class Database {
 	 * Returns if the provided path is in the database.
 	 * 
 	 * @param path
-	 *            - The path of the song.
+	 *            - The path of the track.
 	 * @return Boolean based on whether or not the path is in the database.
 	 */
 	public static boolean isInDatabase(String path) {
@@ -243,7 +245,7 @@ public class Database {
 	 * @param path
 	 *            - Path of the file that is in the database.
 	 * @param newArtist
-	 *            The new artist name.
+	 *            - The new artist name.
 	 */
 	public static void editArtist(String path, String newArtist) {
 		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
@@ -276,7 +278,7 @@ public class Database {
 	 * @param path
 	 *            - Path of the file that is in the database.
 	 * @param newTitle
-	 *            The new title name.
+	 *            - The new title name.
 	 */
 	public static void editTitle(String path, String newTitle) {
 		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
@@ -309,7 +311,7 @@ public class Database {
 	 * @param path
 	 *            - Path of the file that is in the database.
 	 * @param newGenre
-	 *            The new genre.
+	 *             - The new genre.
 	 */
 	public static void editGenre(String path, genre newGenre) {
 		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));

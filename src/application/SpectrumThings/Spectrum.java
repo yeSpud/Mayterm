@@ -11,7 +11,7 @@ import javafx.scene.shape.StrokeType;
 
 /**
  * Class responsible for creating, clearing, enabling, and setting the spectrum
- * movements
+ * movements.
  * 
  * @author Spud
  *
@@ -21,7 +21,7 @@ public class Spectrum {
 	public static Group spectrum = new Group();
 
 	/**
-	 * Creates the spectrum bars (all 63 of them)
+	 * Creates the spectrum bars (all 63 of them).
 	 */
 	public static void createSpectrum() {
 		for (int i = 0; i < 63; i++) {
@@ -32,7 +32,7 @@ public class Spectrum {
 	}
 
 	/**
-	 * Forces the spectrum bar's height to 12
+	 * Forces the spectrum bar's height to 12.
 	 */
 	public static void clearSpectrum() {
 		for (int i = 0; i < 63; i++) {
@@ -46,8 +46,8 @@ public class Spectrum {
 	 * remove the cover art.
 	 * 
 	 * @param retry
-	 *            - Boolean - If true, only the cover art will be removed, the title
-	 *            and artist remain the same.
+	 *            - If true, only the cover art will be removed, the title and
+	 *            artist remain the same.
 	 */
 	public static void disableSpectrum(boolean retry) {
 		MainDisplay.root.getChildren().remove(spectrum);

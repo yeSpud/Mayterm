@@ -114,7 +114,7 @@ public class DisplayText {
 	 * Changes the volume of the player.
 	 * 
 	 * @param vol
-	 *            - The new volume.
+	 *            - The new volume value (as a decimal).
 	 */
 	public static void handleVolume(double vol) {
 		volume = Double.parseDouble(String.format("%.2f", volume + vol));

@@ -94,7 +94,7 @@ public class MainDisplay {
 	 * <code>LEFT arrow</code> - restarts the track (To be finished).
 	 * 
 	 * @param key
-	 *            - The key that was pressed
+	 *            - The key that was pressed.
 	 */
 	public static void keyPresed(KeyCode key) {
 		if (key.equals(KeyCode.O)) {
