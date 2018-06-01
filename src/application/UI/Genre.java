@@ -7,21 +7,86 @@ import application.SpectrumThings.Spectrum;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Class responsible for all things genre related!
+ * 
+ * @author Spud
+ *
+ */
 public class Genre {
+
+	/**
+	 * The list of genres, their RGB color, and normally what defines them (Though
+	 * in the end its users preference).
+	 * 
+	 * @author Spud
+	 *
+	 */
 	public enum genre {
-		TRAP(140, 15, 39), // Trap: 75 - 175 bpm
-		DNB(242, 25, 4), // DnB: 160 - 180 or 87 bpm
-		HOUSE(234, 140, 0), // House: ~128 bpm
-		ELECTRO(230, 206, 0), // Electro: ~128 bpm
-		HARDDANCE(1, 151, 0), // Harddance: 150 or 170 bpm
-		GLITCHHOP(11, 151, 87), // Glitch: 110 or 108 bpm
-		NUDISCO(28, 171, 179), // NuDisco: 84 - 159 bpm
-		FUTUREBASS(154, 152, 252), // Future bass: 75 - 175 bpm
-		TRANCE(0, 126, 231), // Trance: 125 (135) - 150 bpm
-		DUBSTEP(141, 4, 225), // Dubstep: 70 bpm or 140 - 150 bpm
-		DRUMSTEP(243, 33, 136), // Drumstep: 160 - 180 bpm
-		ELECTRONIC(193, 193, 193), // Catch all
-		OTHER(255, 255, 255); // Other
+		/**
+		 * Trap: 75 - 175 bpm.
+		 */
+		TRAP(140, 15, 39),
+
+		/**
+		 * DnB: 160 - 180 or 87 bpm.
+		 */
+		DNB(242, 25, 4),
+
+		/**
+		 * House: ~128 bpm.
+		 */
+		HOUSE(234, 140, 0),
+
+		/**
+		 * Electro: ~128 bpm.
+		 */
+		ELECTRO(230, 206, 0),
+
+		/**
+		 * Hard-dance: 150 or 170 bpm.
+		 */
+		HARDDANCE(1, 151, 0),
+
+		/**
+		 * Glitch: 110 or 108 bpm.
+		 */
+		GLITCHHOP(11, 151, 87),
+
+		/**
+		 * NuDisco: 84 - 159 bpm.
+		 */
+		NUDISCO(28, 171, 179),
+
+		/**
+		 * Future bass: 75 - 175 bpm.
+		 */
+		FUTUREBASS(154, 152, 252),
+
+		/**
+		 * Trance: 125 (135) - 150 bpm.
+		 */
+		TRANCE(0, 126, 231),
+
+		/**
+		 * Dubstep: 70 bpm or 140 - 150 bpm.
+		 */
+		DUBSTEP(141, 4, 225),
+
+		/**
+		 * Drumstep: 160 - 180 bpm.
+		 */
+		DRUMSTEP(243, 33, 136),
+
+		/**
+		 * Catch all.
+		 */
+		ELECTRONIC(193, 193, 193),
+
+		/**
+		 * Special occasion color! <b>:D</b>
+		 */
+		OTHER(255, 255, 255);
 
 		private final int r, g, b;
 
@@ -31,14 +96,24 @@ public class Genre {
 			this.b = b;
 		}
 
+		/**
+		 * Gets the color of the genre.
+		 * 
+		 * @return Color - The color of the genre (RGB).
+		 */
 		public Color getColor() {
 			return Color.rgb(this.r, this.g, this.b);
 		}
 
 	}
 
+	/**
+	 * Sets the genre (Color) of the spectrum.
+	 * 
+	 * @param genre
+	 *            - The genre color to be set.
+	 */
 	public static void setGenre(Color genre) {
-
 		MainDisplay.nothing.setFill(genre);
 		MainDisplay.nothing.setStroke(genre);
 		CoverArt.art.setFill(genre);
@@ -51,9 +126,14 @@ public class Genre {
 		} else {
 			CoverArt.blackCat(false);
 		}
-
 	}
 
+	/**
+	 * Rotates though the genres.
+	 * 
+	 * @param number
+	 *            - The selector number of the genre (between 0 and 12).
+	 */
 	public static void rotateGenre(int number) {
 		String path = AudioFile.toFilePath(AudioPlayer.media.getSource());
 		if (number > 12) {

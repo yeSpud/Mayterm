@@ -6,6 +6,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * Class responsible for the debug text below the spectrum.
+ * 
+ * @author Spud
+ *
+ */
 public class SpectrumDebug {
 
 	public static Group spectrumText = new Group();

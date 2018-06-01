@@ -34,7 +34,7 @@ public class Main extends Application {
 			Database.createDatabase();
 		}
 		System.out.println("Creating load bar");
-		MainDisplay.createLoad();
+		MainDisplay.createPlaceholderBar();
 		System.out.println("Creating specturm");
 		Spectrum.createSpectrum();
 		System.out.println("Creating info stuff");

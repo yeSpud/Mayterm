@@ -10,6 +10,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Class responsible for the cover art of the visualizer.
+ * 
+ * @author Spud
+ *
+ */
 public class CoverArt {
 
 	public static Rectangle art = new Rectangle(1034, 198, 126, 126);
@@ -18,6 +24,11 @@ public class CoverArt {
 
 	public static Image catLogo, catLogoBlack;
 
+	/**
+	 * Creates the cover arts section for the display, and adds the respcive cat.
+	 * <br>
+	 * :3
+	 */
 	public static void createCoverArt() {
 		MainDisplay.root.getChildren().add(art);
 
@@ -40,6 +51,12 @@ public class CoverArt {
 		MainDisplay.root.getChildren().add(cat);
 	}
 
+	/**
+	 * Sets the art image.
+	 * 
+	 * @param image
+	 *            - the Image to be set.
+	 */
 	public static void setArt(Image image) {
 		coverArt.setX(1034);
 		coverArt.setY(198);
@@ -53,6 +70,12 @@ public class CoverArt {
 
 	}
 
+	/**
+	 * Tries to automatically set the image based on the provided source.
+	 * 
+	 * @param source
+	 *            - The URL friendly source.
+	 */
 	public static void autoSetArt(String source) {
 		File file = new File(AudioFile.toFilePath(source));
 		if (source.contains(".mp3")) {
@@ -63,6 +86,13 @@ public class CoverArt {
 
 	}
 
+	/**
+	 * Changes the cat in the cover art to a black cat, preferably only of the
+	 * background is white though.
+	 * 
+	 * @param blackCat
+	 *            - whether or not the cover art cat needs to be a black cat.
+	 */
 	public static void blackCat(boolean blackCat) {
 		if (blackCat) {
 			cat.setImage(catLogoBlack);

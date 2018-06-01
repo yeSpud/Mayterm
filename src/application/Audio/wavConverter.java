@@ -11,6 +11,15 @@ import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.FFprobe;
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
 
+/**
+ * Ever wondered why FFMPEG is a large part of this project? This is why.<br>
+ * 
+ * This class's sole purpose is to convert the given file to a .wav file for
+ * spectrum analysis.
+ * 
+ * @author Spud
+ *
+ */
 public class wavConverter {
 
 	/**

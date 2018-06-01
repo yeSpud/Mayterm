@@ -16,6 +16,12 @@ import application.Errors.DatabaseError;
 import application.Errors.UnrecognizableOperatingSystem;
 import application.UI.Genre.genre;
 
+/**
+ * Class responsible for handling the creating, and handling the database.
+ * 
+ * @author Spud
+ *
+ */
 public class Database {
 
 	/**
@@ -60,8 +66,7 @@ public class Database {
 
 	/**
 	 * Writes data to the database. It should be noted that this function will
-	 * <b><i>overwrite</i></b> existing data. <b>It does not append to the
-	 * file</b>.
+	 * <b><i>overwrite</i></b> existing data. <b>It does not append to the file</b>.
 	 * 
 	 * @param data
 	 *            - The data that is going to be written to the file.

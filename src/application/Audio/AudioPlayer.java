@@ -10,6 +10,13 @@ import application.UI.Genre;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+/**
+ * Class responsible for the player actions such as: Pausing, playing, skipping,
+ * stopping, and rotating the track order one a track has finished.
+ * 
+ * @author Spud
+ *
+ */
 public class AudioPlayer {
 
 	public static Media media;
@@ -31,8 +38,6 @@ public class AudioPlayer {
 			DisplayText.setTitle(media.getSource());
 			DisplayText.setArtist("");
 			
-			
-
 			if (Database.isInDatabase(AudioFile.toFilePath(media.getSource()))) {
 				String path = AudioFile.toFilePath(media.getSource());
 				System.out.println("Already in database");

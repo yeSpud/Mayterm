@@ -6,6 +6,13 @@ import application.Errors.UnrecognizableOperatingSystem;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
+/**
+ * Class responsible for picking the next track, adding that track to a queue,
+ * and formatting URLs/paths.
+ * 
+ * @author Spud
+ *
+ */
 public class AudioFile {
 
 	/**
@@ -13,8 +20,7 @@ public class AudioFile {
 	 */
 	public static void pickSong() {
 		FileChooser pickFile = new FileChooser();
-		ExtensionFilter fileFilter = new ExtensionFilter("Music", "*.mp3", "*.m4a", "*.mp4", "*.m4v", "*.wav", "*.aif",
-				"*.aiff");
+		ExtensionFilter fileFilter = new ExtensionFilter("Music", "*.mp3", "*.m4a", "*.mp4", "*.m4v", "*.wav");
 		pickFile.getExtensionFilters().addAll(fileFilter);
 		String filePath;
 		try {
@@ -54,7 +60,8 @@ public class AudioFile {
 	 * @return String - The formatted URL.
 	 */
 	public static String toURL(String FilePath) {
-		return String.format("file://%s", FilePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D").replace(":", "%3A").replace("\\", "%5C"));
+		return String.format("file://%s", FilePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D")
+				.replace(":", "%3A").replace("\\", "%5C"));
 	}
 
 	/**
@@ -65,7 +72,8 @@ public class AudioFile {
 	 * @return String - The formatted URL.
 	 */
 	public static String toFilePath(String URL) {
-		URL = URL.replace("file://", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("%5C","\\");
+		URL = URL.replace("file://", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("%5C",
+				"\\");
 		return URL.replace("%3A", ":");
 	}
 

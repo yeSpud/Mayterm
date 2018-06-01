@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-import org.jaudiotagger.audio.aiff.AiffFileReader;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
@@ -15,7 +14,6 @@ import org.jaudiotagger.audio.mp4.Mp4TagReader;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
-import org.jaudiotagger.tag.aiff.AiffTag;
 import org.jaudiotagger.tag.mp4.Mp4Tag;
 
 import application.UI.CoverArt;
@@ -25,10 +23,7 @@ import javafx.embed.swing.SwingFXUtils;
  * Class for handling the metadata of different media file formats. This is what
  * sets the title, artist, and even the source of the cover art.
  * 
- * Supported formats are: mp3, mp4, wav, and aif*.<br>
- * <br>
- * <br>
- * <i>*aif is going to be removed in the next few versions.</i>
+ * Supported formats are: mp3, mp4, and wav.<br>
  * 
  * @author Spud
  *
@@ -100,48 +95,6 @@ public class getMetadata {
 			data = metadata.read(raf);
 			raf.close();
 		} catch (CannotReadException | IOException e) {
-			e.printStackTrace();
-			return returnedData;
-		}
-
-		returnedData[0] = data.getFirst(artist).toUpperCase();
-		returnedData[1] = data.getFirst(title).toUpperCase();
-
-		if (!data.getFirst(art).isEmpty()) {
-			try {
-				CoverArt.setArt(SwingFXUtils.toFXImage((BufferedImage) (data.getFirstArtwork().getImage()), null));
-			} catch (Exception uhhh) {
-				try {
-					CoverArt.setArt(
-							SwingFXUtils.toFXImage((BufferedImage) (data.getArtworkList().get(0)).getImage(), null));
-				} catch (IOException | IndexOutOfBoundsException e) {
-					// Lol :P
-				}
-			}
-		}
-		return returnedData;
-	}
-
-	// TODO: Remove AIF
-	/**
-	 * Returns a string array of 2. The first argument is the artist, the second is
-	 * the title. Oh, and it also tries to set the album art.
-	 * 
-	 * @param file
-	 *            The file location, or path. This needs to be formatted in a way
-	 *            that is URL friendly!
-	 * @return String[] - Returns a string array, containing the artist (0), and the
-	 *         title (1).
-	 */
-	@Deprecated
-	public static String[] getAIF(File file) {
-		String[] returnedData = new String[2];
-		AiffFileReader metadata = new AiffFileReader();
-		AiffTag data = null;
-		try {
-			data = (AiffTag) metadata.read(file).getTag();
-		} catch (CannotReadException | IOException | TagException | ReadOnlyFileException
-				| InvalidAudioFrameException e) {
 			e.printStackTrace();
 			return returnedData;
 		}

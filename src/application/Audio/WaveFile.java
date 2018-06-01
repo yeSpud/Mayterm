@@ -16,22 +16,37 @@ import application.Database.Environment;
 import application.Errors.UnrecognizableOperatingSystem;
 import application.SpectrumThings.FTTVis;
 
+/**
+ * Class responsible for analyzing a .wav file. <br>
+ * Taken from <a href =
+ * 'https://stackoverflow.com/questions/39313634/extract-amplitude-array-from-a-wav-file-using-java/39425678'>this
+ * stackoverflow question</a>, and modified to fit my use.
+ * 
+ * @author Artem Novikov, Spud
+ *
+ */
 public class WaveFile {
 	public final int NOT_SPECIFIED = AudioSystem.NOT_SPECIFIED; // -1
 	public final int INT_SIZE = 4;
 
 	private int sampleSize = NOT_SPECIFIED;
 	private long framesCount = NOT_SPECIFIED;
-	@SuppressWarnings("unused")
 	private int sampleRate = NOT_SPECIFIED;
 	private int channelsNum;
 	private byte[] data; // wav bytes
 	private AudioInputStream ais;
 	private AudioFormat af;
-	
+
 	private Clip clip;
 	private boolean canPlay;
 
+	/**
+	 * Constructor for WaveFile.
+	 * 
+	 * @param File - the .wav file.
+	 * @throws UnsupportedAudioFileException
+	 * @throws IOException
+	 */
 	public WaveFile(File file) throws UnsupportedAudioFileException, IOException {
 
 		// Check if the file exists
@@ -77,48 +92,71 @@ public class WaveFile {
 		clip.close();
 	}
 
+	/**
+	 * Returns a boolean as to whether or not the file can be played.
+	 * 
+	 * @return Boolean - whether or not the file can be played.
+	 */
 	public boolean isCanPlay() {
 		return canPlay;
 	}
 
+	/**
+	 * Returns the current sample rate.
+	 * 
+	 * @return int - the sample rate
+	 */
+	public int getSampleRate() {
+		return sampleRate;
+	}
+
+	/**
+	 * Returns the <code>AudioFomat</code> of the file.
+	 * 
+	 * @return AudioFormat - The AudioFormat of the file.
+	 */
 	public AudioFormat getAudioFormat() {
 		return af;
 	}
 
 	/**
+	 * Returns the current sample size.
 	 * 
-	 * @return sampleSize
+	 * @return int - The sample size.
 	 */
 	public int getSampleSize() {
 		return sampleSize;
 	}
 
 	/**
+	 * Returns the duration.
 	 * 
-	 * @return Duration
+	 * @return double - Duration
 	 */
 	public double getDurationTime() {
 		return getFramesCount() / getAudioFormat().getFrameRate();
 	}
 
 	/**
+	 * Returns the number of frames.
 	 * 
-	 * @return framesCount
+	 * @return long - framesCount
 	 */
 	public long getFramesCount() {
 		return framesCount;
 	}
 
 	/**
-	 * Returns sample (amplitude value). Note that in case of stereo samples go one
-	 * after another. I.e. 0 - first sample of left channel, 1 - first sample of the
-	 * right channel, 2 - second sample of the left channel, 3 - second sample of
-	 * the rigth channel, etc.
+	 * Returns sample (amplitude value).<br >
+	 * Note that in case of stereo samples go one after another. I.e. 0 - first
+	 * sample of left channel, 1 - first sample of the right channel, 2 - second
+	 * sample of the left channel, 3 - second sample of the right channel, etc.
+	 * 
+	 * @return int - The sample.
+	 * 
 	 */
 	public int getSampleInt(int sampleNumber) {
 
-		//int sample = 0;
-		
 		if (sampleNumber < 0 || sampleNumber >= data.length / sampleSize) {
 			throw new IllegalArgumentException("sample number can't be < 0 or >= data.length/" + sampleSize);
 		}
@@ -127,11 +165,11 @@ public class WaveFile {
 		short firstSampleByte[] = new short[2];
 		short secondSampleByte[] = new short[2];
 		short[] NEWsampleBytes = new short[4]; // 4byte = int
-		//System.out.println(sampleSize); // Sample size  = 2
+
 		for (int i = 0; i < sampleSize; i++) {
 			sampleBytes[i] = data[sampleNumber * sampleSize * channelsNum + i];
 		}
-		//System.out.println("SampleBytes: " + Arrays.toString(sampleBytes));
+
 		firstSampleByte[0] = sampleBytes[0];
 		firstSampleByte[1] = sampleBytes[1];
 		secondSampleByte[0] = sampleBytes[2];
@@ -140,9 +178,7 @@ public class WaveFile {
 		NEWsampleBytes[1] = secondSampleByte[1];
 		NEWsampleBytes[2] = firstSampleByte[0];
 		NEWsampleBytes[3] = firstSampleByte[1];
-		//System.out.println("NEW SampleBytes™: " + Arrays.toString(NEWsampleBytes));
-	
-		//int sample = ShortBuffer.wrap(sampleBytes).get(ByteOrder.LITTLE_ENDIAN).getInt();
+
 		int sample = ShortBuffer.wrap(NEWsampleBytes).get(3);
 		return sample;
 	}

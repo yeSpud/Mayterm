@@ -3,6 +3,13 @@ package application.Database;
 import java.io.File;
 import application.Errors.UnrecognizableOperatingSystem;
 
+/**
+ * Class responsible for getting the current operating system, and where to
+ * store files based on the operating system.
+ * 
+ * @author Spud
+ *
+ */
 public class Environment {
 	/**
 	 * The file name for the database.
