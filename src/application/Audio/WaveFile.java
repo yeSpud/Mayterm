@@ -45,8 +45,8 @@ public class WaveFile {
 	 * 
 	 * @param file
 	 *            - the .wav file.
-	 * @throws UnsupportedAudioFileException
-	 * @throws IOException
+	 * @throws UnsupportedAudioFileException Thrown if the file is not supported.
+	 * @throws IOException Thrown due to some IO error. I dunno, never encountered this error in testing ¯\_(ツ)_/¯ 
 	 */
 	public WaveFile(File file) throws UnsupportedAudioFileException, IOException {
 
