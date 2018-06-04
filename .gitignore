@@ -7,3 +7,4 @@ config_gource_with_image
 /target/
 /bin/
 dict.txt
+gource_config
