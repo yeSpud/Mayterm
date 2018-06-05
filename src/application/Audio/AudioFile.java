@@ -60,6 +60,7 @@ public class AudioFile {
 	 * @return String - The formatted URL.
 	 */
 	public static String toURL(String FilePath) {
+		// TODO: Check based on OS
 		return String.format("file://%s", FilePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D")
 				.replace(":", "%3A").replace("\\", "%5C"));
 	}
@@ -72,6 +73,7 @@ public class AudioFile {
 	 * @return String - The formatted URL.
 	 */
 	public static String toFilePath(String URL) {
+		// TODO: Check based on OS
 		URL = URL.replace("file://", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("%5C",
 				"\\");
 		return URL.replace("%3A", ":");
