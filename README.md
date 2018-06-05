@@ -54,7 +54,7 @@ Once those are done however, I’ll see about working on other things with this 
 
 ## Credits and thanks
 
-This project is largely inspired by [vis.js][10], a similar project done by Max Roncace (@caseif). His [JS project][10] was a **huge** inspiration for everything in this visualizer, and I cannot give enough props to him. Be sure to [go check out what other projects he's done][11]!
+This project is largely inspired by [vis.js][10], a similar project done by Max Roncace (@caseif). His [JS project][10] was a **huge** inspiration for everything in this visualizer, and I cannot give enough props to him. Be sure to [go check out what other projects he has done][11]!
 
 
 [1]: https://www.youtube.com/user/MonstercatMedia/ "Here’s the channel"
