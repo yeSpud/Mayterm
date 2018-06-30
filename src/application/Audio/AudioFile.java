@@ -1,5 +1,6 @@
 package application.Audio;
 
+import application.Main;
 import application.Database.Environment;
 import application.Database.Environment.OS;
 import application.Errors.UnrecognizableOperatingSystem;
@@ -60,9 +61,12 @@ public class AudioFile {
 	 * @return String - The formatted URL.
 	 */
 	public static String toURL(String FilePath) {
-		// TODO: Check based on OS
-		return String.format("file://%s", FilePath.replace(" ", "%20").replace("[", "%5B").replace("]", "%5D")
-				.replace(":", "%3A").replace("\\", "%5C"));
+		String returnString = String.format("file://%s", FilePath.replace(" ", "%20").replace("[", "%5B")
+				.replace("]", "%5D").replace(":", "%3A").replace("\\", "%5C"));
+		if (Main.debug) {
+			System.out.println(String.format("FilePath: %s\nURL: %s", FilePath, returnString));
+		}
+		return returnString;
 	}
 
 	/**
@@ -73,10 +77,12 @@ public class AudioFile {
 	 * @return String - The formatted URL.
 	 */
 	public static String toFilePath(String URL) {
-		// TODO: Check based on OS
-		URL = URL.replace("file://", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]").replace("%5C",
-				"\\");
-		return URL.replace("%3A", ":");
+		String returnString = URL.replace("file://", "").replace("%20", " ").replace("%5B", "[").replace("%5D", "]")
+				.replace("%5C", "\\").replace("%3A", ":");
+		if (Main.debug) {
+			System.out.println(String.format("URL: %s\nFilePath: %s", URL, returnString));
+		}
+		return returnString;
 	}
 
 }

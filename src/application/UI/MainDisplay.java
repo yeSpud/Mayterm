@@ -86,7 +86,8 @@ public class MainDisplay {
 	 * <code>ESC</code> - Quits the program.<br>
 	 * <br>
 	 * <i>The rest of these command need to be executed while a track is being
-	 * played</i><br ><br>
+	 * played</i><br >
+	 * <br>
 	 * <code>UP arrow</code> - Increases volume.<br>
 	 * <code>DOWN arrow</code>- Decreases volume.<br>
 	 * <code>RIGHT arrow</code> - Skips track.<br>
@@ -121,6 +122,7 @@ public class MainDisplay {
 				AudioPlayer.skip();
 			} else if (key.equals(KeyCode.PERIOD)) {
 				/* Rotate current genre */
+				// TODO: Fix genre rotate
 				rotatoe++;
 				if (rotatoe > 12) {
 					rotatoe = 0;
@@ -131,6 +133,7 @@ public class MainDisplay {
 				Genre.rotateGenre(rotatoe);
 			} else if (key.equals(KeyCode.COMMA)) {
 				/* Rotate current genre */
+				// TODO: Fix genre rotate
 				rotatoe--;
 				if (rotatoe > 12) {
 					rotatoe = 0;

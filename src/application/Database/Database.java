@@ -56,13 +56,11 @@ public class Database {
 			Environment.getDatabaseFile().createNewFile();
 		} catch (IOException | UnrecognizableOperatingSystem e) {
 			e.printStackTrace();
-			return;
 		}
 		try {
 			writeToDatabase(result);
 		} catch (DatabaseError e) {
 			e.printStackTrace();
-			return;
 		}
 	}
 
@@ -125,7 +123,6 @@ public class Database {
 			reader = new FileReader(Environment.getDatabaseFile());
 		} catch (FileNotFoundException | UnrecognizableOperatingSystem e) {
 			e.printStackTrace();
-			return null;
 		}
 		BufferedReader bufferedReader = new BufferedReader(reader);
 		try {
@@ -134,7 +131,6 @@ public class Database {
 			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-			return null;
 		}
 		return data;
 	}
@@ -171,8 +167,8 @@ public class Database {
 			newread.close();
 			writeToDatabase(newsong.toString());
 		} catch (Exception e) {
-			System.out.println("Cannot add");
-			return;
+			System.out.println("Cannot add: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -268,7 +264,6 @@ public class Database {
 			writeToDatabase(newValue.toString());
 		} catch (DatabaseError e) {
 			e.printStackTrace();
-			return;
 		}
 	}
 
@@ -301,7 +296,6 @@ public class Database {
 			writeToDatabase(newValue.toString());
 		} catch (DatabaseError e) {
 			e.printStackTrace();
-			return;
 		}
 	}
 
@@ -334,7 +328,6 @@ public class Database {
 			writeToDatabase(newValue.toString());
 		} catch (DatabaseError e) {
 			e.printStackTrace();
-			return;
 		}
 	}
 
