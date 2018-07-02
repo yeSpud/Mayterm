@@ -1,6 +1,6 @@
 package application.SpectrumAlg;
 
-import application.Audio.AudioPlayer;
+import application.Core.Audio.AudioPlayer;
 import application.Core.UI.CoverArt;
 import application.Core.UI.Spectrum;
 import application.Core.UI.SpectrumDebug;

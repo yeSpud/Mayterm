@@ -1,4 +1,4 @@
-package application.Audio;
+package application.Core.Audio;
 
 import application.Main;
 import application.Core.Database.Environment;

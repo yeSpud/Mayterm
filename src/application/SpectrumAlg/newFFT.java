@@ -8,10 +8,10 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.jtransforms.fft.DoubleFFT_2D;
 
-import application.Audio.AudioFile;
-import application.Audio.AudioPlayer;
-import application.Audio.WaveFile;
-import application.Audio.wavConverter;
+import application.Core.Audio.AudioFile;
+import application.Core.Audio.AudioPlayer;
+import application.Core.Audio.WaveFile;
+import application.Core.Audio.wavConverter;
 
 public class newFFT {
 	static WaveFile wav = null;

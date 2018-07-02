@@ -1,7 +1,7 @@
 package application.Core.UI;
 
 import application.Main;
-import application.Audio.AudioPlayer;
+import application.Core.Audio.AudioPlayer;
 import application.SpectrumAlg.Default;
 import application.SpectrumAlg.FTTVis;
 import javafx.scene.Group;

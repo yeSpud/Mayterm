@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import application.Main;
-import application.Audio.AudioFile;
-import application.Audio.getMetadata;
+import application.Core.Audio.AudioFile;
+import application.Core.Audio.getMetadata;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;

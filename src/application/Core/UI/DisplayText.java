@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 
-import application.Audio.AudioFile;
-import application.Audio.AudioPlayer;
-import application.Audio.getMetadata;
+import application.Core.Audio.AudioFile;
+import application.Core.Audio.AudioPlayer;
+import application.Core.Audio.getMetadata;
 import javafx.animation.FadeTransition;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;

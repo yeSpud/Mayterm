@@ -1,7 +1,7 @@
 package application.Core.UI;
 
-import application.Audio.AudioFile;
-import application.Audio.AudioPlayer;
+import application.Core.Audio.AudioFile;
+import application.Core.Audio.AudioPlayer;
 import application.Core.Database.Database;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

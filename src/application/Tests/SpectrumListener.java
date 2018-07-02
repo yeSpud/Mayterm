@@ -1,6 +1,6 @@
 package application.Tests;
 
-import application.Audio.AudioPlayer;
+import application.Core.Audio.AudioPlayer;
 import application.Core.UI.CoverArt;
 import application.Core.UI.Spectrum;
 import javafx.scene.media.AudioSpectrumListener;

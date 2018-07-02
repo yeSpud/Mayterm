@@ -1,6 +1,6 @@
 package application.Tests;
 
-import application.Audio.AudioPlayer;
+import application.Core.Audio.AudioPlayer;
 
 // Ripped directly from: https://github.com/caseif/vis.js/blob/4beea1390a3dae879610a7d9f7c283b575cfc4b2/js/analysis/spectrum_algorithms.js
 @Deprecated

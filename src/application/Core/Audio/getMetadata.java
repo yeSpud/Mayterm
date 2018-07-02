@@ -1,4 +1,4 @@
-package application.Audio;
+package application.Core.Audio;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

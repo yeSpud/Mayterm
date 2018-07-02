@@ -1,8 +1,8 @@
 package application.Core.UI;
 
 import application.Main;
-import application.Audio.AudioFile;
-import application.Audio.AudioPlayer;
+import application.Core.Audio.AudioFile;
+import application.Core.Audio.AudioPlayer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;

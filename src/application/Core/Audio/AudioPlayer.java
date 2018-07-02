@@ -1,4 +1,4 @@
-package application.Audio;
+package application.Core.Audio;
 
 import java.net.URI;
 import java.util.Stack;
