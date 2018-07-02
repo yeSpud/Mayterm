@@ -1,6 +1,6 @@
 package application.Core.UI;
 
-import application.Main;
+import application.Core.Main;
 import application.Core.Audio.AudioPlayer;
 import application.SpectrumAlg.Default;
 import application.SpectrumAlg.FTTVis;

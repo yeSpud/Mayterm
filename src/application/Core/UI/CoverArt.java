@@ -3,9 +3,12 @@ package application.Core.UI;
 import java.io.File;
 import java.io.IOException;
 
-import application.Main;
+import application.Core.Main;
 import application.Core.Audio.AudioFile;
 import application.Core.Audio.getMetadata;
+import application.Core.Database.Environment;
+import application.Core.Database.Environment.OS;
+import application.Core.Errors.UnrecognizableOperatingSystem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
@@ -42,8 +45,21 @@ public class CoverArt {
 		catLogo = null;
 		catLogoBlack = null;
 		try {
-			catLogo = new Image(a.getClass().getResource("Resources/mcatTransparent.png").openStream());
-			catLogoBlack = new Image(a.getClass().getResource("Resources/mcatTransparentBlack.png").openStream());
+			try {
+				if (Environment.getOS().equals(OS.MACOS) || Environment.getOS().equals(OS.LINUX)) {
+					catLogo = new Image(a.getClass().getResource("Resources/mcatTransparent.png").openStream());
+					catLogoBlack = new Image(
+							a.getClass().getResource("Resources/mcatTransparentBlack.png").openStream());
+				} else if (Environment.getOS().equals(OS.WINDOWS)) {
+					catLogo = new Image(a.getClass().getResource("Resources\\mcatTransparent.png").openStream());
+					catLogoBlack = new Image(
+							a.getClass().getResource("Resources\\mcatTransparentBlack.png").openStream());
+				} else {
+					throw new UnrecognizableOperatingSystem();
+				}
+			} catch (UnrecognizableOperatingSystem e) {
+				e.printStackTrace();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -54,8 +70,7 @@ public class CoverArt {
 	/**
 	 * Sets the art image.
 	 * 
-	 * @param image
-	 *            - the Image to be set.
+	 * @param image - the Image to be set.
 	 */
 	public static void setArt(Image image) {
 		coverArt.setX(1034);
@@ -73,8 +88,7 @@ public class CoverArt {
 	/**
 	 * Tries to automatically set the image based on the provided source.
 	 * 
-	 * @param source
-	 *            - The URL friendly source.
+	 * @param source - The URL friendly source.
 	 */
 	public static void autoSetArt(String source) {
 		File file = new File(AudioFile.toFilePath(source));
@@ -90,8 +104,7 @@ public class CoverArt {
 	 * Changes the cat in the cover art to a black cat, preferably only of the
 	 * background is white though.
 	 * 
-	 * @param blackCat
-	 *            - whether or not the cover art cat needs to be a black cat.
+	 * @param blackCat - whether or not the cover art cat needs to be a black cat.
 	 */
 	public static void blackCat(boolean blackCat) {
 		if (blackCat) {

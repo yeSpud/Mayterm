@@ -48,7 +48,7 @@ public class AudioPlayer {
 				System.out.println("Adding to database");
 				DisplayText.setTitleAndArtist(URI.create(media.getSource()).getPath());
 				Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
-				Database.addSong(AudioFile.toFilePath(media.getSource()), Genre.genre.ELECTRONIC,
+				Database.addTrack(AudioFile.toFilePath(media.getSource()), Genre.genre.ELECTRONIC,
 						getMetadata.getTitle(media.getSource()), getMetadata.getArtist(media.getSource()));
 			}
 

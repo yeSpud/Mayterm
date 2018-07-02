@@ -1,4 +1,4 @@
-package application;
+package application.Core;
 
 import application.Core.Database.Database;
 import application.Core.UI.Genre;
@@ -15,6 +15,7 @@ public class Main extends Application {
 
 	public static boolean debug = false;
 	
+	// TODO: Window title (Now playing/paused... track, vis info...)
 	// TODO: Fix spectrum
 	// TODO 2: Other background stuffs
 	// TODO 2: Moar controls

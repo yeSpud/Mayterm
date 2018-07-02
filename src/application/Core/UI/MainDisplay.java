@@ -1,6 +1,6 @@
 package application.Core.UI;
 
-import application.Main;
+import application.Core.Main;
 import application.Core.Audio.AudioFile;
 import application.Core.Audio.AudioPlayer;
 import javafx.event.EventHandler;
