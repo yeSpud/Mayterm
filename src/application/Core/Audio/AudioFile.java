@@ -97,9 +97,7 @@ public class AudioFile {
 		} catch (UnrecognizableOperatingSystem e) {
 			e.printStackTrace();
 		}
-		if (Main.debug) {
-			System.out.println(String.format("URL: %s\nFilePath: %s", URL, returnString));
-		}
+		System.out.println(String.format("URL -> file path\n%s -> %s", URL, returnString));
 		return returnString;
 	}
 

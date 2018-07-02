@@ -12,7 +12,6 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
-import application.Core.Database.Environment.OS;
 import application.Core.Errors.DatabaseError;
 import application.Core.Errors.UnrecognizableOperatingSystem;
 import application.Core.UI.Genre.genre;
@@ -168,12 +167,11 @@ public class Database {
 			System.out.print("Is track array empty? ");
 			if (trackArray.isEmpty() || trackArray.equals("{}")) {
 				System.out.print("True\n");
-				trackArray = String.format("{\"%s\":%s}", path, track_info.toString());
+				trackArray = String.format("{\"%s\":%s}", path.replace("\\", "\\\\"), track_info.toString());
 			} else {
 				System.out.print("False\n");
-				trackArray = String.format("%s,\"%s\":%s}", trackArray.replace("}}", "}"), path, track_info.toString());
+				trackArray = String.format("%s,\"%s\":%s}", trackArray.replace("}}", "}"), path.replace("\\", "\\\\"), track_info.toString());
 			}
-			trackArray = trackArray.replace("\\", "\\\\");
 			System.out.println("Updated track array: " + trackArray);
 			
 			JsonReader jsonOut = Json.createReader(new StringReader(trackArray));
@@ -195,6 +193,7 @@ public class Database {
 	 * @return Boolean based on whether or not the path is in the database.
 	 */
 	public static boolean isInDatabase(String path) {
+		System.out.println("Path: " + path);
 		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
 		JsonObject fill = read.readObject();
 		read.close();
@@ -323,22 +322,37 @@ public class Database {
 	 *             - The new genre.
 	 */
 	public static void editGenre(String path, genre newGenre) {
-		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
-		JsonObject full = read.readObject();
-		read.close();
-		JsonObject songs = full.getJsonObject("Songs");
-		JsonObject song_info = Json.createObjectBuilder().add("Color", newGenre.toString()).add("Title", getTitle(path))
+		System.out.println(String.format("Path: %s\nGenre: %s", path, newGenre.toString()));
+		
+		JsonReader jsonIn = Json.createReader(new StringReader(retrieveFromDatabase()));
+		JsonObject fullJson = jsonIn.readObject();
+		jsonIn.close();
+		System.out.println("Full json: " + fullJson.toString());
+		
+		JsonObject tracks = fullJson.getJsonObject("Songs");
+		System.out.println("Tracks: " + tracks.toString());
+		
+		JsonObject track_info = Json.createObjectBuilder().add("Color", newGenre.toString()).add("Title", getTitle(path))
 				.add("Artist", getArtist(path)).build();
-		String songsArray = songs.toString();
-		if (songsArray.isEmpty() || songsArray.equals("{}")) {
-			songsArray = String.format("{\"%s\":%s}", path, song_info.toString());
+		System.out.println("Track info: " + track_info.toString());
+		
+		String trackArray = tracks.toString();
+		System.out.println("Track array: " + trackArray);
+		System.out.print("Is track array empty? ");
+		if (trackArray.isEmpty() || trackArray.equals("{}")) {
+			System.out.print("True\n");
+			trackArray = String.format("{\"%s\":%s}", path.replace("\\", "\\\\"), track_info.toString());
 		} else {
-			songsArray = String.format("%s,\"%s\":%s}", songsArray.replace("}}", "}"), path, song_info.toString());
+			System.out.print("False\n");
+			trackArray = String.format("%s,\"%s\":%s}", trackArray.replace("}}", "}"), path.replace("\\", "\\\\"), track_info.toString());
 		}
-		JsonReader newread = Json.createReader(new StringReader(songsArray));
-		JsonObject newValue = Json.createObjectBuilder().add("Settings", full.get("Settings"))
+		System.out.println("Updated track array: " + trackArray);
+		
+		JsonReader newread = Json.createReader(new StringReader(trackArray));
+		JsonObject newValue = Json.createObjectBuilder().add("Settings", fullJson.get("Settings"))
 				.add("Songs", newread.read()).build();
 		newread.close();
+		
 		try {
 			writeToDatabase(newValue.toString());
 		} catch (DatabaseError e) {
