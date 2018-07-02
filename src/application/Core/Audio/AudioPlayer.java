@@ -8,6 +8,7 @@ import application.Core.Database.Database;
 import application.Core.UI.DisplayText;
 import application.Core.UI.Genre;
 import application.Core.UI.Spectrum;
+import application.Core.UI.Title;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -35,16 +36,17 @@ public class AudioPlayer {
 
 			player = new MediaPlayer(media);
 			player.setVolume(DisplayText.volume);
-
-			DisplayText.setTitle(media.getSource());
+			
+			String path = AudioFile.toFilePath(media.getSource());
+			
+			Title.setTitle(path);
 			DisplayText.setArtist("");
 
 			if (Database.isInDatabase(AudioFile.toFilePath(media.getSource()))) {
-				String path = AudioFile.toFilePath(media.getSource());
 				if (Main.debug) {
 					System.out.println("Already in database");
 				}
-				DisplayText.setTitle(Database.getTitle(path));
+				Title.setTitle(Database.getTitle(path));
 				DisplayText.setArtist(Database.getArtist(path));
 				Genre.setGenre(Genre.genre.valueOf(Database.getGenre(path)).getColor());
 			} else {

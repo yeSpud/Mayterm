@@ -24,6 +24,7 @@ import javafx.util.Duration;
  * @author Spud
  *
  */
+@Deprecated
 public class DisplayText {
 
 	static Text author = new Text("No file currently selected"/* "TRISTAM & BRAKEN" */),

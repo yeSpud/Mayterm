@@ -16,7 +16,7 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.mp4.Mp4Tag;
 
-import application.Core.Errors.UnrecognisableFileType;
+import application.Core.Errors.UnrecognizableFileType;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.WritableImage;
 
@@ -94,7 +94,7 @@ public class getMetadata {
 		return returnedData;
 	}
 	
-	public static WritableImage getImage(String filePath) throws UnrecognisableFileType {
+	public static WritableImage getImage(String filePath) throws UnrecognizableFileType {
 		WritableImage returnImage = null;
 		if (filePath.endsWith(".mp3")) {
 			MP3File metadata = null;
@@ -145,7 +145,7 @@ public class getMetadata {
 				}
 			}
 		} else {
-			throw new UnrecognisableFileType();
+			throw new UnrecognizableFileType();
 		}
 		return returnImage;
 	}

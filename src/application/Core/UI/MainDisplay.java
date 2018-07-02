@@ -74,6 +74,7 @@ public class MainDisplay {
 	 */
 	public static void createInfo() {
 		DisplayText.setupText();
+		Title.setup();
 		CoverArt.createCoverArt();
 		root.getChildren().add(MainDisplay.nothing);
 	}
