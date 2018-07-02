@@ -1,7 +1,6 @@
 package application.Tests;
 
 import application.Core.Audio.AudioPlayer;
-import application.Core.UI.CoverArt;
 import application.Core.UI.Spectrum;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.shape.Rectangle;
@@ -25,9 +24,9 @@ public class SpectrumListener implements AudioSpectrumListener {
 		int index = 0, bucketIndex = 0, currentBucketCount = 0;
 		double sum = 0.0d;
 		
-		if (timestamp < .125d) {
-			CoverArt.autoSetArt(AudioPlayer.media.getSource());
-		}
+		//if (timestamp < .125d) {
+			//CoverArt.autoSetArt(AudioPlayer.media.getSource());
+		//}
 		
 		
 		while (index < magnitudes.length) {

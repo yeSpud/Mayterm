@@ -14,8 +14,7 @@ public class Main extends Application {
 	public static Stage mainStage;
 
 	public static boolean debug = false;
-	
-	// TODO: Window title (Now playing/paused... track, vis info...)
+
 	// TODO: Fix spectrum
 	// TODO 2: Other background stuffs
 	// TODO 2: Moar controls
@@ -29,21 +28,35 @@ public class Main extends Application {
 			Updater.showUpdatePrompt();
 		}
 
-		System.out.println("\nDoes database exist: " + Database.databaseExist());
+		if (debug) {
+			System.out.println("\nDoes database exist: " + Database.databaseExist());
+		}
 		if (!Database.databaseExist()) {
-			System.out.println("Creating Database");
+			if (debug) {
+				System.out.println("Creating Database");
+			}
 			Database.createDatabase();
 		}
-		System.out.println("Creating load bar");
+		if (debug) {
+			System.out.println("Creating load bar");
+		}
 		MainDisplay.createPlaceholderBar();
-		System.out.println("Creating specturm");
+		if (debug) {
+			System.out.println("Creating specturm");
+		}
 		Spectrum.createSpectrum();
-		System.out.println("Creating info stuff");
+		if (debug) {
+			System.out.println("Creating info stuff");
+		}
 		MainDisplay.createInfo();
-		System.out.println("Setting genre");
+		if (debug) {
+			System.out.println("Setting genre");
+		}
 		Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
 
-		System.out.println("Displaying window");
+		if (debug) {
+			System.out.println("Displaying window");
+		}
 		MainDisplay.createMainStage(primaryStage);
 		// primaryStage.setOpacity(.4);
 		if (debug) {
@@ -59,6 +72,6 @@ public class Main extends Application {
 			debug = false;
 		}
 		launch(args);
-		
+
 	}
 }

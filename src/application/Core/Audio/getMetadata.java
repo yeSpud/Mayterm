@@ -16,8 +16,9 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.mp4.Mp4Tag;
 
-import application.Core.UI.CoverArt;
+import application.Core.Errors.UnrecognisableFileType;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.WritableImage;
 
 /**
  * Class for handling the metadata of different media file formats. This is what
@@ -52,21 +53,9 @@ public class getMetadata {
 			return returnedData;
 		}
 		Tag data = metadata.getTag();
-		returnedData[0] = data.getFirst(artist).toUpperCase();
-		returnedData[1] = data.getFirst(title).toUpperCase();
-
-		if (!data.getFirst(art).isEmpty()) {
-			try {
-				CoverArt.setArt(SwingFXUtils.toFXImage((BufferedImage) (data.getFirstArtwork().getImage()), null));
-			} catch (Exception uhhh) {
-				try {
-					CoverArt.setArt(
-							SwingFXUtils.toFXImage((BufferedImage) (data.getArtworkList().get(0)).getImage(), null));
-				} catch (IOException | IndexOutOfBoundsException e) {
-					// Lol :P
-				}
-			}
-		}
+		returnedData[0] = data.getFirst(artist);
+		returnedData[1] = data.getFirst(title);
+		
 		return returnedData;
 	}
 
@@ -99,22 +88,66 @@ public class getMetadata {
 			return returnedData;
 		}
 
-		returnedData[0] = data.getFirst(artist).toUpperCase();
-		returnedData[1] = data.getFirst(title).toUpperCase();
+		returnedData[0] = data.getFirst(artist);
+		returnedData[1] = data.getFirst(title);
 
-		if (!data.getFirst(art).isEmpty()) {
+		return returnedData;
+	}
+	
+	public static WritableImage getImage(String filePath) throws UnrecognisableFileType {
+		WritableImage returnImage = null;
+		if (filePath.endsWith(".mp3")) {
+			MP3File metadata = null;
 			try {
-				CoverArt.setArt(SwingFXUtils.toFXImage((BufferedImage) (data.getFirstArtwork().getImage()), null));
-			} catch (Exception uhhh) {
+				metadata = new MP3File(filePath);
+			} catch (IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
+				e.printStackTrace();
+				returnImage = null;
+			}
+			Tag data = metadata.getTag();
+			if (!data.getFirst(art).isEmpty()) {
 				try {
-					CoverArt.setArt(
-							SwingFXUtils.toFXImage((BufferedImage) (data.getArtworkList().get(0)).getImage(), null));
-				} catch (IOException | IndexOutOfBoundsException e) {
-					// Lol :P
+					returnImage = SwingFXUtils.toFXImage((BufferedImage) (data.getFirstArtwork().getImage()), null);
+				} catch (Exception e) {
+					try {
+						returnImage = SwingFXUtils.toFXImage((BufferedImage) (data.getArtworkList().get(0)).getImage(), null);
+					} catch (IOException | IndexOutOfBoundsException e1) {
+						returnImage = null;
+					}
 				}
 			}
+		} else if (filePath.endsWith(".mp4") || filePath.endsWith(".m4a") || filePath.endsWith(".m4v")) {
+			RandomAccessFile raf = null;
+			try {
+				raf = new RandomAccessFile(new File(filePath), "r");
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+				returnImage = null;
+			}
+			Mp4TagReader metadata = new Mp4TagReader();
+			Mp4Tag data = null;
+			try {
+				data = metadata.read(raf);
+				raf.close();
+			} catch (CannotReadException | IOException e) {
+				e.printStackTrace();
+				returnImage = null;
+			}
+			if (!data.getFirst(art).isEmpty()) {
+				try {
+					returnImage = SwingFXUtils.toFXImage((BufferedImage) (data.getFirstArtwork().getImage()), null);
+				} catch (Exception uhhh) {
+					try {
+						returnImage = SwingFXUtils.toFXImage((BufferedImage) (data.getArtworkList().get(0)).getImage(), null);
+					} catch (IOException | IndexOutOfBoundsException e) {
+						returnImage = null;
+					}
+				}
+			}
+		} else {
+			throw new UnrecognisableFileType();
 		}
-		return returnedData;
+		return returnImage;
 	}
 
 	/**

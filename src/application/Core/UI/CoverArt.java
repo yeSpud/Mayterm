@@ -1,10 +1,8 @@
 package application.Core.UI;
 
-import java.io.File;
 import java.io.IOException;
 
 import application.Core.Main;
-import application.Core.Audio.AudioFile;
 import application.Core.Audio.getMetadata;
 import application.Core.Database.Environment;
 import application.Core.Database.Environment.OS;
@@ -72,30 +70,19 @@ public class CoverArt {
 	 * 
 	 * @param image - the Image to be set.
 	 */
-	public static void setArt(Image image) {
+	public static void setArt(String filePath) {
 		coverArt.setX(1034);
 		coverArt.setY(198);
-		coverArt.setImage(image);
+		try {
+			coverArt.setImage(getMetadata.getImage(filePath));
+		} catch (Exception e) {
+			coverArt.setImage(null);
+		}
 		coverArt.setFitHeight(126);
 		coverArt.setFitWidth(126);
 		coverArt.setRotate(180);
 		if (!MainDisplay.root.getChildren().contains(coverArt)) {
 			MainDisplay.root.getChildren().add(coverArt);
-		}
-
-	}
-
-	/**
-	 * Tries to automatically set the image based on the provided source.
-	 * 
-	 * @param source - The URL friendly source.
-	 */
-	public static void autoSetArt(String source) {
-		File file = new File(AudioFile.toFilePath(source));
-		if (source.contains(".mp3")) {
-			getMetadata.getMp3(file);
-		} else if (source.contains(".mp4") || source.contains(".m4a") || source.contains(".m4v")) {
-			getMetadata.getMp4(file);
 		}
 
 	}

@@ -3,6 +3,7 @@ package application.Core.Audio;
 import java.net.URI;
 import java.util.Stack;
 
+import application.Core.Main;
 import application.Core.Database.Database;
 import application.Core.UI.DisplayText;
 import application.Core.UI.Genre;
@@ -37,15 +38,19 @@ public class AudioPlayer {
 
 			DisplayText.setTitle(media.getSource());
 			DisplayText.setArtist("");
-			
+
 			if (Database.isInDatabase(AudioFile.toFilePath(media.getSource()))) {
 				String path = AudioFile.toFilePath(media.getSource());
-				System.out.println("Already in database");
+				if (Main.debug) {
+					System.out.println("Already in database");
+				}
 				DisplayText.setTitle(Database.getTitle(path));
 				DisplayText.setArtist(Database.getArtist(path));
 				Genre.setGenre(Genre.genre.valueOf(Database.getGenre(path)).getColor());
 			} else {
-				System.out.println("Adding to database");
+				if (Main.debug) {
+					System.out.println("Adding to database");
+				}
 				DisplayText.setTitleAndArtist(URI.create(media.getSource()).getPath());
 				Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
 				Database.addTrack(AudioFile.toFilePath(media.getSource()), Genre.genre.ELECTRONIC,
@@ -70,7 +75,6 @@ public class AudioPlayer {
 						stop();
 						isPlaying = false;
 					}
-
 				}
 			});
 
@@ -79,6 +83,9 @@ public class AudioPlayer {
 			player.play();
 			isPlaying = true;
 			isPaused = false;
+			Main.mainStage.setTitle(
+					String.format("Now playing: %s - %s", Database.getArtist(AudioFile.toFilePath(media.getSource())),
+							Database.getTitle(AudioFile.toFilePath(media.getSource()))));
 
 		} else if (isPaused && !isPlaying) {
 			pause();
@@ -96,10 +103,16 @@ public class AudioPlayer {
 				isPaused = true;
 				isPlaying = false;
 				Spectrum.clearSpectrum();
+				Main.mainStage.setTitle(
+						String.format("Paused: %s - %s", Database.getArtist(AudioFile.toFilePath(media.getSource())),
+								Database.getTitle(AudioFile.toFilePath(media.getSource()))));
 			} else {
 				player.play();
 				isPaused = false;
 				isPlaying = true;
+				Main.mainStage.setTitle(String.format("Now playing: %s - %s",
+						Database.getArtist(AudioFile.toFilePath(media.getSource())),
+						Database.getTitle(AudioFile.toFilePath(media.getSource()))));
 			}
 		} catch (NullPointerException NPE) {
 			return;
@@ -130,6 +143,7 @@ public class AudioPlayer {
 			isPaused = false;
 			Spectrum.disableSpectrum(false);
 			player.dispose();
+			Main.mainStage.setTitle("");
 		} catch (NullPointerException NPE) {
 			return;
 		}

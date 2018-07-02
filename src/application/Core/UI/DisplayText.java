@@ -91,7 +91,7 @@ public class DisplayText {
 	 *            - The new artist text.
 	 */
 	public static void setArtist(String athr) {
-		author.setText(athr);
+		author.setText(athr.toUpperCase());
 		author.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, authorSize));
 		author.setX(1012 - author.getLayoutBounds().getWidth());
 		checkTextSpacing(author, FontWeight.EXTRA_BOLD, authorSize);
@@ -104,7 +104,7 @@ public class DisplayText {
 	 *            - the new title text.
 	 */
 	public static void setTitle(String ttl) {
-		title.setText(ttl);
+		title.setText(ttl.toUpperCase());
 		title.setFont(Font.font("Arial", titleSize));
 		title.setX(1012 - title.getLayoutBounds().getWidth());
 		checkTextSpacing(title, null, titleSize);

@@ -1,5 +1,6 @@
 package application.SpectrumAlg;
 
+import application.Core.Audio.AudioFile;
 import application.Core.Audio.AudioPlayer;
 import application.Core.UI.CoverArt;
 import application.Core.UI.Spectrum;
@@ -20,8 +21,13 @@ public class Default implements AudioSpectrumListener {
 	@Override
 	public void spectrumDataUpdate(double timestamp, double duration, float[] magnitudes, float[] phases) {
 
-		if (timestamp < .07d) {
-			CoverArt.autoSetArt(AudioPlayer.media.getSource());
+		if (timestamp > 16.00d && timestamp < 16.07d) {
+			String src = AudioFile.toFilePath(AudioPlayer.media.getSource());
+			CoverArt.setArt(src);
+		}
+
+		if ((AudioPlayer.media.getDuration().toSeconds() - timestamp) < 35.0d) {
+			CoverArt.setArt(null);
 		}
 
 		for (int i = 0; i < magnitudes.length; i++) {
