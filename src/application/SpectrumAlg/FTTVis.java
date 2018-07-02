@@ -1,4 +1,4 @@
-package application.SpectrumThings;
+package application.SpectrumAlg;
 
 import javafx.scene.media.AudioSpectrumListener;
 

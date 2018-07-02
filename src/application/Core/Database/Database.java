@@ -1,4 +1,4 @@
-package application.Database;
+package application.Core.Database;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -12,9 +12,9 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
-import application.Errors.DatabaseError;
-import application.Errors.UnrecognizableOperatingSystem;
-import application.UI.Genre.genre;
+import application.Core.Errors.DatabaseError;
+import application.Core.Errors.UnrecognizableOperatingSystem;
+import application.Core.UI.Genre.genre;
 
 /**
  * Class responsible for handling the creating, and handling the database.

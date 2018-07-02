@@ -1,9 +1,9 @@
 package application.Audio;
 
 import application.Main;
-import application.Database.Environment;
-import application.Database.Environment.OS;
-import application.Errors.UnrecognizableOperatingSystem;
+import application.Core.Database.Environment;
+import application.Core.Database.Environment.OS;
+import application.Core.Errors.UnrecognizableOperatingSystem;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 

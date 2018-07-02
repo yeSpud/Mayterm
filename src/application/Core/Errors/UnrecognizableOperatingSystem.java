@@ -1,4 +1,4 @@
-package application.Errors;
+package application.Core.Errors;
 
 /**
  * Error for when the current operating system is neither Windows, macOS, or Linux.

@@ -3,10 +3,10 @@ package application.Audio;
 import java.net.URI;
 import java.util.Stack;
 
-import application.Database.Database;
-import application.SpectrumThings.Spectrum;
-import application.UI.DisplayText;
-import application.UI.Genre;
+import application.Core.Database.Database;
+import application.Core.UI.DisplayText;
+import application.Core.UI.Genre;
+import application.Core.UI.Spectrum;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 

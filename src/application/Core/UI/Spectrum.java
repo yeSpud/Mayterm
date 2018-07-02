@@ -1,10 +1,9 @@
-package application.SpectrumThings;
+package application.Core.UI;
 
 import application.Main;
 import application.Audio.AudioPlayer;
-import application.UI.CoverArt;
-import application.UI.DisplayText;
-import application.UI.MainDisplay;
+import application.SpectrumAlg.Default;
+import application.SpectrumAlg.FTTVis;
 import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
@@ -78,7 +77,7 @@ public class Spectrum {
 		if (Main.debug) {
 			AudioPlayer.player.setAudioSpectrumListener(new FTTVis());
 		}
-		AudioPlayer.player.setAudioSpectrumListener(new Fallback());
+		AudioPlayer.player.setAudioSpectrumListener(new Default());
 
 	}
 

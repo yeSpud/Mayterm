@@ -1,4 +1,4 @@
-package application.SpectrumThings;
+package application.SpectrumAlg;
 
 import java.io.File;
 import java.io.IOException;

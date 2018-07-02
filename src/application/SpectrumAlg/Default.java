@@ -1,7 +1,9 @@
-package application.SpectrumThings;
+package application.SpectrumAlg;
 
 import application.Audio.AudioPlayer;
-import application.UI.CoverArt;
+import application.Core.UI.CoverArt;
+import application.Core.UI.Spectrum;
+import application.Core.UI.SpectrumDebug;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -13,7 +15,7 @@ import javafx.scene.text.Text;
  * @author Spud
  *
  */
-public class Fallback implements AudioSpectrumListener {
+public class Default implements AudioSpectrumListener {
 
 	@Override
 	public void spectrumDataUpdate(double timestamp, double duration, float[] magnitudes, float[] phases) {

@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import application.Database.Environment;
-import application.Errors.UnrecognizableOperatingSystem;
+import application.Core.Database.Environment;
+import application.Core.Errors.UnrecognizableOperatingSystem;
 import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.FFprobe;

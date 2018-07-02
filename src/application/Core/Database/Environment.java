@@ -1,7 +1,8 @@
-package application.Database;
+package application.Core.Database;
 
 import java.io.File;
-import application.Errors.UnrecognizableOperatingSystem;
+
+import application.Core.Errors.UnrecognizableOperatingSystem;
 
 /**
  * Class responsible for getting the current operating system, and where to

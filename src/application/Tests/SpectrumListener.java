@@ -1,8 +1,8 @@
 package application.Tests;
 
 import application.Audio.AudioPlayer;
-import application.SpectrumThings.Spectrum;
-import application.UI.CoverArt;
+import application.Core.UI.CoverArt;
+import application.Core.UI.Spectrum;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.shape.Rectangle;
 

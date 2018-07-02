@@ -12,9 +12,9 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import application.Database.Environment;
-import application.Errors.UnrecognizableOperatingSystem;
-import application.SpectrumThings.FTTVis;
+import application.Core.Database.Environment;
+import application.Core.Errors.UnrecognizableOperatingSystem;
+import application.SpectrumAlg.FTTVis;
 
 /**
  * Class responsible for analyzing a .wav file. <br>

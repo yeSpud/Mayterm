@@ -1,11 +1,11 @@
 package application;
 
-import application.Database.Database;
-import application.SpectrumThings.Spectrum;
-import application.SpectrumThings.SpectrumDebug;
-import application.UI.Genre;
-import application.UI.MainDisplay;
-import application.UI.Updater;
+import application.Core.Database.Database;
+import application.Core.UI.Genre;
+import application.Core.UI.MainDisplay;
+import application.Core.UI.Spectrum;
+import application.Core.UI.SpectrumDebug;
+import application.Core.UI.Updater;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

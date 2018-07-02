@@ -1,4 +1,4 @@
-package application.Errors;
+package application.Core.Errors;
 
 /**
  * Database error. Either cannot write, or doesn't exist.

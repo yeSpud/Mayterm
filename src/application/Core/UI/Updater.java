@@ -1,4 +1,4 @@
-package application.UI;
+package application.Core.UI;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;

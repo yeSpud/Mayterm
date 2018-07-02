@@ -1,6 +1,5 @@
-package application.SpectrumThings;
+package application.Core.UI;
 
-import application.UI.MainDisplay;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;

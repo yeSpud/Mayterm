@@ -16,7 +16,7 @@ import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.mp4.Mp4Tag;
 
-import application.UI.CoverArt;
+import application.Core.UI.CoverArt;
 import javafx.embed.swing.SwingFXUtils;
 
 /**

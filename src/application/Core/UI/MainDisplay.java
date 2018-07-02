@@ -1,4 +1,4 @@
-package application.UI;
+package application.Core.UI;
 
 import application.Main;
 import application.Audio.AudioFile;
