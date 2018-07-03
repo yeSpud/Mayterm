@@ -43,7 +43,7 @@ public class MainDisplay {
 		try {
 			Main.mainStage = primaryStage;
 			Main a = new Main();
-			scene.getStylesheets().add(a.getClass().getResource("Resources/application.css").toExternalForm());
+			scene.getStylesheets().add(a.getClass().getResource("application.css").toExternalForm());
 			Main.mainStage.setScene(scene);
 			scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 				@Override

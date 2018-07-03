@@ -45,13 +45,13 @@ public class CoverArt {
 		try {
 			try {
 				if (Environment.getOS().equals(OS.MACOS) || Environment.getOS().equals(OS.LINUX)) {
-					catLogo = new Image(a.getClass().getResource("Resources/mcatTransparent.png").openStream());
+					catLogo = new Image(a.getClass().getResource("mcatTransparent.png").openStream());
 					catLogoBlack = new Image(
-							a.getClass().getResource("Resources/mcatTransparentBlack.png").openStream());
+							a.getClass().getResource("mcatTransparentBlack.png").openStream());
 				} else if (Environment.getOS().equals(OS.WINDOWS)) {
-					catLogo = new Image(a.getClass().getResource("Resources\\mcatTransparent.png").openStream());
+					catLogo = new Image(a.getClass().getResource("mcatTransparent.png").openStream());
 					catLogoBlack = new Image(
-							a.getClass().getResource("Resources\\mcatTransparentBlack.png").openStream());
+							a.getClass().getResource("mcatTransparentBlack.png").openStream());
 				} else {
 					throw new UnrecognizableOperatingSystem();
 				}
