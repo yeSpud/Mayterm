@@ -28,5 +28,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/Mayterm/3rd-party-libs/JTransforms-3.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="3rd-party-libs/jansi-1.17.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

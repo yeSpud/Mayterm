@@ -27,37 +27,31 @@ public class Main extends Application {
 			Updater.showUpdatePrompt();
 		}
 
-		if (debug) {
-			System.out.println("\nDoes database exist: " + Database.databaseExist());
-		}
+		Debugger.d(this.getClass(), "Does database exist: " + Database.databaseExist());
+		
 		if (!Database.databaseExist()) {
-			if (debug) {
-				System.out.println("Creating Database");
-			}
+			Debugger.d(this.getClass(), "Creating Database");
 			Database.createDatabase();
 		}
-		if (debug) {
-			System.out.println("Creating load bar");
-		}
+		
+		Debugger.d(this.getClass(), "Creating load bar");
 		MainDisplay.createPlaceholderBar();
-		if (debug) {
-			System.out.println("Creating specturm");
-		}
+		
+		
+		Debugger.d(this.getClass(), "Creating specturm");
 		Spectrum.createSpectrum();
-		if (debug) {
-			System.out.println("Creating info stuff");
-		}
+		
+		Debugger.d(this.getClass(), "Creating info stuff");
 		MainDisplay.createInfo();
-		if (debug) {
-			System.out.println("Setting genre");
-		}
+		
+		Debugger.d(this.getClass(), "Setting genre");
 		Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
 
-		if (debug) {
-			System.out.println("Displaying window");
-		}
+		Debugger.d(this.getClass(), "Displaying window");
 		MainDisplay.createMainStage(primaryStage);
+		
 		// primaryStage.setOpacity(.4);
+		
 		if (debug) {
 			SpectrumDebug.createAndEnableDebug();
 		}
