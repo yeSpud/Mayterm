@@ -1,5 +1,6 @@
 package application.Core.UI;
 
+import application.Core.Debugger;
 import application.Core.Main;
 import application.Core.Audio.AudioFile;
 import application.Core.Audio.AudioPlayer;
@@ -30,7 +31,7 @@ public class MainDisplay {
 
 	public static int space = (int) ((scene.getWidth() - ((7 * 63) * 1.95)) / 2), rotatoe = 4;
 
-	public static Rectangle nothing = new Rectangle(115, 356, 1046, 2);
+	public static Rectangle zeroBar = new Rectangle(115, 356, 1046, 2);
 
 	/**
 	 * Creates the main stage of the display.
@@ -62,24 +63,26 @@ public class MainDisplay {
 	 * Creates the placeholder bar for when the spectrum is disabled.
 	 */
 	public static void createPlaceholderBar() {
-		nothing.setStrokeType(StrokeType.CENTERED);
-		nothing.setStroke(Color.WHITE);
-		nothing.setStrokeWidth(2);
-		nothing.fillProperty();
+		zeroBar.setStrokeType(StrokeType.CENTERED);
+		zeroBar.setStroke(Color.WHITE);
+		zeroBar.setStrokeWidth(2);
+		zeroBar.fillProperty();
+		root.getChildren().add(MainDisplay.zeroBar);
 	}
 
 	/**
 	 * Creates the info for the display, so things like display text, and the cover
 	 * art.
 	 */
+	@Deprecated
 	public static void createInfo() {
-		Title.setup();
+		//Title.setup();
 		Artist.setup();
 		Volume.setup();
 		PauseText.setup();
 		GitHubLink.setup();
-		CoverArt.createCoverArt();
-		root.getChildren().add(MainDisplay.nothing);
+		CoverArt.setup();
+		root.getChildren().add(MainDisplay.zeroBar);
 	}
 
 	/**
@@ -151,7 +154,7 @@ public class MainDisplay {
 				// TODO 2: Finish this
 			}
 		} else {
-			System.out.println(key);
+			Debugger.d(MainDisplay.class, key.getName());
 		}
 
 	}

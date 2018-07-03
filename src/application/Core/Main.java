@@ -1,10 +1,16 @@
 package application.Core;
 
 import application.Core.Database.Database;
+import application.Core.UI.Artist;
+import application.Core.UI.CoverArt;
 import application.Core.UI.Genre;
+import application.Core.UI.GitHubLink;
 import application.Core.UI.MainDisplay;
+import application.Core.UI.PauseText;
 import application.Core.UI.Spectrum;
 import application.Core.UI.SpectrumDebug;
+import application.Core.UI.Title;
+import application.Core.UI.Volume;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -34,15 +40,29 @@ public class Main extends Application {
 			Database.createDatabase();
 		}
 		
-		Debugger.d(this.getClass(), "Creating load bar");
+		Debugger.d(this.getClass(), "Creating placeholder bar");
 		MainDisplay.createPlaceholderBar();
-		
 		
 		Debugger.d(this.getClass(), "Creating specturm");
 		Spectrum.createSpectrum();
 		
-		Debugger.d(this.getClass(), "Creating info stuff");
-		MainDisplay.createInfo();
+		Debugger.d(this.getClass(), "Creating title");
+		Title.setup();
+		
+		Debugger.d(this.getClass(), "Creating artist");
+		Artist.setup();
+		
+		Debugger.d(this.getClass(), "Creating volume handlers");
+		Volume.setup();
+		
+		Debugger.d(this.getClass(), "Creating pause text");
+		PauseText.setup();
+		
+		Debugger.d(this.getClass(), "Creating GitHub link");
+		GitHubLink.setup();
+		
+		Debugger.d(this.getClass(), "Creating cover art");
+		CoverArt.setup();;
 		
 		Debugger.d(this.getClass(), "Setting genre");
 		Genre.setGenre(Genre.genre.ELECTRONIC.getColor());

@@ -113,8 +113,8 @@ public class Genre {
 	 *            - The genre color to be set.
 	 */
 	public static void setGenre(Color genre) {
-		MainDisplay.nothing.setFill(genre);
-		MainDisplay.nothing.setStroke(genre);
+		MainDisplay.zeroBar.setFill(genre);
+		MainDisplay.zeroBar.setStroke(genre);
 		CoverArt.art.setFill(genre);
 		for (int i = 0; i < 63; i++) {
 			Rectangle bar = (Rectangle) Spectrum.spectrum.getChildren().get(i);

@@ -50,7 +50,7 @@ public class Spectrum {
 	 */
 	public static void disableSpectrum(boolean retry) {
 		MainDisplay.root.getChildren().remove(spectrum);
-		MainDisplay.root.getChildren().add(MainDisplay.nothing);
+		MainDisplay.root.getChildren().add(MainDisplay.zeroBar);
 		if (!retry) {
 			Artist.setArtist("No file currently selected");
 			Title.setTitle("Press \"O\" to select a file");
@@ -62,7 +62,7 @@ public class Spectrum {
 	 * Removes the place holder bar, and adds the spectrum back to the scene.
 	 */
 	public static void enableSpectrum() {
-		MainDisplay.root.getChildren().remove(MainDisplay.nothing);
+		MainDisplay.root.getChildren().remove(MainDisplay.zeroBar);
 		MainDisplay.root.getChildren().add(spectrum);
 	}
 

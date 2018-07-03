@@ -30,7 +30,7 @@ public class CoverArt {
 	 * <br>
 	 * :3
 	 */
-	public static void createCoverArt() {
+	public static void setup() {
 		MainDisplay.root.getChildren().add(art);
 
 		cat.setX(1034);
