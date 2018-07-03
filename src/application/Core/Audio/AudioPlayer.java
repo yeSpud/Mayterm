@@ -1,14 +1,15 @@
 package application.Core.Audio;
 
-import java.net.URI;
 import java.util.Stack;
 
 import application.Core.Main;
 import application.Core.Database.Database;
-import application.Core.UI.DisplayText;
+import application.Core.UI.Artist;
 import application.Core.UI.Genre;
+import application.Core.UI.PauseText;
 import application.Core.UI.Spectrum;
 import application.Core.UI.Title;
+import application.Core.UI.Volume;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -35,31 +36,31 @@ public class AudioPlayer {
 		if (!isPaused && !isPlaying) {
 
 			player = new MediaPlayer(media);
-			player.setVolume(DisplayText.volume);
+			player.setVolume(Volume.volumeValue);
 			
 			String path = AudioFile.toFilePath(media.getSource());
 			
 			Title.setTitle(path);
-			DisplayText.setArtist("");
+			Artist.setArtist(path);
 
 			if (Database.isInDatabase(AudioFile.toFilePath(media.getSource()))) {
 				if (Main.debug) {
 					System.out.println("Already in database");
 				}
 				Title.setTitle(Database.getTitle(path));
-				DisplayText.setArtist(Database.getArtist(path));
+				Artist.setArtist(Database.getArtist(path));
 				Genre.setGenre(Genre.genre.valueOf(Database.getGenre(path)).getColor());
 			} else {
 				if (Main.debug) {
 					System.out.println("Adding to database");
 				}
-				DisplayText.setTitleAndArtist(URI.create(media.getSource()).getPath());
+				Title.setTitle(getMetadata.getTitle(media.getSource()));
+				Artist.setArtist(getMetadata.getArtist(media.getSource()));
 				Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
-				Database.addTrack(AudioFile.toFilePath(media.getSource()), Genre.genre.ELECTRONIC,
-						getMetadata.getTitle(media.getSource()), getMetadata.getArtist(media.getSource()));
+				Database.addTrack(path, Genre.genre.ELECTRONIC, getMetadata.getTitle(media.getSource()), getMetadata.getArtist(media.getSource()));
 			}
-
-			DisplayText.handleInfo();
+			
+			PauseText.fade();
 
 			try {
 				Spectrum.enableSpectrum();

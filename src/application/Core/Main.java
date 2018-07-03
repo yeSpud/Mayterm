@@ -5,7 +5,6 @@ import application.Core.UI.Genre;
 import application.Core.UI.MainDisplay;
 import application.Core.UI.Spectrum;
 import application.Core.UI.SpectrumDebug;
-import application.Core.UI.Updater;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

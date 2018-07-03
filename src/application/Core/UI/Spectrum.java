@@ -52,8 +52,8 @@ public class Spectrum {
 		MainDisplay.root.getChildren().remove(spectrum);
 		MainDisplay.root.getChildren().add(MainDisplay.nothing);
 		if (!retry) {
-			DisplayText.setArtist("No file currently selected");
-			DisplayText.setTitle("Press \"O\" to select a file");
+			Artist.setArtist("No file currently selected");
+			Title.setTitle("Press \"O\" to select a file");
 		}
 		CoverArt.setArt(null);
 	}

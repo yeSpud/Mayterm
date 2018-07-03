@@ -73,8 +73,11 @@ public class MainDisplay {
 	 * art.
 	 */
 	public static void createInfo() {
-		DisplayText.setupText();
 		Title.setup();
+		Artist.setup();
+		Volume.setup();
+		PauseText.setup();
+		GitHubLink.setup();
 		CoverArt.createCoverArt();
 		root.getChildren().add(MainDisplay.nothing);
 	}
@@ -114,10 +117,10 @@ public class MainDisplay {
 		} else if (AudioPlayer.isPlaying && !AudioPlayer.isPaused) {
 			if (key.equals(KeyCode.UP)) {
 				/* Increase volume */
-				DisplayText.handleVolume(0.05d);
+				Volume.adjustVolume(0.05d);
 			} else if (key.equals(KeyCode.DOWN)) {
 				/* Decrease volume */
-				DisplayText.handleVolume(-0.05d);
+				Volume.adjustVolume(-0.05d);
 			} else if (key.equals(KeyCode.RIGHT)) {
 				/* Skip current track */
 				AudioPlayer.skip();

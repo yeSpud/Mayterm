@@ -1,4 +1,4 @@
-package application.Core.UI;
+package application.Core;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
@@ -53,9 +54,17 @@ public class Updater {
 			e.printStackTrace();
 			return false;
 		}
+		URLConnection connection = null;
+		try {
+			connection = update.openConnection();
+			connection.setConnectTimeout(2500);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			return false;
+		}
 		Scanner s = null;
 		try {
-			s = new Scanner(update.openStream());
+			s = new Scanner(connection.getInputStream());
 		} catch (UnknownHostException e) {
 			return false;
 		} catch (IOException e) {
