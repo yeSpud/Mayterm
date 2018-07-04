@@ -21,6 +21,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 import com.google.common.base.Charsets;
@@ -93,6 +95,13 @@ public class Updater {
 	 * {@code Download now} will open a new window to the GitHub page.
 	 */
 	public static void showUpdatePrompt() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		
 		JFrame updatePrompt = new JFrame("Update avalible!");
 
 		updatePrompt.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

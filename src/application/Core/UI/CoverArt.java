@@ -2,11 +2,9 @@ package application.Core.UI;
 
 import java.io.IOException;
 
+import application.Core.Debugger;
 import application.Core.Main;
 import application.Core.Audio.getMetadata;
-import application.Core.Database.Environment;
-import application.Core.Database.Environment.OS;
-import application.Core.Errors.UnrecognizableOperatingSystem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
@@ -42,22 +40,10 @@ public class CoverArt {
 		Main a = new Main();
 		catLogo = null;
 		catLogoBlack = null;
+
 		try {
-			try {
-				if (Environment.getOS().equals(OS.MACOS) || Environment.getOS().equals(OS.LINUX)) {
-					catLogo = new Image(a.getClass().getResource("mcatTransparent.png").openStream());
-					catLogoBlack = new Image(
-							a.getClass().getResource("mcatTransparentBlack.png").openStream());
-				} else if (Environment.getOS().equals(OS.WINDOWS)) {
-					catLogo = new Image(a.getClass().getResource("mcatTransparent.png").openStream());
-					catLogoBlack = new Image(
-							a.getClass().getResource("mcatTransparentBlack.png").openStream());
-				} else {
-					throw new UnrecognizableOperatingSystem();
-				}
-			} catch (UnrecognizableOperatingSystem e) {
-				e.printStackTrace();
-			}
+			catLogo = new Image(a.getClass().getResource("mcatTransparent.png").openStream());
+			catLogoBlack = new Image(a.getClass().getResource("mcatTransparentBlack.png").openStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -94,6 +80,7 @@ public class CoverArt {
 	 * @param blackCat - whether or not the cover art cat needs to be a black cat.
 	 */
 	public static void blackCat(boolean blackCat) {
+		Debugger.d(CoverArt.class, "Change to black cat icon? " + blackCat);
 		if (blackCat) {
 			cat.setImage(catLogoBlack);
 		} else {

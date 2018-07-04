@@ -2,11 +2,13 @@ package application.Core.Audio;
 
 import java.util.Stack;
 
+import application.Core.Debugger;
 import application.Core.Main;
 import application.Core.Database.Database;
 import application.Core.UI.Artist;
 import application.Core.UI.Genre;
 import application.Core.UI.PauseText;
+import application.Core.UI.Settings;
 import application.Core.UI.Spectrum;
 import application.Core.UI.Title;
 import application.Core.UI.Volume;
@@ -44,16 +46,12 @@ public class AudioPlayer {
 			Artist.setArtist(path);
 
 			if (Database.isInDatabase(AudioFile.toFilePath(media.getSource()))) {
-				if (Main.debug) {
-					System.out.println("Already in database");
-				}
+				Debugger.d(AudioPlayer.class, "Already in database");
 				Title.setTitle(Database.getTitle(path));
 				Artist.setArtist(Database.getArtist(path));
 				Genre.setGenre(Genre.genre.valueOf(Database.getGenre(path)).getColor());
 			} else {
-				if (Main.debug) {
-					System.out.println("Adding to database");
-				}
+				Debugger.d(AudioPlayer.class, "Adding to database");
 				Title.setTitle(getMetadata.getTitle(media.getSource()));
 				Artist.setArtist(getMetadata.getArtist(media.getSource()));
 				Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
@@ -81,6 +79,7 @@ public class AudioPlayer {
 				}
 			});
 
+			Settings.enableButtons(false);
 			Spectrum.setupSpectrumMovement();
 
 			player.play();
@@ -146,6 +145,7 @@ public class AudioPlayer {
 			isPaused = false;
 			Spectrum.disableSpectrum(false);
 			player.dispose();
+			Settings.enableButtons(true);
 			Main.mainStage.setTitle("");
 		} catch (NullPointerException NPE) {
 			return;

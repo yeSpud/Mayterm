@@ -1,6 +1,6 @@
 package application.Core.Audio;
 
-import application.Core.Main;
+import application.Core.Debugger;
 import application.Core.Database.Environment;
 import application.Core.Database.Environment.OS;
 import application.Core.Errors.UnrecognizableOperatingSystem;
@@ -31,6 +31,7 @@ public class AudioFile {
 		}
 
 		if (!filePath.isEmpty()) {
+			Debugger.d(AudioFile.class, "Adding to queue: " + filePath);
 			addToQueue(filePath);
 		}
 
@@ -69,9 +70,9 @@ public class AudioFile {
 		} catch (UnrecognizableOperatingSystem e) {
 			e.printStackTrace();
 		}
-		if (Main.debug) {
-			System.out.println(String.format("FilePath: %s\nURL: %s", FilePath, returnString));
-		}
+
+		Debugger.d(AudioFile.class, String.format("File path -> URL\n%s -> %s", FilePath, returnString));
+
 		return returnString;
 	}
 
@@ -97,9 +98,7 @@ public class AudioFile {
 		} catch (UnrecognizableOperatingSystem e) {
 			e.printStackTrace();
 		}
-		if (Main.debug) {
-			System.out.println(String.format("URL -> file path\n%s -> %s", URL, returnString));
-		}
+		Debugger.d(AudioFile.class, String.format("URL -> file path\n%s -> %s", URL, returnString));
 		return returnString;
 	}
 

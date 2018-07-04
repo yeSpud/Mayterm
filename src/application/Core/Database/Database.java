@@ -12,7 +12,7 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
-import application.Core.Main;
+import application.Core.Debugger;
 import application.Core.Errors.DatabaseError;
 import application.Core.Errors.UnrecognizableOperatingSystem;
 import application.Core.UI.Genre.genre;
@@ -48,7 +48,7 @@ public class Database {
 	 * Attempts to create the database if it does not already exist on the system.
 	 */
 	public static void createDatabase() {
-		JsonArray settings = Json.createArrayBuilder().build();
+		JsonArray settings = Json.createArrayBuilder().add(0).build();
 		JsonObject songs = Json.createObjectBuilder().build();
 		JsonObject json = Json.createObjectBuilder().add("Settings", settings).add("Songs", songs).build();
 		String result = json.toString();
@@ -144,49 +144,32 @@ public class Database {
 	 */
 	public static void addTrack(String path, genre genre, String title, String artist) {
 		try {
-			if (Main.debug) {
-				System.out.println(String.format("Path: %s\nGenre: %s\nTitle: %s\nArtist: %s", path, genre.toString(),
-						title, artist));
-			}
+			Debugger.d(Database.class,
+					String.format("Path: %s\nGenre: %s\nTitle: %s\nArtist: %s", path, genre.toString(), title, artist));
 
 			JsonObject track_info = Json.createObjectBuilder().add("Color", genre.toString()).add("Title", title)
 					.add("Artist", artist).build();
-			if (Main.debug) {
-				System.out.println("Track info: " + track_info.toString());
-			}
+			Debugger.d(Database.class, "Track info: " + track_info.toString());
 
 			JsonReader jsonIn = Json.createReader(new StringReader(retrieveFromDatabase()));
 			JsonObject fullJson = jsonIn.readObject();
 			jsonIn.close();
-			if (Main.debug) {
-				System.out.println("Full jSon: " + fullJson.toString());
-			}
+			Debugger.d(Database.class, "Full jSon: " + fullJson.toString());
 
 			JsonObject track_list = fullJson.getJsonObject("Songs");
 			String trackArray = track_list.toString();
-			if (Main.debug) {
-				System.out.println("Track array: " + trackArray);
-			}
-
-			if (Main.debug) {
-				System.out.print("Is track array empty? ");
-			}
+			Debugger.d(Database.class, "Track array: " + trackArray);
 
 			if (trackArray.isEmpty() || trackArray.equals("{}")) {
-				if (Main.debug) {
-					System.out.print("True\n");
-				}
+				Debugger.d(Database.class, "Is track array empty? True");
 				trackArray = String.format("{\"%s\":%s}", path.replace("\\", "\\\\"), track_info.toString());
 			} else {
-				if (Main.debug) {
-					System.out.print("False\n");
-				}
+				Debugger.d(Database.class, "Is track array empty? False");
 				trackArray = String.format("%s,\"%s\":%s}", trackArray.replace("}}", "}"), path.replace("\\", "\\\\"),
 						track_info.toString());
 			}
-			if (Main.debug) {
-				System.out.println("Updated track array: " + trackArray);
-			}
+
+			Debugger.d(Database.class, "Updated track array: " + trackArray);
 
 			JsonReader jsonOut = Json.createReader(new StringReader(trackArray));
 			JsonObject newsong = Json.createObjectBuilder().add("Settings", fullJson.get("Settings"))
@@ -194,7 +177,7 @@ public class Database {
 			jsonOut.close();
 			writeToDatabase(newsong.toString());
 		} catch (Exception e) {
-			System.out.println("Cannot add: " + e.getMessage());
+			Debugger.d(Database.class, "Cannot add: " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -206,9 +189,8 @@ public class Database {
 	 * @return Boolean based on whether or not the path is in the database.
 	 */
 	public static boolean isInDatabase(String path) {
-		if (Main.debug) {
-			System.out.println("Path: " + path);
-		}
+		Debugger.d(Database.class, "Path: " + path);
+
 		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
 		JsonObject fill = read.readObject();
 		read.close();
@@ -328,48 +310,32 @@ public class Database {
 	 * @param newGenre - The new genre.
 	 */
 	public static void editGenre(String path, genre newGenre) {
-		if (Main.debug) {
-			System.out.println(String.format("Path: %s\nGenre: %s", path, newGenre.toString()));
-		}
+		Debugger.d(Database.class, String.format("Path: %s\nGenre: %s", path, newGenre.toString()));
 
 		JsonReader jsonIn = Json.createReader(new StringReader(retrieveFromDatabase()));
 		JsonObject fullJson = jsonIn.readObject();
 		jsonIn.close();
-		if (Main.debug) {
-			System.out.println("Full json: " + fullJson.toString());
-		}
+		Debugger.d(Database.class, "Full json: " + fullJson.toString());
 
 		JsonObject tracks = fullJson.getJsonObject("Songs");
-		if (Main.debug) {
-			System.out.println("Tracks: " + tracks.toString());
-		}
+		Debugger.d(Database.class, "Tracks: " + tracks.toString());
 
 		JsonObject track_info = Json.createObjectBuilder().add("Color", newGenre.toString())
 				.add("Title", getTitle(path)).add("Artist", getArtist(path)).build();
-		if (Main.debug) {
-			System.out.println("Track info: " + track_info.toString());
-		}
+		Debugger.d(Database.class, "Track info: " + track_info.toString());
 
 		String trackArray = tracks.toString();
-		if (Main.debug) {
-			System.out.println("Track array: " + trackArray);
-			System.out.print("Is track array empty? ");
-		}
+		Debugger.d(Database.class, "Track array: " + trackArray);
+
 		if (trackArray.isEmpty() || trackArray.equals("{}")) {
-			if (Main.debug) {
-				System.out.print("True\n");
-			}
+			Debugger.d(Database.class, "Is track array empty? True");
 			trackArray = String.format("{\"%s\":%s}", path.replace("\\", "\\\\"), track_info.toString());
 		} else {
-			if (Main.debug) {
-				System.out.print("False\n");
-			}
+			Debugger.d(Database.class, "Is track array empty? False");
 			trackArray = String.format("%s,\"%s\":%s}", trackArray.replace("}}", "}"), path.replace("\\", "\\\\"),
 					track_info.toString());
 		}
-		if (Main.debug) {
-			System.out.println("Updated track array: " + trackArray);
-		}
+		Debugger.d(Database.class, "Updated track array: " + trackArray);
 
 		JsonReader newread = Json.createReader(new StringReader(trackArray));
 		JsonObject newValue = Json.createObjectBuilder().add("Settings", fullJson.get("Settings"))
@@ -383,4 +349,45 @@ public class Database {
 		}
 	}
 
+	public static void editSettings(int value) {
+		Debugger.d(Database.class, "Value: " + value);
+		
+		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
+		JsonObject full = read.readObject();
+		read.close();
+		Debugger.d(Database.class, "jSon output: " + full.toString());
+		
+		JsonArray in = getSettings();
+		Debugger.d(Database.class, "Old settings: " + in);
+		
+		try {
+			in.set(0, Json.createValue(value));
+		} catch (UnsupportedOperationException NothingEntered) {
+			in = Json.createArrayBuilder().add(value).build();
+		}
+		Debugger.d(Database.class, "New settings: " + in);
+		
+		JsonObject newJson = Json.createObjectBuilder().add("Settings", in).add("Songs", full.get("Songs")).build();
+		Debugger.d(Database.class, "New database: " + newJson.toString());
+		
+		try {
+			writeToDatabase(newJson.toString());
+		} catch (DatabaseError e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static JsonArray getSettings() {
+		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
+		JsonObject full = read.readObject();
+		read.close();
+		Debugger.d(Database.class, "jSon output: " + full.toString());
+		
+		JsonArray settings = full.getJsonArray("Settings");
+		Debugger.d(Database.class, "Settigns array: " + settings);
+		
+		return settings;
+	}
+	
 }

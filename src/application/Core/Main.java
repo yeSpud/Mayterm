@@ -7,6 +7,7 @@ import application.Core.UI.Genre;
 import application.Core.UI.GitHubLink;
 import application.Core.UI.MainDisplay;
 import application.Core.UI.PauseText;
+import application.Core.UI.Settings;
 import application.Core.UI.Spectrum;
 import application.Core.UI.SpectrumDebug;
 import application.Core.UI.Title;
@@ -40,6 +41,8 @@ public class Main extends Application {
 			Database.createDatabase();
 		}
 		
+		Settings.checkSettings();
+		
 		Debugger.d(this.getClass(), "Creating placeholder bar");
 		MainDisplay.createPlaceholderBar();
 		
@@ -66,7 +69,16 @@ public class Main extends Application {
 		
 		Debugger.d(this.getClass(), "Setting genre");
 		Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
-
+		
+		Debugger.d(this.getClass(), "Creating settings page");
+		Settings.setup();
+		
+		Debugger.d(this.getClass(), "Setting option for settings");
+		Settings.setDefaultEnabled(Integer.parseInt(Database.getSettings().toString().replace("[", "").replace("]", "")));
+		
+		Debugger.d(this.getClass(), "Enabling settings buttons");
+		Settings.enableButtons(true);
+		
 		Debugger.d(this.getClass(), "Displaying window");
 		MainDisplay.createMainStage(primaryStage);
 		

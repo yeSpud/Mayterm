@@ -1,7 +1,8 @@
 package application.Core.UI;
 
-import application.Core.Main;
+import application.Core.Debugger;
 import application.Core.Audio.AudioPlayer;
+import application.Core.Database.Database;
 import application.SpectrumAlg.Default;
 import application.SpectrumAlg.FTTVis;
 import javafx.scene.Group;
@@ -74,10 +75,13 @@ public class Spectrum {
 		AudioPlayer.player.setAudioSpectrumNumBands(63); // 63
 		AudioPlayer.player.setAudioSpectrumInterval(0.033d); // 0.0167
 		AudioPlayer.player.setAudioSpectrumThreshold(-60);
-		if (Main.debug) {
+		if (Database.getSettings().toString().equals("[1]")) {
+			Debugger.d(Spectrum.class, "Using algorithm: FFTVis");
 			AudioPlayer.player.setAudioSpectrumListener(new FTTVis());
+		} else {
+			Debugger.d(Spectrum.class, "Using algorithm: Default");
+			AudioPlayer.player.setAudioSpectrumListener(new Default());
 		}
-		AudioPlayer.player.setAudioSpectrumListener(new Default());
 
 	}
 

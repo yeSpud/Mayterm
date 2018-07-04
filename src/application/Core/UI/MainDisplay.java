@@ -113,8 +113,7 @@ public class MainDisplay {
 			AudioPlayer.pause();
 		} else if (key.equals(KeyCode.SEMICOLON)) {
 			/* Settings */
-			// SettingsDisplay.createAndShowSettings();
-			// TODO 2: Finish settings
+			Settings.showSettings();
 		} else if (key.equals(KeyCode.ESCAPE)) {
 			System.exit(0);
 		} else if (AudioPlayer.isPlaying && !AudioPlayer.isPaused) {
