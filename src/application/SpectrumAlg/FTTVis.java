@@ -1,12 +1,23 @@
 package application.SpectrumAlg;
 
+import org.jtransforms.fft.FloatFFT_2D;
+
+import application.Core.Audio.AudioFile;
+import application.Core.Audio.AudioPlayer;
+import application.Core.UI.CoverArt;
+import application.Core.UI.Spectrum;
+import application.Core.UI.SpectrumDebug;
 import javafx.scene.media.AudioSpectrumListener;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 public class FTTVis implements AudioSpectrumListener {
 	public static double timestamp;
 	double previousTime = 0;
+	FloatFFT_2D fft = new FloatFFT_2D(AudioPlayer.player.getAudioSpectrumNumBands(), 22000);
+	float[] fftData = new float[AudioPlayer.player.getAudioSpectrumNumBands()];
 
-	newFFT fft = new newFFT();
+	//newFFT fft = new newFFT();
 
 	/**
 	 * 
@@ -32,11 +43,40 @@ public class FTTVis implements AudioSpectrumListener {
 	@Override
 	public void spectrumDataUpdate(double timestamp, double duration, float[] magnitudes, float[] phases) {
 		// TODO: Redo spectrum
-		FTTVis.timestamp = timestamp;
+		//FTTVis.timestamp = timestamp;
 
-		if (timestamp - previousTime > 1) {
+		//if (timestamp - previousTime > 1) {
 			// System.out.println(oldFFT.getAmplitude((int) timestamp));
 			// previousTime = timestamp;
+		//}
+		
+		if (timestamp > 16.00d && timestamp < 16.07d) {
+			String src = AudioFile.toFilePath(AudioPlayer.media.getSource());
+			CoverArt.setArt(src);
+		}
+
+		if ((AudioPlayer.media.getDuration().toSeconds() - timestamp) < 35.0d) {
+			CoverArt.setArt(null);
+		}
+		
+		fftData = magnitudes;
+		
+		fft.realForwardFull(fftData);
+		
+		for (int i = 0; i < fftData.length; i++) {
+			Rectangle bar = (Rectangle) Spectrum.spectrum.getChildren().get(62 - i);
+			float height = ((63 - (fftData[i]) * -1) * 4);
+			if (height != bar.getHeight()) {
+				bar.setHeight(height);
+				try {
+					Text text = (Text) SpectrumDebug.spectrumText.getChildren().get(i);
+					text.setText(String.valueOf(String.format("%.2f", bar.getHeight())));
+					text.setX(bar.getX());
+					text.setY(bar.getY() - 15);
+				} catch (IndexOutOfBoundsException foo) {
+					// Do nothing
+				}
+			}
 		}
 
 		// System.out.println(StackOverflow.calculate());
