@@ -6,6 +6,7 @@ import application.Core.UI.CoverArt;
 import application.Core.UI.Genre;
 import application.Core.UI.GitHubLink;
 import application.Core.UI.MainDisplay;
+import application.Core.UI.Menu;
 import application.Core.UI.PauseText;
 import application.Core.UI.Settings;
 import application.Core.UI.Spectrum;
@@ -22,6 +23,7 @@ public class Main extends Application {
 	public static boolean debug = false;
 
 	// TODO: Fix spectrum
+	// TODO: Fix background from changing to white
 	// TODO 2: Other background stuffs
 	// TODO 2: Moar controls
 
@@ -35,55 +37,62 @@ public class Main extends Application {
 		}
 
 		Debugger.d(this.getClass(), "Does database exist: " + Database.databaseExist());
-		
+
 		if (!Database.databaseExist()) {
 			Debugger.d(this.getClass(), "Creating Database");
 			Database.createDatabase();
 		}
-		
+
 		Settings.checkSettings();
-		
+
 		Debugger.d(this.getClass(), "Creating placeholder bar");
 		MainDisplay.createPlaceholderBar();
-		
+
 		Debugger.d(this.getClass(), "Creating specturm");
 		Spectrum.createSpectrum();
-		
+
 		Debugger.d(this.getClass(), "Creating title");
 		Title.setup();
-		
+
 		Debugger.d(this.getClass(), "Creating artist");
 		Artist.setup();
-		
+
 		Debugger.d(this.getClass(), "Creating volume handlers");
 		Volume.setup();
-		
+
 		Debugger.d(this.getClass(), "Creating pause text");
 		PauseText.setup();
-		
+
 		Debugger.d(this.getClass(), "Creating GitHub link");
 		GitHubLink.setup();
-		
+
 		Debugger.d(this.getClass(), "Creating cover art");
-		CoverArt.setup();;
-		
+		CoverArt.setup();
+
 		Debugger.d(this.getClass(), "Setting genre");
 		Genre.setGenre(Genre.genre.ELECTRONIC.getColor());
-		
+
 		Debugger.d(this.getClass(), "Creating settings page");
 		Settings.setup();
-		
+
 		Debugger.d(this.getClass(), "Setting option for settings");
-		Settings.setDefaultEnabled(Integer.parseInt(Database.getSettings().toString().replace("[", "").replace("]", "")));
-		
+		Settings.setDefaultEnabled(
+				Integer.parseInt(Database.getSettings().toString().replace("[", "").replace("]", "")));
+
 		Debugger.d(this.getClass(), "Enabling settings buttons");
 		Settings.enableButtons(true);
-		
+
+		Debugger.d(getClass(), "Setting menu bar");
+		Menu.setup();
+
+		Debugger.d(this.getClass(), "Setting option for menu bar");
+		Menu.setDefaultEnabled(Integer.parseInt(Database.getSettings().toString().replace("[", "").replace("]", "")));
+
 		Debugger.d(this.getClass(), "Displaying window");
 		MainDisplay.createMainStage(primaryStage);
-		
+
 		// primaryStage.setOpacity(.4);
-		
+
 		if (debug) {
 			SpectrumDebug.createAndEnableDebug();
 		}

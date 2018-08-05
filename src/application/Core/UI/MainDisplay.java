@@ -36,8 +36,7 @@ public class MainDisplay {
 	/**
 	 * Creates the main stage of the display.
 	 * 
-	 * @param primaryStage
-	 *            - The JavaFX stage.
+	 * @param primaryStage - The JavaFX stage.
 	 */
 	public static void createMainStage(Stage primaryStage) {
 		try {
@@ -51,6 +50,7 @@ public class MainDisplay {
 					MainDisplay.keyPresed(event.getCode());
 				}
 			});
+
 			Main.mainStage.setResizable(false);
 			Main.mainStage.show();
 			root.getStyleClass().add("stage");
@@ -76,7 +76,7 @@ public class MainDisplay {
 	 */
 	@Deprecated
 	public static void createInfo() {
-		//Title.setup();
+		// Title.setup();
 		Artist.setup();
 		Volume.setup();
 		PauseText.setup();
@@ -101,8 +101,7 @@ public class MainDisplay {
 	 * <code>.</code> or <code>,</code> - Rotates though genres.<br>
 	 * <code>LEFT arrow</code> - restarts the track (To be finished).
 	 * 
-	 * @param key
-	 *            - The key that was pressed.
+	 * @param key - The key that was pressed.
 	 */
 	public static void keyPresed(KeyCode key) {
 		if (key.equals(KeyCode.O)) {
