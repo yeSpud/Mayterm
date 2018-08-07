@@ -136,6 +136,20 @@ public class Settings {
 		gbc_btnOk.gridy = 8;
 		contentPane.add(btnOk, gbc_btnOk);
 		
+		DefaultVis.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Database.editSettings(0);
+			}
+		});
+		
+		fftVis.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Database.editSettings(1);
+			}
+		});
+		
 		frame.pack();
 	}
 	

@@ -93,7 +93,7 @@ public class getMetadata {
 
 		return returnedData;
 	}
-	
+	// TODO: Null issues with .wav files
 	public static WritableImage getImage(String filePath) throws UnrecognizableFileType {
 		WritableImage returnImage = null;
 		if (filePath.endsWith(".mp3")) {
