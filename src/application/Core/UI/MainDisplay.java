@@ -4,6 +4,7 @@ import application.Core.Debugger;
 import application.Core.Main;
 import application.Core.Audio.AudioFile;
 import application.Core.Audio.AudioPlayer;
+import application.Core.Database.Database;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -127,7 +128,9 @@ public class MainDisplay {
 				AudioPlayer.skip();
 			} else if (key.equals(KeyCode.PERIOD)) {
 				/* Rotate current genre */
-				// TODO: Fix genre rotate
+				rotatoe = Genre.genreToInt(
+						Genre.genre.valueOf(Database.getGenre(AudioFile.toFilePath(AudioPlayer.media.getSource()))));
+				Debugger.d(MainDisplay.class, String.format("%s -> %s", rotatoe, rotatoe + 1));
 				rotatoe++;
 				if (rotatoe > 12) {
 					rotatoe = 0;
@@ -138,7 +141,9 @@ public class MainDisplay {
 				Genre.rotateGenre(rotatoe);
 			} else if (key.equals(KeyCode.COMMA)) {
 				/* Rotate current genre */
-				// TODO: Fix genre rotate
+				rotatoe = Genre.genreToInt(
+						Genre.genre.valueOf(Database.getGenre(AudioFile.toFilePath(AudioPlayer.media.getSource()))));
+				Debugger.d(MainDisplay.class, String.format("%s -> %s", rotatoe, rotatoe - 1));
 				rotatoe--;
 				if (rotatoe > 12) {
 					rotatoe = 0;

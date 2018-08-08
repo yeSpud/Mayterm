@@ -1,5 +1,6 @@
 package application.Core.UI;
 
+import application.Core.Debugger;
 import application.Core.Audio.AudioFile;
 import application.Core.Audio.AudioPlayer;
 import application.Core.Database.Database;
@@ -22,70 +23,70 @@ public class Genre {
 	 *
 	 */
 	public enum genre {
-		/**
-		 * Trap: 75 - 175 bpm.
-		 */
-		TRAP(140, 15, 39),
+	/**
+	 * Trap: 75 - 175 bpm.
+	 */
+	TRAP(140, 15, 39),
 
-		/**
-		 * DnB: 160 - 180 or 87 bpm.
-		 */
-		DNB(242, 25, 4),
+	/**
+	 * DnB: 160 - 180 or 87 bpm.
+	 */
+	DNB(242, 25, 4),
 
-		/**
-		 * House: ~128 bpm.
-		 */
-		HOUSE(234, 140, 0),
+	/**
+	 * House: ~128 bpm.
+	 */
+	HOUSE(234, 140, 0),
 
-		/**
-		 * Electro: ~128 bpm.
-		 */
-		ELECTRO(230, 206, 0),
+	/**
+	 * Electro: ~128 bpm.
+	 */
+	ELECTRO(230, 206, 0),
 
-		/**
-		 * Hard-dance: 150 or 170 bpm.
-		 */
-		HARDDANCE(1, 151, 0),
+	/**
+	 * Hard-dance: 150 or 170 bpm.
+	 */
+	HARDDANCE(1, 151, 0),
 
-		/**
-		 * Glitch: 110 or 108 bpm.
-		 */
-		GLITCHHOP(11, 151, 87),
+	/**
+	 * Glitch: 110 or 108 bpm.
+	 */
+	GLITCHHOP(11, 151, 87),
 
-		/**
-		 * NuDisco: 84 - 159 bpm.
-		 */
-		NUDISCO(28, 171, 179),
+	/**
+	 * NuDisco: 84 - 159 bpm.
+	 */
+	NUDISCO(28, 171, 179),
 
-		/**
-		 * Future bass: 75 - 175 bpm.
-		 */
-		FUTUREBASS(154, 152, 252),
+	/**
+	 * Future bass: 75 - 175 bpm.
+	 */
+	FUTUREBASS(154, 152, 252),
 
-		/**
-		 * Trance: 125 (135) - 150 bpm.
-		 */
-		TRANCE(0, 126, 231),
+	/**
+	 * Trance: 125 (135) - 150 bpm.
+	 */
+	TRANCE(0, 126, 231),
 
-		/**
-		 * Dubstep: 70 bpm or 140 - 150 bpm.
-		 */
-		DUBSTEP(141, 4, 225),
+	/**
+	 * Dubstep: 70 bpm or 140 - 150 bpm.
+	 */
+	DUBSTEP(141, 4, 225),
 
-		/**
-		 * Drumstep: 160 - 180 bpm.
-		 */
-		DRUMSTEP(243, 33, 136),
+	/**
+	 * Drumstep: 160 - 180 bpm.
+	 */
+	DRUMSTEP(243, 33, 136),
 
-		/**
-		 * Catch all.
-		 */
-		ELECTRONIC(193, 193, 193),
+	/**
+	 * Catch all.
+	 */
+	ELECTRONIC(193, 193, 193),
 
-		/**
-		 * Special occasion color! <b>:D</b>
-		 */
-		OTHER(255, 255, 255);
+	/**
+	 * Special occasion color! <b>:D</b>
+	 */
+	OTHER(255, 255, 255);
 
 		private final int r, g, b;
 
@@ -109,8 +110,7 @@ public class Genre {
 	/**
 	 * Sets the genre (Color) of the spectrum.
 	 * 
-	 * @param genre
-	 *            - The genre color to be set.
+	 * @param genre - The genre color to be set.
 	 */
 	public static void setGenre(Color genre) {
 		MainDisplay.zeroBar.setFill(genre);
@@ -130,8 +130,7 @@ public class Genre {
 	/**
 	 * Rotates though the genres.
 	 * 
-	 * @param number
-	 *            - The selector number of the genre (between 0 and 12).
+	 * @param number - The selector number of the genre (between 0 and 12).
 	 */
 	public static void rotateGenre(int number) {
 		String path = AudioFile.toFilePath(AudioPlayer.media.getSource());
@@ -221,6 +220,43 @@ public class Genre {
 			break;
 		}
 		}
+	}
+
+	public static int genreToInt(genre g) {
+		int returnvalue;
+
+		if (g.equals(genre.DNB)) {
+			returnvalue = 0;
+		} else if (g.equals(genre.DRUMSTEP)) {
+			returnvalue = 1;
+		} else if (g.equals(genre.DUBSTEP)) {
+			returnvalue = 2;
+		} else if (g.equals(genre.ELECTRO)) {
+			returnvalue = 3;
+		} else if (g.equals(genre.ELECTRONIC)) {
+			returnvalue = 4;
+		} else if (g.equals(genre.FUTUREBASS)) {
+			returnvalue = 5;
+		} else if (g.equals(genre.GLITCHHOP)) {
+			returnvalue = 6;
+		} else if (g.equals(genre.HARDDANCE)) {
+			returnvalue = 7;
+		} else if (g.equals(genre.HOUSE)) {
+			returnvalue = 8;
+		} else if (g.equals(genre.NUDISCO)) {
+			returnvalue = 9;
+		} else if (g.equals(genre.TRANCE)) {
+			returnvalue = 10;
+		} else if (g.equals(genre.TRAP)) {
+			returnvalue = 11;
+		} else if (g.equals(genre.OTHER)) {
+			returnvalue = 12;
+		} else {
+			Debugger.d(Genre.class, String.format("%s is not a valid genre!", g.toString()));
+			throw new IndexOutOfBoundsException();
+		}
+		Debugger.d(Genre.class, String.format("%s = %s", g.toString(), returnvalue));
+		return returnvalue;
 	}
 
 }
