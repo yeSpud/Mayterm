@@ -4,10 +4,8 @@ import javacode.Audio.AudioFile;
 import javacode.Audio.AudioPlayer;
 import javacode.UI.CoverArt;
 import javacode.UI.Spectrum;
-import javacode.UI.SpectrumDebug;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 
 /**
  * The original spectrum algorithm.<br >
@@ -35,19 +33,28 @@ public class Default implements AudioSpectrumListener {
 		}
 
 		for (int i = 0; i < magnitudes.length; i++) {
-			Rectangle bar = (Rectangle) Spectrum.spectrum.getChildren().get(62 - i);
+			// https://stackoverflow.com/questions/51769033/performance-issues-with-resizing-rectangles-in-javafx-on-windows-10?noredirect=1#comment90498621_51769033
 			float height = ((63 - magnitudes[i] * -1) * 4);
+			//Rectangle bar = (Rectangle) Spectrum.spectrum.getChildren().get(62 - i);
+			
+			Spectrum.spectrum.getChildren().parallelStream().forEach(Consumer<? super javafx.scene.shape.Rectangle> c -> {
+				
+			});
+			/*
 			if (height != bar.getHeight()) {
 				bar.setHeight(height);
-				try {
-					Text text = (Text) SpectrumDebug.spectrumText.getChildren().get(i);
-					text.setText(String.valueOf(String.format("%.2f", bar.getHeight())));
-					text.setX(bar.getX());
-					text.setY(bar.getY() - 15);
-				} catch (IndexOutOfBoundsException foo) {
-					// Do nothing
+				if (Main.debug) {
+					try {
+						Text text = (Text) SpectrumDebug.spectrumText.getChildren().get(i);
+						text.setText(String.valueOf(String.format("%.2f", bar.getHeight())));
+						text.setX(bar.getX());
+						text.setY(bar.getY() - 15);
+					} catch (IndexOutOfBoundsException foo) {
+						// Do nothing
+					}
 				}
 			}
+			*/
 		}
 
 	}
