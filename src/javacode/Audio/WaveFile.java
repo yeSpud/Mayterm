@@ -14,7 +14,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javacode.Database.Environment;
 import javacode.Errors.UnrecognizableOperatingSystem;
-import javacode.SpectrumAlg.FTTVis;
+import javacode.SpectrumAlg.FFT.FTTVis;
 
 /**
  * Class responsible for analyzing a .wav file. <br>

@@ -1,4 +1,4 @@
-package javacode.SpectrumAlg;
+package javacode.SpectrumAlg.FFT;
 
 import org.jtransforms.fft.FloatFFT_2D;
 
@@ -16,6 +16,7 @@ public class FTTVis implements AudioSpectrumListener {
 	double previousTime = 0;
 	FloatFFT_2D fft = new FloatFFT_2D(AudioPlayer.player.getAudioSpectrumNumBands(), 22000);
 	float[] fftData = new float[AudioPlayer.player.getAudioSpectrumNumBands()];
+	TarsosDSPSpectrogramParser TDSPSP = new TarsosDSPSpectrogramParser();
 
 	//newFFT fft = new newFFT();
 
@@ -59,6 +60,11 @@ public class FTTVis implements AudioSpectrumListener {
 			CoverArt.setArt(null);
 		}
 		
+		
+		
+		
+		/*
+		
 		fftData = magnitudes;
 		
 		fft.realForwardFull(fftData);
@@ -78,6 +84,7 @@ public class FTTVis implements AudioSpectrumListener {
 				}
 			}
 		}
+		*/
 
 		// System.out.println(StackOverflow.calculate());
 

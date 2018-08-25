@@ -5,7 +5,7 @@ import javacode.Debugger;
 import javacode.Audio.AudioPlayer;
 import javacode.Database.Database;
 import javacode.SpectrumAlg.Default;
-import javacode.SpectrumAlg.FTTVis;
+import javacode.SpectrumAlg.FFT.FTTVis;
 import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
