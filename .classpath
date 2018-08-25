@@ -29,5 +29,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="3rd-party-libs/jansi-1.17.1.jar"/>
+	<classpathentry kind="lib" path="3rd-party-libs/TarsosDSP-latest.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
