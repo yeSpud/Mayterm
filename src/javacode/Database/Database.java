@@ -147,6 +147,21 @@ public class Database {
 			Debugger.d(Database.class,
 					String.format("Path: %s\nGenre: %s\nTitle: %s\nArtist: %s", path, genre.toString(), title, artist));
 
+			try {
+			if (title.isEmpty()) {
+				title = "No Title";
+			}
+			} catch (NullPointerException nothing) {
+				title = "No Title";
+			}
+			try {
+			if (artist.isEmpty() ) {
+				artist = "No Artist";
+			}
+			} catch (NullPointerException nothing) {
+				title = "No Artist";
+			}
+			
 			JsonObject track_info = Json.createObjectBuilder().add("Color", genre.toString()).add("Title", title)
 					.add("Artist", artist).build();
 			Debugger.d(Database.class, "Track info: " + track_info.toString());

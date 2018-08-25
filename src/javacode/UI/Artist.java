@@ -23,7 +23,11 @@ public class Artist {
 	}
 	
 	public static void setArtist(String text) {
+		try {
 		artist.setText(text.toUpperCase());
+		} catch (NullPointerException noArtist) {
+			artist.setText("NO ARTIST");
+		}
 		artist.setFont(Font.font("Arial", FontWeight.EXTRA_BOLD, textSize));
 		artist.setX(1012 - artist.getLayoutBounds().getWidth());
 		checkTextSpacing(artist, FontWeight.EXTRA_BOLD, textSize);
