@@ -2,10 +2,12 @@ package javacode.Tests;
 
 // https://pdfs.semanticscholar.org/d65a/94f0da0fe6059fa8bcd24f85cfe999531192.pdf
 
+@Deprecated
 public class FFT {
 	public static void fastFFT(double[] fdata, int N, boolean fwd) {
 		double omega, tempr, tempi, fscale;
 		double xtemp, cos, sin, xr, xi;
+		@SuppressWarnings("unused")
 		int i, j, k, n, m, M;
 		j = 0;
 		for (i = 0; i < N - 1; i++) {

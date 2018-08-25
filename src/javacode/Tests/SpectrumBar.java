@@ -44,6 +44,7 @@ import javafx.scene.shape.Rectangle;
  *
  * @author dean
  */
+@Deprecated
 @SuppressWarnings("restriction")
 public class SpectrumBar extends VBox {
 	private static final double SPACING = 1.0;

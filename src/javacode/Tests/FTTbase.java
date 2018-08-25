@@ -1,5 +1,6 @@
 package javacode.Tests;
 
+@Deprecated
 public class FTTbase {
 	/**
 	 * The Fast Fourier Transform (generic version, with NO optimizations).

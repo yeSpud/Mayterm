@@ -5,6 +5,7 @@ import javacode.UI.Spectrum;
 import javafx.scene.media.AudioSpectrumListener;
 import javafx.scene.shape.Rectangle;
 
+@Deprecated
 public class SpectrumListener implements AudioSpectrumListener {
 
 	//public final SpectrumBar[] bars;
