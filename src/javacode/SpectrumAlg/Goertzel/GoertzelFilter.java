@@ -8,21 +8,21 @@ package javacode.SpectrumAlg.Goertzel;
  */
 public class GoertzelFilter {
 	/** Helper class to hold previous two results. */
-	public class Vn {
+	public static class Vn {
 		/** Previous result */
-		public double _1;
+		public static double _1;
 		/** Result before the previous */
-		public double _2;
+		public static double _2;
 	}
 
 	/** The frequency of the filter */
-	double f_;
+	static double  f_;
 	/** The sampling frequency */
-	double fs_;
+	static double fs_;
 	/** The Goertzel coefficient, calculate from frequencies */
-	double koef_;
+	static double koef_;
 	/** Past results of the Goertzel recursive formula */
-	Vn vn_;
+	static Vn vn_;
 
 	/**
 	 * Constructor takes the frequency of the filter and the sampling frequency.
@@ -36,12 +36,12 @@ public class GoertzelFilter {
 	}
 
 	/** Resets the filter for a new calculation */
-	public void reset() {
-		vn_._1 = vn_._2 = 0.0;
+	public static void reset() {
+		Vn._1 = Vn._2 = 0.0;
 	}
 
 	/** Returns the frequency of the filter */
-	public double get_f() {
+	public static  double get_f() {
 		return f_;
 	}
 
@@ -57,9 +57,9 @@ public class GoertzelFilter {
 	 */
 	static void kernel(double[] sample, double k, Vn vn) {
 		for (double x : sample) {
-			double t = k * vn._1 - vn._2 + x;
-			vn._2 = vn._1;
-			vn._1 = t;
+			double t = k * Vn._1 - Vn._2 + x;
+			Vn._2 = Vn._1;
+			Vn._1 = t;
 		}
 	}
 
@@ -71,7 +71,7 @@ public class GoertzelFilter {
 	 * @param n The number of samples that have passed through the filter
 	 */
 	static double power(double koef, Vn vn, int n) {
-		double rslt = vn._1 * vn._1 + vn._2 * vn._2 - koef * vn._1 * vn._2;
+		double rslt = Vn._1 * Vn._1 + Vn._2 * Vn._2 - koef * Vn._1 * Vn._2;
 		if (rslt < EPSILON) {
 			rslt = EPSILON;
 		}
@@ -101,7 +101,7 @@ public class GoertzelFilter {
 	 * @return The current power of the signal passed through the filter (from the
 	 *         start).
 	 */
-	public double process(double[] samples) {
+	public static double process(double[] samples) {
 		kernel(samples, koef_, vn_);
 		return power(koef_, vn_, samples.length);
 	}

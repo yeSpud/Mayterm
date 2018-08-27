@@ -14,7 +14,7 @@ public class FTTVis implements AudioSpectrumListener {
 	FloatFFT_2D fft = new FloatFFT_2D(AudioPlayer.player.getAudioSpectrumNumBands(), 22000);
 	float[] fftData = new float[AudioPlayer.player.getAudioSpectrumNumBands()];
 	//TarsosDSPSpectrogramParser TDSPSP = new TarsosDSPSpectrogramParser();
-	GoertzelVis gv = new GoertzelVis();
+	GoertzelVis gv = new GoertzelVis(50);
 	private static boolean executeOnce = false;
 	
 	//newFFT fft = new newFFT();

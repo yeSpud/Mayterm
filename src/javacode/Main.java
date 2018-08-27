@@ -1,6 +1,7 @@
 package javacode;
 
 import javacode.Database.Database;
+import javacode.Errors.JSExecutionError;
 import javacode.UI.Artist;
 import javacode.UI.CoverArt;
 import javacode.UI.Genre;
@@ -13,6 +14,7 @@ import javacode.UI.Spectrum;
 import javacode.UI.SpectrumDebug;
 import javacode.UI.Title;
 import javacode.UI.Volume;
+import javacode.javascript.javascriptRunner;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -36,6 +38,13 @@ public class Main extends Application {
 			Updater.showUpdatePrompt();
 		}
 
+		Debugger.d(getClass(), "Checking JavaScript");
+		try {
+			javascriptRunner.vaidateJs();
+		} catch (JSExecutionError e) {
+			e.printStackTrace();
+		}
+		
 		Debugger.d(this.getClass(), "Does database exist: " + Database.databaseExist());
 
 		if (!Database.databaseExist()) {
