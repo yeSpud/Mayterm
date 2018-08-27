@@ -148,23 +148,27 @@ public class Database {
 					String.format("Path: %s\nGenre: %s\nTitle: %s\nArtist: %s", path, genre.toString(), title, artist));
 
 			try {
-			if (title.isEmpty()) {
-				title = "No Title";
-			}
+				if (title.isEmpty()) {
+					title = "No Title";
+				}
 			} catch (NullPointerException nothing) {
 				title = "No Title";
 			}
 			try {
-			if (artist.isEmpty() ) {
-				artist = "No Artist";
-			}
+				if (artist.isEmpty()) {
+					artist = "No Artist";
+				}
 			} catch (NullPointerException nothing) {
 				title = "No Artist";
 			}
-			
-			JsonObject track_info = Json.createObjectBuilder().add("Color", genre.toString()).add("Title", title)
-					.add("Artist", artist).build();
-			Debugger.d(Database.class, "Track info: " + track_info.toString());
+			JsonObject track_info = null;
+			try {
+				track_info = Json.createObjectBuilder().add("Color", genre.toString()).add("Title", title)
+						.add("Artist", artist).build();
+				Debugger.d(Database.class, "Track info: " + track_info.toString());
+			} catch (NullPointerException nothing) {
+				return;
+			}
 
 			JsonReader jsonIn = Json.createReader(new StringReader(retrieveFromDatabase()));
 			JsonObject fullJson = jsonIn.readObject();
@@ -225,7 +229,11 @@ public class Database {
 		read.close();
 		JsonObject songs = fill.getJsonObject("Songs");
 		JsonObject specific_song = songs.getJsonObject(path);
-		return specific_song.get("Artist").toString().replace("\"", "");
+		try {
+			return specific_song.get("Artist").toString().replace("\"", "");
+		} catch (NullPointerException noArtist) {
+			return "No Artist";
+		}
 	}
 
 	/**
@@ -240,7 +248,11 @@ public class Database {
 		read.close();
 		JsonObject songs = fill.getJsonObject("Songs");
 		JsonObject specific_song = songs.getJsonObject(path);
-		return specific_song.get("Title").toString().replace("\"", "");
+		try {
+			return specific_song.get("Title").toString().replace("\"", "");
+		} catch (NullPointerException noTitle) {
+			return "No Title";
+		}
 	}
 
 	/**
@@ -366,43 +378,43 @@ public class Database {
 
 	public static void editSettings(int value) {
 		Debugger.d(Database.class, "Value: " + value);
-		
+
 		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
 		JsonObject full = read.readObject();
 		read.close();
 		Debugger.d(Database.class, "jSon output: " + full.toString());
-		
+
 		JsonArray in = getSettings();
 		Debugger.d(Database.class, "Old settings: " + in);
-		
+
 		try {
 			in.set(0, Json.createValue(value));
 		} catch (UnsupportedOperationException NothingEntered) {
 			in = Json.createArrayBuilder().add(value).build();
 		}
 		Debugger.d(Database.class, "New settings: " + in);
-		
+
 		JsonObject newJson = Json.createObjectBuilder().add("Settings", in).add("Songs", full.get("Songs")).build();
 		Debugger.d(Database.class, "New database: " + newJson.toString());
-		
+
 		try {
 			writeToDatabase(newJson.toString());
 		} catch (DatabaseError e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public static JsonArray getSettings() {
 		JsonReader read = Json.createReader(new StringReader(retrieveFromDatabase()));
 		JsonObject full = read.readObject();
 		read.close();
 		Debugger.d(Database.class, "jSon output: " + full.toString());
-		
+
 		JsonArray settings = full.getJsonArray("Settings");
 		Debugger.d(Database.class, "Settigns array: " + settings);
-		
+
 		return settings;
 	}
-	
+
 }
