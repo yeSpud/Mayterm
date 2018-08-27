@@ -19,6 +19,7 @@ import javacode.SpectrumAlg.FFT.CustomPitchProcessor.PitchEstimationAlgorithm;
 
 /**
  * Look at the Spectrogram java example in the tarsos dsp library
+ * 
  * @author Spud
  *
  */
@@ -29,23 +30,25 @@ public class TarsosDSPSpectrogramParser implements DetectedPitchHandler {
 			bar45, bar46, bar47, bar48;
 
 	private static float sampleRate = 44100;
-	
+
 	private static int bufferSize = 1024 * 4;
-	
+
 	private final static int height = 480;
-	
-	private static Mixer currentMixer;	
-	
+
+	private static Mixer currentMixer;
+
 	private static CustomAudioDispatcher dispatcher;
-	
+
 	private static PitchEstimationAlgorithm algo;
-	
+
 	private static float pitch;
-	
-	private static final int overlap = 768 * 4 ;
-	
+
+	private static float time;
+
+	private static final int overlap = 768 * 4;
+
 	private static String fileName;
-	
+
 	public TarsosDSPSpectrogramParser() {
 		fileName = AudioFile.toFilePath(javacode.Audio.AudioPlayer.media.getSource());
 		try {
@@ -66,16 +69,27 @@ public class TarsosDSPSpectrogramParser implements DetectedPitchHandler {
 			processOverlapping(audioFloatBuffer, audioByteBuffer);
 			return true;
 		}
-		
+
 		@Override
 		public boolean processOverlapping(float[] audioFloatBuffer, byte[] audioByteBuffer) {
 			float[] transformbuffer = new float[bufferSize * 2];
 			System.arraycopy(audioFloatBuffer, 0, transformbuffer, 0, audioFloatBuffer.length);
 			fft.forwardTransform(transformbuffer);
 			fft.modulus(transformbuffer, amplitudes);
-			System.out.println(String.format("TDSPSP pitch value: %s\nTDSPSP bin value: %s", pitch, frequencyToBin(pitch)));
-			//panel.drawFFT(pitch, amplitudes, fft);
-			
+
+			double maxAmplitude = 0;
+			// for every pixel calculate an amplitude
+			float[] pixeledAmplitudes = new float[height];
+			// iterate the lage arrray and map to pixels
+			for (int i = amplitudes.length / 800; i < amplitudes.length; i++) {
+				int pixelY = frequencyToBin(i * 44100 / (amplitudes.length * 8));
+				pixeledAmplitudes[pixelY] += amplitudes[i];
+				maxAmplitude = Math.max(pixeledAmplitudes[pixelY], maxAmplitude);
+			}
+
+			System.out.println(String.format("TDSPSP pitch value: %s\nTimeStamp: %s\n", pitch, time));
+			// panel.drawFFT(pitch, amplitudes, fft);
+
 			return true;
 		}
 
@@ -85,19 +99,16 @@ public class TarsosDSPSpectrogramParser implements DetectedPitchHandler {
 		}
 
 	};
-	
-	
+
 	// Has to be not static
 	private void setNewMixer(Mixer mixer) throws LineUnavailableException, UnsupportedAudioFileException {
 
-		if(dispatcher!= null){
+		if (dispatcher != null) {
 			dispatcher.stop();
 		}
-		if(fileName == null){
-			final AudioFormat format = new AudioFormat(sampleRate, 16, 1, true,
-					false);
-			final DataLine.Info dataLineInfo = new DataLine.Info(
-					TargetDataLine.class, format);
+		if (fileName == null) {
+			final AudioFormat format = new AudioFormat(sampleRate, 16, 1, true, false);
+			final DataLine.Info dataLineInfo = new DataLine.Info(TargetDataLine.class, format);
 			TargetDataLine line;
 			line = (TargetDataLine) mixer.getLine(dataLineInfo);
 			final int numberOfSamples = bufferSize;
@@ -106,7 +117,7 @@ public class TarsosDSPSpectrogramParser implements DetectedPitchHandler {
 			final AudioInputStream stream = new AudioInputStream(line);
 
 			// create a new dispatcher
-			dispatcher = new CustomAudioDispatcher(stream, bufferSize,overlap);
+			dispatcher = new CustomAudioDispatcher(stream, bufferSize, overlap);
 		} else {
 			try {
 				File audioFile = new File(fileName);
@@ -119,46 +130,42 @@ public class TarsosDSPSpectrogramParser implements DetectedPitchHandler {
 			}
 		}
 		currentMixer = mixer;
-		
-		
 
 		// add a processor, handle pitch event.
 		dispatcher.addAudioProcessor(new CustomPitchProcessor(algo, sampleRate, bufferSize, overlap, 0, this));
 		dispatcher.addAudioProcessor(fftProcessor);
-		
-		
 
 		// run the dispatcher (on a new thread).
-		new Thread(dispatcher,"Audio dispatching").start();
+		new Thread(dispatcher, "Audio dispatching").start();
 	}
-	
+
 	private static int frequencyToBin(final double frequency) {
-        final double minFrequency = 50; // Hz
-        final double maxFrequency = 11000; // Hz
-        int bin = 0;
-        final boolean logaritmic = true;
-        if (frequency != 0 && frequency > minFrequency && frequency < maxFrequency) {
-            double binEstimate = 0;
-            if (logaritmic) {
-                final double minCent = PitchConverter.hertzToAbsoluteCent(minFrequency);
-                final double maxCent = PitchConverter.hertzToAbsoluteCent(maxFrequency);
-                final double absCent = PitchConverter.hertzToAbsoluteCent(frequency * 2);
-                binEstimate = (absCent - minCent) / maxCent * height;
-            } else {
-                binEstimate = (frequency - minFrequency) / maxFrequency * height;
-            }
-            if (binEstimate > 700) {
-                System.out.println(binEstimate + "");
-            }
-            bin = height - 1 - (int) binEstimate;
-        }
-        return bin;
-    }
-	
+		final double minFrequency = 50; // Hz
+		final double maxFrequency = 11000; // Hz
+		int bin = 0;
+		final boolean logaritmic = true;
+		if (frequency != 0 && frequency > minFrequency && frequency < maxFrequency) {
+			double binEstimate = 0;
+			if (logaritmic) {
+				final double minCent = PitchConverter.hertzToAbsoluteCent(minFrequency);
+				final double maxCent = PitchConverter.hertzToAbsoluteCent(maxFrequency);
+				final double absCent = PitchConverter.hertzToAbsoluteCent(frequency * 2);
+				binEstimate = (absCent - minCent) / maxCent * height;
+			} else {
+				binEstimate = (frequency - minFrequency) / maxFrequency * height;
+			}
+			if (binEstimate > 700) {
+				System.out.println(binEstimate + "");
+			}
+			bin = height - 1 - (int) binEstimate;
+		}
+		return bin;
+	}
+
 	@Override
-	public void handlePitch(float pitch, float probability, float timeStamp,
-			float progress) {
+	public void handlePitch(float pitch, float probability, float timeStamp, float progress) {
 		TarsosDSPSpectrogramParser.pitch = pitch;
+		TarsosDSPSpectrogramParser.time = timeStamp;
 	}
 
 }

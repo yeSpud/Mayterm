@@ -4,20 +4,19 @@ import org.jtransforms.fft.FloatFFT_2D;
 
 import javacode.Audio.AudioFile;
 import javacode.Audio.AudioPlayer;
+import javacode.SpectrumAlg.Goertzel.GoertzelVis;
 import javacode.UI.CoverArt;
-import javacode.UI.Spectrum;
-import javacode.UI.SpectrumDebug;
 import javafx.scene.media.AudioSpectrumListener;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 
 public class FTTVis implements AudioSpectrumListener {
 	public static double timestamp;
 	double previousTime = 0;
 	FloatFFT_2D fft = new FloatFFT_2D(AudioPlayer.player.getAudioSpectrumNumBands(), 22000);
 	float[] fftData = new float[AudioPlayer.player.getAudioSpectrumNumBands()];
-	TarsosDSPSpectrogramParser TDSPSP = new TarsosDSPSpectrogramParser();
-
+	//TarsosDSPSpectrogramParser TDSPSP = new TarsosDSPSpectrogramParser();
+	GoertzelVis gv = new GoertzelVis();
+	private static boolean executeOnce = false;
+	
 	//newFFT fft = new newFFT();
 
 	/**
@@ -60,6 +59,18 @@ public class FTTVis implements AudioSpectrumListener {
 			CoverArt.setArt(null);
 		}
 		
+		double[] samples = new double[magnitudes.length];
+		for (int i = 0; i < samples.length; i++) {
+			
+			samples[i] = magnitudes[i];
+			
+		}
+		
+		GoertzelVis.calculateFrequency(50, samples);
+		
+		if  (!executeOnce) {
+			
+		}
 		
 		
 		
