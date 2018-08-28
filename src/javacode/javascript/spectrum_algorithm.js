@@ -68,24 +68,6 @@ function normalizeAmplitude(array) {
 	return values;
 }
 
-/*function averageTransform(array) {
-    var values = [];
-    for (var i = 0; i < spectrumSize; i++) {
-        if (i == 0) {
-            var value = array[i];
-        }
-        else if (i == spectrumSize - 1) {
-            var value = (array[i - 1] + array[i]) / 2;
-        }
-        else {
-            var value = (array[i - 1] + array[i] + array[i + 1]) / 3;
-        }
-        value = Math.min(value + 1, spectrumHeight);
-        values[i] = value;
-    }
-    return values;
-}*/
-
 function averageTransform(array) {
 	var values = [];
 	var length = array.length;

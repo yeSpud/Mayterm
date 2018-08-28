@@ -13,19 +13,15 @@ function handleAudio() {
     }
 
     var now = Date.now();
-    do { now = Date.now(); } while (now - lastProcess < minProcessPeriod);
+    do { 
+    	now = Date.now(); 
+    } while (now - lastProcess < minProcessPeriod);
     lastProcess = Date.now();
-
-    checkHideableText();
 
     var initialArray =  new Uint8Array(analyzer.frequencyBinCount);
     analyzer.getByteFrequencyData(initialArray);
     var array = transformToVisualBins(initialArray);
-    ctx.clearRect(-ctx.shadowBlur, -ctx.shadowBlur, spectrumWidth + ctx.shadowBlur, spectrumHeight + ctx.shadowBlur);
-    if (song.getGenre() == 'ayy lmao') {
-    	handleRainbowSpectrum();
-    }
-    ctx.fillStyle = color; // bar color
+
 
     drawSpectrum(array);
 }
@@ -35,8 +31,6 @@ var spectrumAnimationStart = 0;
 
 function drawSpectrum(array) {
 	if (isPlaying) {
-		updateParticleAttributes(array);
-
 		if (lastSpectrum.length == 1) {
 			lastSpectrum = array;
 		}
@@ -47,16 +41,8 @@ function drawSpectrum(array) {
 
 	var now = Date.now();
 
-	ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-	ctx.shadowBlur = spectrumShadowBlur;
-	ctx.shadowOffsetX = spectrumShadowOffsetX;
-	ctx.shadowOffsetY = spectrumShadowOffsetY;
-
 	if (spectrumAnimation == "phase_1") {
 		var ratio = (now - started) / 500;
-
-		ctx.fillRect(0, spectrumHeight - 2 * resRatio, (spectrumWidth/2) * ratio, 2 * resRatio);
-		ctx.fillRect(spectrumWidth - (spectrumWidth/2) * ratio, spectrumHeight - 2 * resRatio, (spectrumWidth/2) * ratio, 2 * resRatio);
 
 		if (ratio > 1) {
 			spectrumAnimation = "phase_2";
@@ -64,12 +50,6 @@ function drawSpectrum(array) {
 		}
 	} else if (spectrumAnimation == "phase_2") {
 		var ratio = (now - spectrumAnimationStart) / 500;
-
-		ctx.globalAlpha = Math.abs(Math.cos(ratio*10));
-
-		ctx.fillRect(0, spectrumHeight - 2 * resRatio, spectrumWidth, 2 * resRatio);
-
-		ctx.globalAlpha = 1;
 
 		if (ratio > 1) {
 			spectrumAnimation = "phase_3";
@@ -90,12 +70,8 @@ function drawSpectrum(array) {
             if (value < 2 * resRatio) {
             	value = 2 * resRatio;
             }
-
-            ctx.fillRect(i * (barWidth + spectrumSpacing), spectrumHeight - value, barWidth, value, value);
         }
     }
-
-    ctx.clearRect(0, spectrumHeight, spectrumWidth, blockTopPadding);
 }
 
 function updateParticleAttributes(array) {
