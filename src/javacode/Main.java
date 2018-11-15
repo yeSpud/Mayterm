@@ -26,8 +26,9 @@ public class Main extends Application {
 		
 		// Check for updates
 		System.out.println("Checking for update");
-		System.out.println("New update avalible: " + Updater.updateAvalible());
-		if (Updater.updateAvalible()) {
+		boolean newUpdate = Updater.updateAvalible();
+		System.out.println("New update avalible: " + newUpdate);
+		if (newUpdate) {
 			Updater.showUpdatePrompt();
 		}
 		
@@ -37,7 +38,15 @@ public class Main extends Application {
 		
 		// Create a stack pane to add all the objects into
 		StackPane stack = new StackPane();
-		stack.setBackground(new Background(new BackgroundImage(debugbackgroundimage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+		
+		stack.setBackground(new Background(new BackgroundImage(debugbackgroundimage, 
+				BackgroundRepeat.NO_REPEAT, 
+				BackgroundRepeat.NO_REPEAT, 
+				BackgroundPosition.DEFAULT, 
+				new BackgroundSize(debugbackgroundimage.getWidth(), debugbackgroundimage.getHeight(), false, false, true, true))));
+		
+		stack.setPrefSize(debugbackgroundimage.getWidth(), debugbackgroundimage.getHeight());
+		stack.setMinSize(16, 9);
 		
 		
 		// We need an anchor pane go help automatically constrain the maximum and minimum sizes of things
