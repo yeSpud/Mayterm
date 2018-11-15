@@ -1,8 +1,19 @@
 package javacode;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -20,8 +31,30 @@ public class Main extends Application {
 			Updater.showUpdatePrompt();
 		}
 		
+		
+		// Get the debug background image
+		Image debugbackgroundimage = new Image(this.getClass().getClassLoader().getResourceAsStream("resources/debugbackground.jpg"));
+		
+		// Create a stack pane to add all the objects into
+		StackPane stack = new StackPane();
+		stack.setBackground(new Background(new BackgroundImage(debugbackgroundimage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+		
+		
 		// We need an anchor pane go help automatically constrain the maximum and minimum sizes of things
 		AnchorPane anchor = new AnchorPane();
+		AnchorPane.setTopAnchor(stack, 0.0);
+		AnchorPane.setBottomAnchor(stack, 0.0);
+		AnchorPane.setLeftAnchor(stack, 0.0);
+		AnchorPane.setRightAnchor(stack, 0.0);
+		
+		
+		// Add the stack to the anchor pane
+		anchor.getChildren().addAll(stack);
+		
+		
+		// Set the anchor background to a light gray, that way we can check for overlap
+		anchor.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+		
 		
 		
 		// Set the scene for the visualizer, use the anchor pane defined above
