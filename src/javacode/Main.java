@@ -38,12 +38,15 @@ public class Main extends Application {
 			Updater.showUpdatePrompt();
 		}
 
+		
+		/*
 		Debugger.d(getClass(), "Checking JavaScript");
 		try {
 			javascriptRunner.vaidateJs();
 		} catch (JSExecutionError e) {
 			e.printStackTrace();
 		}
+		*/
 		
 		Debugger.d(this.getClass(), "Does database exist: " + Database.databaseExist());
 
