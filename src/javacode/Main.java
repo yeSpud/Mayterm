@@ -12,8 +12,9 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -22,7 +23,7 @@ public class Main extends Application {
 
 	public boolean debug = false;
 	
-	StackPane stack;
+	Pane stack;
 
 	@Override
 	public void start(Stage stage) {
@@ -40,7 +41,7 @@ public class Main extends Application {
 				this.getClass().getClassLoader().getResourceAsStream("resources/debugbackground.jpg"));
 
 		// Create a stack pane to add all the objects into
-		stack = new StackPane();
+		stack = new Pane();
 
 		// Setup the background
 		stack.setBackground(new Background(new BackgroundImage(debugbackgroundimage, BackgroundRepeat.NO_REPEAT,
@@ -59,6 +60,7 @@ public class Main extends Application {
 		AnchorPane.setLeftAnchor(stack, 0.0);
 		AnchorPane.setRightAnchor(stack, 0.0);
 
+
 		// Add the stack to the anchor pane
 		anchor.getChildren().addAll(stack);
 
@@ -74,15 +76,24 @@ public class Main extends Application {
 		// Show the window (stage)
 		stage.show();
 		
+		// Add a test node to check if its size and position updates
 		Text test = new Text(String.format("Test\nFoo bar"));
 		
 		test.setFont(new Font("Arial", 15));
 		test.setWrappingWidth(500);
 		test.setFill(Color.RED);
-		test.setX(0);
-		test.setY(0);
+		test.setLayoutX(0);
+		test.setLayoutY(50);
+		
+		Circle test2 = new Circle();
+		test2.setLayoutX(50);
+		test2.setLayoutY(120);
+		test2.setFill(Color.GREEN);
+		test2.setRadius(10);
+		
 		
 		stack.getChildren().add(0, test);
+		stack.getChildren().add(1, test2);
 
 	}
 

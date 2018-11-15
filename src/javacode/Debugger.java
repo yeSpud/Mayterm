@@ -1,11 +1,5 @@
 package javacode;
 
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-
 public class Debugger {
 
 	Main main = new Main();
@@ -19,6 +13,7 @@ public class Debugger {
 		}
 	}
 	
+	/*
 	public void e(Class<?> c, String error, String trace, StackPane stack) {
 		String errorHeader = String.format("%s: %s",c.getName(), error);
 		
@@ -35,5 +30,6 @@ public class Debugger {
 		stack.getChildren().add(0, errorHUD);
 		
 	}
+	*/
 	
 }
