@@ -1,5 +1,6 @@
-package javacode;
+package javacode.Windows;
 
+import javacode.Debugger;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -29,7 +30,6 @@ public class Window extends Application {
 
 	public static void setStageBackground(Color color) {
 		Debugger.d(Window.class, "Changing color to " + color.toString());
-
 		Scene scene = Window.stage.getScene();
 		BorderPane root = (BorderPane) scene.getRoot();
 		root.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));

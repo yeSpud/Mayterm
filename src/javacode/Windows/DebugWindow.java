@@ -1,11 +1,15 @@
-package javacode;
+package javacode.Windows;
 
+import javacode.Debugger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class DebugWindow extends javafx.application.Application {
@@ -22,7 +26,8 @@ public class DebugWindow extends javafx.application.Application {
 		// Set the title
 		primaryStage.setTitle("Debug window");
 
-		parent.getChildren().add(this.changeBackgroundColor());
+		// Add a way to change the background
+		this.changeBackgroundColor(parent);
 
 		// Show the debug window
 		primaryStage.setScene(scene);
@@ -35,10 +40,14 @@ public class DebugWindow extends javafx.application.Application {
 
 	/**
 	 * TODO Documentation
-	 *
-	 * @return
 	 */
-	private ComboBox<Color> changeBackgroundColor() {
+	private void changeBackgroundColor(VBox parent) {
+		// Create a title for the element
+		Text title = new Text("Set window background");
+		title.setTextAlignment(TextAlignment.CENTER);
+		title.setFont(new Font(15));
+		parent.getChildren().add(title);
+
 		// Create a combo box to change the background color
 		ObservableList<Color> colors = FXCollections.observableArrayList(Color.WHITE, Color.BLACK);
 		ComboBox<Color> color_picker = new ComboBox<>(colors);
@@ -53,6 +62,6 @@ public class DebugWindow extends javafx.application.Application {
 			Window.setStageBackground(newValue);
 		});
 
-		return color_picker;
+		parent.getChildren().add(color_picker);
 	}
 }
