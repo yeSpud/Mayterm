@@ -4,6 +4,7 @@ import javacode.Debugger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -20,6 +21,7 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Set the debug panel parent to a VBox
 		VBox parent = new VBox();
+		parent.setSpacing(10);
 
 		Scene scene = new Scene(parent);
 
@@ -27,7 +29,10 @@ public class DebugWindow extends javafx.application.Application {
 		primaryStage.setTitle("Debug window");
 
 		// Add a way to change the background
-		this.changeBackgroundColor(parent);
+		this.setupBackground(parent);
+
+		// Add a way to change the loading bar property
+		this.setupLoadingBar(parent);
 
 		// Show the debug window
 		primaryStage.setScene(scene);
@@ -40,13 +45,17 @@ public class DebugWindow extends javafx.application.Application {
 
 	/**
 	 * TODO Documentation
+	 *
+	 * @param parent
 	 */
-	private void changeBackgroundColor(VBox parent) {
+	private void setupBackground(VBox parent) {
+		VBox container = new VBox();
+
 		// Create a title for the element
-		Text title = new Text("Set window background");
+		Text title = new Text("Background");
 		title.setTextAlignment(TextAlignment.CENTER);
 		title.setFont(new Font(15));
-		parent.getChildren().add(title);
+		container.getChildren().add(title);
 
 		// Create a combo box to change the background color
 		ObservableList<Color> colors = FXCollections.observableArrayList(Color.WHITE, Color.BLACK);
@@ -62,6 +71,36 @@ public class DebugWindow extends javafx.application.Application {
 			Window.setStageBackground(newValue);
 		});
 
-		parent.getChildren().add(color_picker);
+		container.getChildren().add(color_picker);
+
+		// Add the container
+		parent.getChildren().add(container);
+
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param parent
+	 */
+	private void setupLoadingBar(VBox parent) {
+		VBox container = new VBox();
+
+		Text title = new Text("Loading bar");
+		title.setTextAlignment(TextAlignment.CENTER);
+		title.setFont(new Font(15));
+		container.getChildren().add(title);
+
+		Button animate = new Button("Play animation");
+		animate.setFont(new Font(15));
+		animate.setOnAction((event -> {
+			Window.playLoadingAnimation();
+		}));
+		container.getChildren().add(animate);
+
+		// TODO Add color changing
+
+		// TODO Add coordinates
+		parent.getChildren().add(container);
 	}
 }
