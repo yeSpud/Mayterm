@@ -2,11 +2,12 @@ package javacode.UI;
 
 
 import javacode.Debugger;
+import javacode.Windows.Window;
+import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
-import javafx.scene.transform.Scale;
 import javafx.util.Duration;
 
 public class LoadingBar extends Rectangle {
@@ -40,11 +41,15 @@ public class LoadingBar extends Rectangle {
 		// Creating Translate Transition
 		TranslateTransition stage1 = this.stage1Animation();
 
-		ScaleTransition stage2 = this.stage2Animation();
+		ParallelTransition stage2 = this.stage2Animation(), stage3 = this.stage3Animation();
 		stage2.stop();
+		stage3.stop();
+
+		stage3.setOnFinished((e) -> Debugger.d(this.getClass(), "Stage 3 done"));
 
 		stage2.setOnFinished(e -> {
 			Debugger.d(this.getClass(), "Stage 2 done");
+			stage3.play();
 		});
 
 		stage1.setOnFinished(e -> {
@@ -84,17 +89,34 @@ public class LoadingBar extends Rectangle {
 	 *
 	 * @return
 	 */
-	private ScaleTransition stage2Animation() {
-		ScaleTransition scaleTransition = new ScaleTransition();
-
-		scaleTransition.setDuration(Duration.millis(1000));
-
-		scaleTransition.setNode(this);
-
-		
-
+	private ParallelTransition stage2Animation() {
+		ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(1000));
+		scaleTransition.setByX(-(1 - (6 / this.getWidth())));
 		scaleTransition.setAutoReverse(false);
 
-		return scaleTransition;
+		TranslateTransition translateTransition = new TranslateTransition(Duration.millis(1000));
+		translateTransition.setFromX(0);
+		translateTransition.setToX(this.getWidth() / 2);
+		translateTransition.setAutoReverse(false);
+
+		return new ParallelTransition(this, scaleTransition, translateTransition);
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @return
+	 */
+	private ParallelTransition stage3Animation() {
+		ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(1000));
+		scaleTransition.setByX(1 - (6 / this.getWidth()));
+		scaleTransition.setAutoReverse(false);
+
+		TranslateTransition translateTransition = new TranslateTransition(Duration.millis(1000));
+		translateTransition.setFromX(this.getWidth() / 2);
+		translateTransition.setToX(this.getWidth() + (this.getX() * 2));
+		translateTransition.setAutoReverse(false);
+
+		return new ParallelTransition(this, scaleTransition, translateTransition);
 	}
 }

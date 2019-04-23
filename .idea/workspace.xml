@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ae80dec1-4ea3-4944-bb33-e6c895d469fb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/javacode/UI/LoadingBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/javacode/UI/LoadingBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/javacode/UI/LoadingBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/javacode/Windows/DebugWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/javacode/Windows/DebugWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/javacode/Windows/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/javacode/Windows/Window.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/application.css" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,49 +28,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/javacode/Windows/DebugWindow.java">
+        <entry file="file://$PROJECT_DIR$/src/javacode/Windows/Window.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="98" column="45" selection-start-line="98" selection-start-column="45" selection-end-line="98" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/javacode/UI/LoadingBar.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="93" column="8" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="8" />
+            <state relative-caret-position="154">
+              <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#227#228#0" expanded="true" />
-                <element signature="e#238#239#0" expanded="true" />
-                <element signature="docComment;method#createLoadingBar#0;class#LoadingBar#0" />
-                <element signature="method#createLoadingBar#0;class#loadingBar#0" />
-                <element signature="docComment;method#playAnimation#0;class#LoadingBar#0" />
-                <element signature="docComment;method#stage1Animation#0;class#LoadingBar#0" />
-                <element signature="docComment;method#stage2Animation#0;class#LoadingBar#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/3rd-party-libs/javafx-sdk-11.0.2/lib/src.zip!/javafx.graphics/javafx/scene/shape/Rectangle.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/javacode/Windows/DebugWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="163" column="22" selection-start-line="163" selection-start-column="22" selection-end-line="163" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/javacode/Windows/Window.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="54" column="42" selection-start-line="54" selection-start-column="42" selection-end-line="54" selection-end-column="42" />
+            <state relative-caret-position="168">
+              <caret line="121" column="50" selection-start-line="121" selection-start-column="50" selection-end-line="121" selection-end-column="50" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="docComment;method#setupBackground#0;class#DebugWindow#0" />
               </folding>
             </state>
           </provider>
@@ -100,9 +73,9 @@
         <option value="$PROJECT_DIR$/src/javacode/Main.java" />
         <option value="$PROJECT_DIR$/src/javacode/UI/loadingBar.java" />
         <option value="$PROJECT_DIR$/src/javacode/Tra.java" />
+        <option value="$PROJECT_DIR$/src/javacode/UI/LoadingBar.java" />
         <option value="$PROJECT_DIR$/src/javacode/Windows/Window.java" />
         <option value="$PROJECT_DIR$/src/javacode/Windows/DebugWindow.java" />
-        <option value="$PROJECT_DIR$/src/javacode/UI/LoadingBar.java" />
       </list>
     </option>
   </component>
@@ -136,12 +109,13 @@
               <item name="Mayterm" type="58d84e3e:PackageViewProjectNode" />
               <item name="Mayterm" type="616d4139:PackageViewModuleNode" />
               <item name="javacode" type="1f31426a:PackageElementNode" />
-              <item name="Windows" type="1f31426a:PackageElementNode" />
+              <item name="UI" type="1f31426a:PackageElementNode" />
             </path>
             <path>
               <item name="Mayterm" type="58d84e3e:PackageViewProjectNode" />
               <item name="Mayterm" type="616d4139:PackageViewModuleNode" />
-              <item name="resources" type="1f31426a:PackageElementNode" />
+              <item name="javacode" type="1f31426a:PackageElementNode" />
+              <item name="Windows" type="1f31426a:PackageElementNode" />
             </path>
           </expand>
           <select />
@@ -383,13 +357,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/javacode/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-11">
-          <caret column="17" lean-forward="true" selection-start-column="17" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/javacode/Tra.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="279">
@@ -398,23 +365,6 @@
             <element signature="imports" expanded="true" />
             <element signature="e#1710#1711#0" expanded="true" />
             <element signature="e#1729#1730#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/javacode/Windows/DebugWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="98" column="45" selection-start-line="98" selection-start-column="45" selection-end-line="98" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/javacode/Windows/Window.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="54" column="42" selection-start-line="54" selection-start-column="42" selection-end-line="54" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -437,13 +387,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/3rd-party-libs/javafx-sdk-11.0.2/lib/src.zip!/javafx.graphics/javafx/animation/Animation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="955" column="16" selection-start-line="955" selection-start-column="16" selection-end-line="955" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/3rd-party-libs/javafx-sdk-11.0.2/lib/src.zip!/javafx.graphics/javafx/animation/TranslateTransition.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
@@ -451,19 +394,85 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$PROJECT_DIR$/3rd-party-libs/javafx-sdk-11.0.2/lib/src.zip!/javafx.graphics/com/sun/scenario/animation/shared/ClipEnvelope.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="46" column="22" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/3rd-party-libs/javafx-sdk-11.0.2/lib/src.zip!/javafx.graphics/javafx/animation/Animation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="256" column="16" selection-start-line="256" selection-start-column="4" selection-end-line="256" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/javacode/UI/LoadingBar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="93" column="8" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="8" />
+        <state relative-caret-position="656">
+          <caret line="111" column="58" selection-start-line="111" selection-start-column="58" selection-end-line="111" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#227#228#0" expanded="true" />
-            <element signature="e#238#239#0" expanded="true" />
             <element signature="docComment;method#createLoadingBar#0;class#LoadingBar#0" />
-            <element signature="method#createLoadingBar#0;class#loadingBar#0" />
             <element signature="docComment;method#playAnimation#0;class#LoadingBar#0" />
             <element signature="docComment;method#stage1Animation#0;class#LoadingBar#0" />
+            <element signature="method#stage1Animation#0;class#LoadingBar#0" />
             <element signature="docComment;method#stage2Animation#0;class#LoadingBar#0" />
+            <element signature="method#stage2Animation#0;class#LoadingBar#0" />
+            <element signature="docComment;method#stage3Animation#0;class#LoadingBar#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/javacode/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-11">
+          <caret column="17" lean-forward="true" selection-start-column="17" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/3rd-party-libs/javafx-sdk-11.0.2/lib/src.zip!/javafx.controls/javafx/scene/control/CheckBox.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="154" column="22" selection-start-line="154" selection-start-column="22" selection-end-line="154" selection-end-column="22" />
+          <folding>
+            <element signature="e#6086#6087#0" expanded="true" />
+            <element signature="e#6131#6132#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/3rd-party-libs/javafx-sdk-11.0.2/lib/src.zip!/javafx.controls/javafx/scene/control/ButtonBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="123" column="22" selection-start-line="123" selection-start-column="22" selection-end-line="123" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/3rd-party-libs/javafx-sdk-11.0.2/lib/src.zip!/javafx.base/javafx/beans/Observable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="75" column="9" selection-start-line="75" selection-start-column="9" selection-end-line="75" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/javacode/Windows/Window.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/javacode/Windows/DebugWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="121" column="50" selection-start-line="121" selection-start-column="50" selection-end-line="121" selection-end-column="50" />
+          <folding>
+            <element signature="docComment;method#setupBackground#0;class#DebugWindow#0" />
           </folding>
         </state>
       </provider>

@@ -10,7 +10,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class Window extends Application {
@@ -38,6 +37,11 @@ public class Window extends Application {
 		primaryStage.show();
 	}
 
+	/**
+	 * TODO Documentation
+	 *
+	 * @param color
+	 */
 	public static void setStageBackground(Color color) {
 		Debugger.d(Window.class, "Changing color to " + color.toString());
 		Scene scene = Window.stage.getScene();
@@ -45,14 +49,38 @@ public class Window extends Application {
 		root.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
+	/**
+	 * TODO Documentation
+	 *
+	 * @param color
+	 */
 	public static void setLoadingColor(Color color) {
 		Debugger.d(Window.class, "Changing color to " + color.toString());
 		Window.loadingBar.setFill(color);
 	}
 
+	/**
+	 * TODO Documentation
+	 */
 	public static void playLoadingAnimation() {
 		Debugger.d(Window.class, "Playing animation");
 		Window.loadingBar.playAnimation();
+	}
+
+	/**
+	 * TODO Documentation
+	 */
+	public static void showLoadingBar() {
+		Debugger.d(Window.class, "Showing loading bar");
+		Window.loadingBar.setVisible(true);
+	}
+
+	/**
+	 * TODO Documentation
+	 */
+	public static void hideLoadingBar() {
+		Debugger.d(Window.class, "Hiding loading bar");
+		Window.loadingBar.setVisible(false);
 	}
 
 }
