@@ -35,6 +35,7 @@ import com.google.common.io.Resources;
  * @author Spud
  *
  */
+@Deprecated
 public class Updater {
 
 	/**
