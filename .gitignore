@@ -8,3 +8,4 @@ config_gource_with_image
 /bin/
 dict.txt
 gource_config
+.idea/misc.xml
