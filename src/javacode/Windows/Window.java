@@ -4,6 +4,7 @@ import javacode.Debugger;
 import javacode.GenreColors;
 import javacode.UI.AlbumArt;
 import javacode.UI.LoadingBar;
+import javacode.UI.Monstercat;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -22,6 +23,8 @@ public class Window extends Application {
 
 	private static AlbumArt albumArt = new AlbumArt().createAlbumArt();
 
+	private static Monstercat cat = new Monstercat(Window.albumArt.getX(), Window.albumArt.getY());
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Debugger.d(this.getClass(), "Starting application");
@@ -39,8 +42,8 @@ public class Window extends Application {
 		// Add the album art TODO Fix X position
 		root.getChildren().add(Window.albumArt);
 
-		// FIXME
-		root.getChildren().add(AlbumArt.getMonstercat());
+		// Add the Monstercat stock art for the album art // TODO Fix positioning
+		root.getChildren().add(Window.cat);
 
 		// Add the title text
 		// TODO
@@ -145,12 +148,5 @@ public class Window extends Application {
 		Window.albumArt.setVisible(false);
 	}
 
-	/**
-	 * TODO Documentation
-	 */
-	public static void showWhiteMonstercat() {
-		Debugger.d(Window.class, "Showing white Monstercat logo");
-		//Window.albumArt.setImage(AlbumArt.getMonstercatWhite());
-	}
 
 }

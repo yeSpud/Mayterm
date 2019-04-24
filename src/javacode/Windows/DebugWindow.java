@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -30,6 +31,7 @@ public class DebugWindow extends javafx.application.Application {
 		// Set the debug panel parent to a VBox
 		VBox parent = new VBox();
 		parent.setSpacing(10);
+		parent.setAlignment(Pos.CENTER);
 
 		Scene scene = new Scene(parent);
 
@@ -48,6 +50,7 @@ public class DebugWindow extends javafx.application.Application {
 		// Show the debug window
 		primaryStage.setScene(scene);
 		primaryStage.setAlwaysOnTop(true);
+		primaryStage.setWidth(300);
 		primaryStage.show();
 
 		// Launch the main window as well
@@ -62,6 +65,7 @@ public class DebugWindow extends javafx.application.Application {
 	private void setupBackground(VBox parent) {
 		VBox container = new VBox();
 		container.setSpacing(5);
+		container.setAlignment(Pos.CENTER);
 
 		// Create a combo box to change the background color
 		ComboBox<Color> color_picker = this.createComboBox(Color.BLACK, Color.BLACK, Color.WHITE);
@@ -88,6 +92,7 @@ public class DebugWindow extends javafx.application.Application {
 	private void setupLoadingBar(VBox parent) {
 		VBox container = new VBox();
 		container.setSpacing(5);
+		container.setAlignment(Pos.CENTER);
 
 		// Create a button to play the loading animation
 		Button animate = new Button("Play animation");
@@ -137,6 +142,7 @@ public class DebugWindow extends javafx.application.Application {
 	private void setupAlbumArt(VBox parent) {
 		VBox container = new VBox();
 		container.setSpacing(5);
+		container.setAlignment(Pos.CENTER);
 
 		// Create a combo box to change the album art color
 		ComboBox<GenreColors> color_picker = this.createComboBox(GenreColors.ELECTRONIC, GenreColors.values());

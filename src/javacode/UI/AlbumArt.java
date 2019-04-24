@@ -1,11 +1,8 @@
 package javacode.UI;
 
 import javacode.GenreColors;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.SVGPath;
 
 public class AlbumArt extends Rectangle {
 
