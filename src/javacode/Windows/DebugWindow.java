@@ -3,14 +3,12 @@ package javacode.Windows;
 import javacode.Debugger;
 import javacode.GenreColors;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -32,9 +30,6 @@ public class DebugWindow extends javafx.application.Application {
 		// Set the title
 		primaryStage.setTitle("Debug window");
 
-		// Add a way to change the background
-		this.setupBackground(parent);
-
 		// Add a way to change the loading bar properties
 		this.setupLoadingBar(parent);
 
@@ -49,29 +44,6 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Launch the main window as well
 		new Window().start(new Stage());
-	}
-
-	/**
-	 * TODO Documentation
-	 *
-	 * @param parent
-	 */
-	private void setupBackground(VBox parent) {
-		VBox container = new VBox();
-		container.setSpacing(5);
-		container.setAlignment(Pos.CENTER);
-
-		// Create a combo box to change the background color
-		ComboBox<Color> color_picker = this.createComboBox(Color.BLACK, Color.BLACK, Color.WHITE);
-		// Change the background color
-		color_picker.valueProperty().addListener((observable, oldValue, newValue) -> Window.setStageBackground(newValue));
-
-		// Add a title, and the combo box
-		container.getChildren().addAll(this.createTitle("Background"), color_picker);
-
-		// Add the container
-		parent.getChildren().add(container);
-
 	}
 
 	/**
@@ -165,12 +137,11 @@ public class DebugWindow extends javafx.application.Application {
 	 * TODO Documentation
 	 *
 	 * @param initial
-	 * @param options
+	 * @param genreColors
 	 * @return
 	 */
-	private ComboBox createComboBox(Object initial, Object... options) {
-		ObservableList list = FXCollections.observableArrayList(options);
-		ComboBox comboBox = new ComboBox(list);
+	private ComboBox<GenreColors> createComboBox(GenreColors initial, GenreColors[] genreColors) {
+		ComboBox<GenreColors> comboBox = new ComboBox<>(FXCollections.observableArrayList(genreColors));
 		comboBox.setValue(initial);
 		return comboBox;
 	}
