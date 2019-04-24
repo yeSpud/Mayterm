@@ -39,6 +39,9 @@ public class Window extends Application {
 		// Add the album art TODO Fix X position
 		root.getChildren().add(Window.albumArt);
 
+		// FIXME
+		root.getChildren().add(AlbumArt.getMonstercat());
+
 		// Add the title text
 		// TODO
 
@@ -56,6 +59,7 @@ public class Window extends Application {
 		// Set the default background
 		Window.setStageBackground(Color.BLACK);
 
+		primaryStage.setOnCloseRequest((event -> System.exit(0)));
 		primaryStage.show();
 	}
 
@@ -123,6 +127,30 @@ public class Window extends Application {
 	public static void setAlbumArtColor(Color color) {
 		Debugger.d(Window.class, "Changing album art color to " + color.toString());
 		Window.albumArt.setColor(color);
+	}
+
+	/**
+	 * TODO Documentation
+	 */
+	public static void showAlbumArt() {
+		Debugger.d(Window.class, "Showing album art");
+		Window.albumArt.setVisible(true);
+	}
+
+	/**
+	 * TODO Documentation
+	 */
+	public static void hideAlbumArt() {
+		Debugger.d(Window.class, "Hiding album art");
+		Window.albumArt.setVisible(false);
+	}
+
+	/**
+	 * TODO Documentation
+	 */
+	public static void showWhiteMonstercat() {
+		Debugger.d(Window.class, "Showing white Monstercat logo");
+		//Window.albumArt.setImage(AlbumArt.getMonstercatWhite());
 	}
 
 }
