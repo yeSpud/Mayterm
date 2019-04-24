@@ -19,10 +19,19 @@ public class Window extends Application {
 
 	private static Stage stage;
 
+	/**
+	 * TODO Documentation
+	 */
 	private static LoadingBar loadingBar = new LoadingBar().createLoadingBar();
 
+	/**
+	 * TODO Documentation
+	 */
 	private static AlbumArt albumArt = new AlbumArt().createAlbumArt();
 
+	/**
+	 * TODO Documentation
+	 */
 	private static Monstercat cat = new Monstercat(Window.albumArt.getX(), Window.albumArt.getY());
 
 	@Override
@@ -72,7 +81,7 @@ public class Window extends Application {
 	 * @param color
 	 */
 	public static void setStageBackground(Color color) {
-		Debugger.d(Window.class, "Changing color to " + color.toString());
+		Debugger.d(Window.class, "Changing background color to " + color.toString());
 		Scene scene = Window.stage.getScene();
 		BorderPane root = (BorderPane) scene.getRoot();
 		root.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -84,7 +93,7 @@ public class Window extends Application {
 	 * @param color
 	 */
 	public static void setLoadingColor(Color color) {
-		Debugger.d(Window.class, "Changing color to " + color.toString());
+		Debugger.d(Window.class, "Changing loading bar color to " + color.toString());
 		Window.loadingBar.setFill(color);
 	}
 
@@ -98,18 +107,12 @@ public class Window extends Application {
 
 	/**
 	 * TODO Documentation
+	 *
+	 * @param hide
 	 */
-	public static void showLoadingBar() {
-		Debugger.d(Window.class, "Showing loading bar");
-		Window.loadingBar.setVisible(true);
-	}
-
-	/**
-	 * TODO Documentation
-	 */
-	public static void hideLoadingBar() {
-		Debugger.d(Window.class, "Hiding loading bar");
-		Window.loadingBar.setVisible(false);
+	public static void hideLoadingBar(boolean hide) {
+		Debugger.d(Window.class, "Hiding loading bar? " + hide);
+		Window.loadingBar.setVisible(!hide);
 	}
 
 	/**
@@ -134,18 +137,36 @@ public class Window extends Application {
 
 	/**
 	 * TODO Documentation
+	 *
+	 * @param hide
 	 */
-	public static void showAlbumArt() {
-		Debugger.d(Window.class, "Showing album art");
-		Window.albumArt.setVisible(true);
+	public static void hideAlbumArt(boolean hide) {
+		Debugger.d(Window.class, "Hiding album art? " + hide);
+		Window.albumArt.setVisible(!hide);
 	}
 
 	/**
 	 * TODO Documentation
+	 *
+	 * @param invert
 	 */
-	public static void hideAlbumArt() {
-		Debugger.d(Window.class, "Hiding album art");
-		Window.albumArt.setVisible(false);
+	public static void invertCat(boolean invert) {
+		Debugger.d(Window.class, "Inverting cat: " + invert);
+		if (invert) {
+			Window.cat.setBlack();
+		} else {
+			Window.cat.setWhite();
+		}
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param hide
+	 */
+	public static void hideCat(boolean hide) {
+		Debugger.d(Window.class, "Hide cat? " + hide);
+		Window.cat.setVisible(!hide);
 	}
 
 

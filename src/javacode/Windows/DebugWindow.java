@@ -2,12 +2,8 @@ package javacode.Windows;
 
 import javacode.Debugger;
 import javacode.GenreColors;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,8 +15,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 public class DebugWindow extends javafx.application.Application {
 
@@ -69,12 +63,8 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Create a combo box to change the background color
 		ComboBox<Color> color_picker = this.createComboBox(Color.BLACK, Color.BLACK, Color.WHITE);
-		color_picker.valueProperty().addListener((observable, oldValue, newValue) -> {
-			Debugger.d(this.getClass(), "Changing color from " + oldValue.toString() + " to " + newValue.toString());
-
-			// Change the background
-			Window.setStageBackground(newValue);
-		});
+		// Change the background color
+		color_picker.valueProperty().addListener((observable, oldValue, newValue) -> Window.setStageBackground(newValue));
 
 		// Add a title, and the combo box
 		container.getChildren().addAll(this.createTitle("Background"), color_picker);
@@ -97,31 +87,20 @@ public class DebugWindow extends javafx.application.Application {
 		// Create a button to play the loading animation
 		Button animate = new Button("Play animation");
 		animate.setFont(new Font(15));
-		animate.setOnAction((event -> {
-			Window.playLoadingAnimation();
-		}));
+		animate.setOnAction((event -> Window.playLoadingAnimation()));
 
 
-		// Create a combo box to change the background color
+		// Create a combo box to change the loading bar color
 		ComboBox<GenreColors> color_picker = this.createComboBox(GenreColors.ELECTRONIC, GenreColors.values());
-		color_picker.valueProperty().addListener((observable, oldValue, newValue) -> {
-			Debugger.d(this.getClass(), "Changing color from " + oldValue.toString() + " to " + newValue.toString());
-
-			// Change the background
-			Window.setLoadingColor(newValue.getColor());
-		});
+		// Change the loading bar colors
+		color_picker.valueProperty().addListener((observable, oldValue, newValue) -> Window.setLoadingColor(newValue.getColor()));
 
 
 		// Create a checkbox to enable/disable the bar
 		CheckBox showBar = new CheckBox("Show loading bar");
 		showBar.setSelected(true);
 		showBar.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			if (newValue) {
-				Window.showLoadingBar();
-			} else {
-				Window.hideLoadingBar();
-			}
-
+			Window.hideLoadingBar(oldValue);
 			animate.setDisable(oldValue);
 			color_picker.setDisable(oldValue);
 
@@ -146,30 +125,38 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Create a combo box to change the album art color
 		ComboBox<GenreColors> color_picker = this.createComboBox(GenreColors.ELECTRONIC, GenreColors.values());
-		color_picker.valueProperty().addListener((observable, oldValue, newValue) -> {
-			Debugger.d(this.getClass(), "Changing album art to: " + newValue.toString());
-			Window.setAlbumArtColor(newValue);
-		});
+		color_picker.valueProperty().addListener((observable, oldValue, newValue) -> Window.setAlbumArtColor(newValue));
 
-		// TODO Add button to play show Album art animation
-		// TODO Add Button to play show stock art animation
-		// TODO Add cat for stock art
 
 		// Create a checkbox that will enable/disable the art
 		CheckBox box = new CheckBox("Show album art");
 		box.setSelected(true);
 		box.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			if (newValue) {
-				Window.showAlbumArt();
-			} else {
-				Window.hideAlbumArt();
-			}
-
+			Window.hideAlbumArt(oldValue);
 			color_picker.setDisable(oldValue);
 		});
 
-		// Add the title, and the color picker
-		container.getChildren().addAll(this.createTitle("Album art"), color_picker, box);
+
+		// Create a checkbox for inverting the cat color
+		CheckBox invertCat = new CheckBox("Invert cat");
+		invertCat.setSelected(false);
+		invertCat.selectedProperty().addListener((observable, oldValue, newValue) -> Window.invertCat(newValue));
+
+
+		// Create a checkbox to show / hide the cat
+		CheckBox hideCat = new CheckBox("Show cat");
+		hideCat.setSelected(true);
+		hideCat.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			Window.hideCat(oldValue);
+			invertCat.setDisable(oldValue);
+		});
+
+		// TODO Add button to play show Album art animation
+		// TODO Add Button to play show stock art animation
+
+
+		// Add the title, and all the other elements
+		container.getChildren().addAll(this.createTitle("Album art"), color_picker, box, invertCat, hideCat);
 
 		parent.getChildren().add(container);
 	}
