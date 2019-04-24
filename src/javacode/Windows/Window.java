@@ -2,6 +2,7 @@ package javacode.Windows;
 
 import javacode.Debugger;
 import javacode.GenreColors;
+import javacode.UI.AlbumArt;
 import javacode.UI.LoadingBar;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -17,7 +18,9 @@ public class Window extends Application {
 
 	private static Stage stage;
 
-	private static LoadingBar loadingBar;
+	private static LoadingBar loadingBar = new LoadingBar().createLoadingBar();
+
+	private static AlbumArt albumArt = new AlbumArt().createAlbumArt();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -30,10 +33,23 @@ public class Window extends Application {
 		// Setup the stage, so it can be accessed by other classes statically
 		Window.stage = primaryStage;
 
-		// Add the loading bar
-		Window.loadingBar = new LoadingBar().createLoadingBar();
-		Window.setLoadingColor(GenreColors.ELECTRONIC.getColor());
+		// Add the loading bar TODO Fix Y position
 		root.getChildren().add(Window.loadingBar);
+
+		// Add the album art TODO Fix X position
+		root.getChildren().add(Window.albumArt);
+
+		// Add the title text
+		// TODO
+
+		// Add the artist text
+		// TODO
+
+		// Add a listener for key presses
+		// TODO
+
+		// Add the audio player and track selector
+		// TODO
 
 		primaryStage.setScene(scene);
 
@@ -87,6 +103,26 @@ public class Window extends Application {
 	public static void hideLoadingBar() {
 		Debugger.d(Window.class, "Hiding loading bar");
 		Window.loadingBar.setVisible(false);
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param color
+	 */
+	public static void setAlbumArtColor(GenreColors color) {
+		Debugger.d(Window.class, "Changing album art color to " + color.toString());
+		Window.albumArt.setColor(color);
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param color
+	 */
+	public static void setAlbumArtColor(Color color) {
+		Debugger.d(Window.class, "Changing album art color to " + color.toString());
+		Window.albumArt.setColor(color);
 	}
 
 }

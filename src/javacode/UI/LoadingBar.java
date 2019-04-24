@@ -2,7 +2,7 @@ package javacode.UI;
 
 
 import javacode.Debugger;
-import javacode.Windows.Window;
+import javacode.GenreColors;
 import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
@@ -28,6 +28,7 @@ public class LoadingBar extends Rectangle {
 	public LoadingBar createLoadingBar() {
 		LoadingBar bar = new LoadingBar(115, 356, 1046, 2);
 		bar.setStrokeType(StrokeType.CENTERED);
+		bar.setFill(GenreColors.ELECTRONIC.getColor());
 		bar.setStrokeWidth(2);
 		bar.fillProperty();
 		return bar;
