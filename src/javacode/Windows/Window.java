@@ -1,6 +1,7 @@
 package javacode.Windows;
 
 import javacode.Debugger;
+import javacode.GenreColors;
 import javacode.UI.LoadingBar;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -31,9 +32,14 @@ public class Window extends Application {
 
 		// Add the loading bar
 		Window.loadingBar = new LoadingBar().createLoadingBar();
+		Window.setLoadingColor(GenreColors.ELECTRONIC.getColor());
 		root.getChildren().add(Window.loadingBar);
 
 		primaryStage.setScene(scene);
+
+		// Set the default background
+		Window.setStageBackground(Color.BLACK);
+
 		primaryStage.show();
 	}
 

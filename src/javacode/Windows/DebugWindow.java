@@ -1,6 +1,7 @@
 package javacode.Windows;
 
 import javacode.Debugger;
+import javacode.GenreColors;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -17,6 +18,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class DebugWindow extends javafx.application.Application {
 
@@ -106,17 +109,18 @@ public class DebugWindow extends javafx.application.Application {
 		container.getChildren().add(animate);
 
 		// Create a combo box to change the background color
-		ObservableList<Color> colors = FXCollections.observableArrayList(Color.WHITE, Color.BLACK);
-		ComboBox<Color> color_picker = new ComboBox<>(colors);
+		ObservableList<GenreColors> colors = FXCollections.observableArrayList(GenreColors.values());
+
+		ComboBox<GenreColors> color_picker = new ComboBox<>(colors);
 
 		// Set the default value
-		color_picker.setValue(Color.BLACK);
+		color_picker.setValue(GenreColors.ELECTRONIC);
 
 		color_picker.valueProperty().addListener((observable, oldValue, newValue) -> {
 			Debugger.d(this.getClass(), "Changing color from " + oldValue.toString() + " to " + newValue.toString());
 
 			// Change the background
-			Window.setLoadingColor(newValue);
+			Window.setLoadingColor(newValue.getColor());
 		});
 
 		container.getChildren().add(color_picker);
