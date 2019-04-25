@@ -4,10 +4,12 @@ import javacode.Debugger;
 import javacode.GenreColors;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -36,6 +38,9 @@ public class DebugWindow extends javafx.application.Application {
 		// Add a way to change the album art properties
 		this.setupAlbumArt(parent);
 
+		// Add a way to change the track info
+		this.setupTrackInfo(parent);
+
 		// Show the debug window
 		primaryStage.setScene(scene);
 		primaryStage.setAlwaysOnTop(true);
@@ -52,9 +57,6 @@ public class DebugWindow extends javafx.application.Application {
 	 * @param parent
 	 */
 	private void setupLoadingBar(VBox parent) {
-		VBox container = new VBox();
-		container.setSpacing(5);
-		container.setAlignment(Pos.CENTER);
 
 		// Create a button to play the loading animation
 		Button animate = new Button("Play animation");
@@ -79,10 +81,8 @@ public class DebugWindow extends javafx.application.Application {
 		});
 
 
-		// Add the title, and then all the other elements
-		container.getChildren().addAll(this.createTitle("Loading bar"), animate, color_picker, showBar);
-
-		parent.getChildren().add(container);
+		// Add all the nodes to the window
+		this.addToWindow(parent, this.createTitle("Loading bar"), animate, color_picker, showBar);
 	}
 
 	/**
@@ -91,9 +91,6 @@ public class DebugWindow extends javafx.application.Application {
 	 * @param parent
 	 */
 	private void setupAlbumArt(VBox parent) {
-		VBox container = new VBox();
-		container.setSpacing(5);
-		container.setAlignment(Pos.CENTER);
 
 		// Create a combo box to change the album art color
 		ComboBox<GenreColors> color_picker = this.createComboBox(GenreColors.ELECTRONIC, GenreColors.values());
@@ -127,10 +124,35 @@ public class DebugWindow extends javafx.application.Application {
 		// TODO Add Button to play show stock art animation
 
 
-		// Add the title, and all the other elements
-		container.getChildren().addAll(this.createTitle("Album art"), color_picker, box, invertCat, hideCat);
+		// Add all the nodes to the window
+		this.addToWindow(parent, this.createTitle("Album art"), color_picker, box, invertCat, hideCat);
+	}
 
-		parent.getChildren().add(container);
+	/**
+	 * TODO Documentation
+	 *
+	 * @param parent
+	 */
+	private void setupTrackInfo(VBox parent) {
+
+		// Create a TextField to edit the title
+		TextField titleText = new TextField();
+		titleText.setMaxWidth(150);
+		titleText.textProperty().addListener((observable, oldValue, newValue) -> Window.setTitle(newValue));
+		titleText.setPromptText("Title text");
+
+		// Create a CheckBox to hide the title
+		CheckBox hideTitle = new CheckBox();
+		hideTitle.setText("Hide title");
+		hideTitle.setSelected(false);
+		hideTitle.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			Window.hideTitle(newValue);
+			titleText.setDisable(newValue);
+		});
+
+		// TODO
+		// Add all the nodes to the window
+		this.addToWindow(parent, this.createTitle("Track info"), titleText, hideTitle);
 	}
 
 	/**
@@ -163,13 +185,19 @@ public class DebugWindow extends javafx.application.Application {
 	 * TODO Documentation
 	 *
 	 * @param parent
+	 * @param nodes
 	 */
-	private void setupTrackInfo(VBox parent) {
+	private void addToWindow(VBox parent, Node... nodes) {
+		// Create a container to help space out and center all the nodes
 		VBox container = new VBox();
+		container.setSpacing(5);
+		container.setAlignment(Pos.CENTER);
 
+		// Add all the nodes to the container
+		container.getChildren().addAll(nodes);
 
+		// Add the container to the parent
 		parent.getChildren().add(container);
-
 	}
 
 }

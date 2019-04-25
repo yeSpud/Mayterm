@@ -59,10 +59,10 @@ public class Window extends Application {
 		// Add the album art TODO Fix X position
 		root.getChildren().add(Window.albumArt);
 
-		// Add the Monstercat stock art for the album art // TODO Fix positioning
+		// Add the Monstercat stock art for the album art TODO Fix positioning
 		root.getChildren().add(Window.cat);
 
-		// Add the title text
+		// Add the title text TODO Fix positioning
 		root.getChildren().add(Window.title);
 
 		// Add the artist text
@@ -175,8 +175,7 @@ public class Window extends Application {
 		Debugger.d(Window.class, "Hide cat? " + hide);
 		Window.cat.setVisible(!hide);
 	}
-
-
+	
 	/**
 	 * TODO Documentation
 	 *
@@ -184,6 +183,16 @@ public class Window extends Application {
 	 */
 	public static void setTitle(String text) {
 		Window.title.setTitle(text);
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param hide
+	 */
+	public static void hideTitle(boolean hide) {
+		Debugger.d(Window.class, "Hide title? " + hide);
+		Window.title.setVisible(!hide);
 	}
 
 }
