@@ -7,18 +7,11 @@ import javafx.scene.shape.Rectangle;
 public class AlbumArt extends Rectangle {
 
 	public AlbumArt() {
-
-	}
-
-	private AlbumArt(double x, double y, double width, double height) {
-		super(x, y, width, height);
-	}
-
-	public AlbumArt createAlbumArt() {
-		AlbumArt albumArt = new AlbumArt(1034, 198, 126, 126);
-
-		albumArt.setColor(GenreColors.ELECTRONIC);
-		return albumArt;
+		this.setX(1034);
+		this.setY(198);
+		this.setWidth(126);
+		this.setHeight(126);
+		this.setColor(GenreColors.ELECTRONIC);
 	}
 
 	/**

@@ -23,12 +23,12 @@ public class Window extends Application {
 	/**
 	 * TODO Documentation
 	 */
-	private static LoadingBar loadingBar = new LoadingBar().createLoadingBar();
+	private static LoadingBar loadingBar = new LoadingBar();
 
 	/**
 	 * TODO Documentation
 	 */
-	private static AlbumArt albumArt = new AlbumArt().createAlbumArt();
+	private static AlbumArt albumArt = new AlbumArt();
 
 	/**
 	 * TODO Documentation
@@ -70,7 +70,7 @@ public class Window extends Application {
 		// Add the title text TODO Fix positioning
 		root.getChildren().add(Window.title);
 
-		// Add the artist text
+		// Add the artist text TODO Fix positioning
 		root.getChildren().add(Window.artist);
 
 		// Add a listener for key presses
@@ -81,7 +81,7 @@ public class Window extends Application {
 
 		// Add the audio player and track selector
 		// TODO
-		
+
 		// Add pause text
 		// TODO
 

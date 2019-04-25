@@ -13,25 +13,14 @@ import javafx.util.Duration;
 public class LoadingBar extends Rectangle {
 
 	public LoadingBar() {
-
-	}
-
-	private LoadingBar(double x, double y, double width, double height) {
-		super(x, y, width, height);
-	}
-
-	/**
-	 * TODO Documentation
-	 *
-	 * @return
-	 */
-	public LoadingBar createLoadingBar() {
-		LoadingBar bar = new LoadingBar(115, 356, 1046, 2);
-		bar.setStrokeType(StrokeType.CENTERED);
-		bar.setFill(GenreColors.ELECTRONIC.getColor());
-		bar.setStrokeWidth(2);
-		bar.fillProperty();
-		return bar;
+		this.setX(115);
+		this.setY(356);
+		this.setWidth(1046);
+		this.setHeight(2);
+		this.setStrokeType(StrokeType.CENTERED);
+		this.setFill(GenreColors.ELECTRONIC.getColor());
+		this.setStrokeWidth(2);
+		this.fillProperty();
 	}
 
 	/**
