@@ -13,12 +13,12 @@ public class Monstercat extends SVGPath {
 	/**
 	 * TODO Documentation
 	 */
-	public Monstercat(double x, double y) {
+	public Monstercat() {
 		this.loadCat();
-		this.setScaleX(0.5);
-		this.setScaleY(0.5);
-		this.setLayoutX(x);
-		this.setLayoutY(y);
+		this.setScaleX(0.39);
+		this.setScaleY(0.39);
+		this.setLayoutX(99);
+		this.setLayoutY(346);
 	}
 
 

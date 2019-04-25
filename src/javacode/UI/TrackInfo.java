@@ -12,12 +12,12 @@ public class TrackInfo {
 
 	public class Title extends Text {
 
-		private static final double TEXT_SIZE = 35d;
+		private static final double TEXT_SIZE = 36d;
 
 		public Title() {
-			this.setFont(Font.font("Arial", Title.TEXT_SIZE));
-			this.setX(1012 - this.getLayoutBounds().getWidth());
-			this.setY(244);
+			this.setFont(Font.font("Arial",FontWeight.EXTRA_LIGHT, Title.TEXT_SIZE));
+			this.setX(266.5);
+			this.setY(502);
 			this.setFill(Color.WHITE);
 		}
 

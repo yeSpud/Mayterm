@@ -6,6 +6,7 @@ import javacode.GenreColors;
 import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.util.Duration;
@@ -13,13 +14,13 @@ import javafx.util.Duration;
 public class LoadingBar extends Rectangle {
 
 	public LoadingBar() {
-		this.setX(115);
-		this.setY(356);
-		this.setWidth(1046);
-		this.setHeight(2);
+		this.setX(117);
+		this.setY(360);
+		this.setWidth(1045);
+		this.setHeight(3);
 		this.setStrokeType(StrokeType.CENTERED);
-		this.setFill(GenreColors.ELECTRONIC.getColor());
-		this.setStrokeWidth(2);
+		this.setColor(GenreColors.DNB);
+		this.setStrokeWidth(3);
 		this.fillProperty();
 	}
 
@@ -108,5 +109,23 @@ public class LoadingBar extends Rectangle {
 		translateTransition.setAutoReverse(false);
 
 		return new ParallelTransition(this, scaleTransition, translateTransition);
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param color
+	 */
+	public void setColor(Color color) {
+		this.setFill(color);
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param color
+	 */
+	public void setColor(GenreColors color) {
+		this.setColor(color.getColor());
 	}
 }

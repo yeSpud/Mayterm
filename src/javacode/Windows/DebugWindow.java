@@ -3,13 +3,12 @@ package javacode.Windows;
 import javacode.Debugger;
 import javacode.GenreColors;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.DragEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -31,6 +30,14 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Set the title
 		primaryStage.setTitle("Debug window");
+
+		// Add a slider for updating the window opacity
+		Slider opacitySlider = new Slider();
+		opacitySlider.setMax(1);
+		opacitySlider.setMin(0);
+		opacitySlider.setValue(1);
+		opacitySlider.valueProperty().addListener((observable, oldValue, newValue) -> Window.updateOpacity(newValue.doubleValue()));
+		parent.getChildren().add(opacitySlider);
 
 		// Add a way to change the loading bar properties
 		this.setupLoadingBar(parent);

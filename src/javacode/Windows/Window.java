@@ -33,7 +33,7 @@ public class Window extends Application {
 	/**
 	 * TODO Documentation
 	 */
-	private static Monstercat cat = new Monstercat(Window.albumArt.getX(), Window.albumArt.getY());
+	private static Monstercat cat = new Monstercat();
 
 	private static TrackInfo trackInfo = new TrackInfo();
 
@@ -58,16 +58,16 @@ public class Window extends Application {
 		// Setup the stage, so it can be accessed by other classes statically
 		Window.stage = primaryStage;
 
-		// Add the loading bar TODO Fix Y position
+		// Add the loading bar
 		root.getChildren().add(Window.loadingBar);
 
-		// Add the album art TODO Fix X position
+		// Add the album art
 		root.getChildren().add(Window.albumArt);
 
-		// Add the Monstercat stock art for the album art TODO Fix positioning
+		// Add the Monstercat stock art for the album art
 		root.getChildren().add(Window.cat);
 
-		// Add the title text TODO Fix positioning
+		// Add the title text
 		root.getChildren().add(Window.title);
 
 		// Add the artist text TODO Fix positioning
@@ -95,6 +95,16 @@ public class Window extends Application {
 
 		primaryStage.setOnCloseRequest((event -> System.exit(0)));
 		primaryStage.show();
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param opacity
+	 */
+	public static void updateOpacity(double opacity) {
+		Debugger.d(Window.class, String.format("Setting opacity to %.2f%%", opacity));
+		Window.stage.setOpacity(opacity);
 	}
 
 	/**
