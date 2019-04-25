@@ -158,4 +158,18 @@ public class DebugWindow extends javafx.application.Application {
 		t.setFont(new Font(15));
 		return t;
 	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param parent
+	 */
+	private void setupTrackInfo(VBox parent) {
+		VBox container = new VBox();
+
+
+		parent.getChildren().add(container);
+
+	}
+
 }

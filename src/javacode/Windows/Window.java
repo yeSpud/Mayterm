@@ -5,6 +5,7 @@ import javacode.GenreColors;
 import javacode.UI.AlbumArt;
 import javacode.UI.LoadingBar;
 import javacode.UI.Monstercat;
+import javacode.UI.TrackInfo;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -34,6 +35,13 @@ public class Window extends Application {
 	 */
 	private static Monstercat cat = new Monstercat(Window.albumArt.getX(), Window.albumArt.getY());
 
+	private static TrackInfo trackInfo = new TrackInfo();
+
+	/**
+	 * TODO Documentation
+	 */
+	private static TrackInfo.Title title = trackInfo.new Title();
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Debugger.d(this.getClass(), "Starting application");
@@ -55,7 +63,7 @@ public class Window extends Application {
 		root.getChildren().add(Window.cat);
 
 		// Add the title text
-		// TODO
+		root.getChildren().add(Window.title);
 
 		// Add the artist text
 		// TODO
@@ -63,8 +71,17 @@ public class Window extends Application {
 		// Add a listener for key presses
 		// TODO
 
+		// TODO
+		// Add genre text
+
 		// Add the audio player and track selector
 		// TODO
+
+		// TODO
+		// Add pause text
+
+		// TODO
+		// Add volume text
 
 		primaryStage.setScene(scene);
 
@@ -128,16 +145,6 @@ public class Window extends Application {
 	/**
 	 * TODO Documentation
 	 *
-	 * @param color
-	 */
-	public static void setAlbumArtColor(Color color) {
-		Debugger.d(Window.class, "Changing album art color to " + color.toString());
-		Window.albumArt.setColor(color);
-	}
-
-	/**
-	 * TODO Documentation
-	 *
 	 * @param hide
 	 */
 	public static void hideAlbumArt(boolean hide) {
@@ -169,5 +176,14 @@ public class Window extends Application {
 		Window.cat.setVisible(!hide);
 	}
 
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param text
+	 */
+	public static void setTitle(String text) {
+		Window.title.setTitle(text);
+	}
 
 }
