@@ -42,6 +42,11 @@ public class Window extends Application {
 	 */
 	private static TrackInfo.Title title = trackInfo.new Title();
 
+	/**
+	 * TODO Documentation
+	 */
+	private static TrackInfo.Artist artist = trackInfo.new Artist();
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Debugger.d(this.getClass(), "Starting application");
@@ -66,7 +71,7 @@ public class Window extends Application {
 		root.getChildren().add(Window.title);
 
 		// Add the artist text
-		// TODO
+		root.getChildren().add(Window.artist);
 
 		// Add a listener for key presses
 		// TODO
@@ -76,12 +81,12 @@ public class Window extends Application {
 
 		// Add the audio player and track selector
 		// TODO
-
-		// TODO
+		
 		// Add pause text
-
 		// TODO
+
 		// Add volume text
+		// TODO
 
 		primaryStage.setScene(scene);
 
@@ -175,7 +180,7 @@ public class Window extends Application {
 		Debugger.d(Window.class, "Hide cat? " + hide);
 		Window.cat.setVisible(!hide);
 	}
-	
+
 	/**
 	 * TODO Documentation
 	 *
@@ -193,6 +198,25 @@ public class Window extends Application {
 	public static void hideTitle(boolean hide) {
 		Debugger.d(Window.class, "Hide title? " + hide);
 		Window.title.setVisible(!hide);
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param text
+	 */
+	public static void setArtist(String text) {
+		Window.artist.setArtist(text);
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param hide
+	 */
+	public static void hideArtist(boolean hide) {
+		Debugger.d(Window.class, "Hide artist? " + hide);
+		Window.artist.setVisible(!hide);
 	}
 
 }

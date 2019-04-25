@@ -150,9 +150,25 @@ public class DebugWindow extends javafx.application.Application {
 			titleText.setDisable(newValue);
 		});
 
-		// TODO
+		// Create a TextField to edit the title
+		TextField artistText = new TextField();
+		artistText.setMaxWidth(150);
+		artistText.textProperty().addListener((observable, oldValue, newValue) -> Window.setArtist(newValue));
+		artistText.setPromptText("Artist text");
+
+		// Create a CheckBox to hide the title
+		CheckBox hideArtist = new CheckBox();
+		hideArtist.setText("Hide artist");
+		hideArtist.setSelected(false);
+		hideArtist.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			Window.hideArtist(newValue);
+			artistText.setDisable(newValue);
+		});
+
+		// TODO Art from track
+
 		// Add all the nodes to the window
-		this.addToWindow(parent, this.createTitle("Track info"), titleText, hideTitle);
+		this.addToWindow(parent, this.createTitle("Track info"), titleText, hideTitle, artistText, hideArtist);
 	}
 
 	/**
