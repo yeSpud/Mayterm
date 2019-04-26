@@ -117,6 +117,7 @@ public class LoadingBar extends Rectangle {
 	 * @param color
 	 */
 	public void setColor(Color color) {
+		Debugger.d(this.getClass(), "Changing loading bar color to " + color.toString());
 		this.setFill(color);
 	}
 

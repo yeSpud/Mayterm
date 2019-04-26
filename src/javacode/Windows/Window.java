@@ -2,6 +2,7 @@ package javacode.Windows;
 
 import javacode.Debugger;
 import javacode.GenreColors;
+import javacode.KeyListener;
 import javacode.UI.AlbumArt;
 import javacode.UI.LoadingBar;
 import javacode.UI.Monstercat;
@@ -73,8 +74,10 @@ public class Window extends Application {
 		// Add the artist text
 		root.getChildren().add(Window.artist);
 
+		// Add the github link
+
 		// Add a listener for key presses
-		// TODO
+		root.setOnKeyPressed(new KeyListener());
 
 		// TODO
 		// Add genre text
@@ -119,14 +122,9 @@ public class Window extends Application {
 		root.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
-	/**
-	 * TODO Documentation
-	 *
-	 * @param color
-	 */
+
 	public static void setLoadingColor(Color color) {
-		Debugger.d(Window.class, "Changing loading bar color to " + color.toString());
-		Window.loadingBar.setFill(color);
+		Window.loadingBar.setColor(color);
 	}
 
 	/**
