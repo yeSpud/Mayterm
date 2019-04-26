@@ -3,12 +3,10 @@ package javacode.Windows;
 import javacode.Debugger;
 import javacode.GenreColors;
 import javafx.collections.FXCollections;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.DragEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -16,6 +14,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class DebugWindow extends javafx.application.Application {
+
+	private Window window = new Window();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -50,7 +50,7 @@ public class DebugWindow extends javafx.application.Application {
 		primaryStage.show();
 
 		// Launch the main window as well
-		new Window().start(new Stage());
+		window.start(new Stage());
 	}
 
 	private void setupMainWindow(VBox parent) {
@@ -60,7 +60,7 @@ public class DebugWindow extends javafx.application.Application {
 		opacitySlider.setMax(1);
 		opacitySlider.setMin(0);
 		opacitySlider.setValue(1);
-		opacitySlider.valueProperty().addListener((observable, oldValue, newValue) -> Window.updateOpacity(newValue.doubleValue()));
+		opacitySlider.valueProperty().addListener((observable, oldValue, newValue) -> this.window.updateOpacity(newValue.doubleValue()));
 		opacitySlider.setMaxWidth(150);
 
 		this.addToWindow(parent, this.createTitle("Main window"), opacitySlider);
@@ -77,20 +77,20 @@ public class DebugWindow extends javafx.application.Application {
 		// Create a button to play the loading animation
 		Button animate = new Button("Play animation");
 		animate.setFont(new Font(15));
-		animate.setOnAction((event -> Window.playLoadingAnimation()));
+		animate.setOnAction((event -> this.window.loadingBar.playAnimation()));
 
 
 		// Create a combo box to change the loading bar color
 		ComboBox<GenreColors> color_picker = this.createComboBox(GenreColors.ELECTRONIC, GenreColors.values());
 		// Change the loading bar colors
-		color_picker.valueProperty().addListener((observable, oldValue, newValue) -> Window.setLoadingColor(newValue.getColor()));
+		color_picker.valueProperty().addListener((observable, oldValue, newValue) -> this.window.loadingBar.setColor(newValue.getColor()));
 
 
 		// Create a checkbox to enable/disable the bar
 		CheckBox showBar = new CheckBox("Show loading bar");
 		showBar.setSelected(true);
 		showBar.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			Window.hideLoadingBar(oldValue);
+			this.window.hideLoadingBar(oldValue);
 			animate.setDisable(oldValue);
 			color_picker.setDisable(oldValue);
 
@@ -110,14 +110,14 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Create a combo box to change the album art color
 		ComboBox<GenreColors> color_picker = this.createComboBox(GenreColors.ELECTRONIC, GenreColors.values());
-		color_picker.valueProperty().addListener((observable, oldValue, newValue) -> Window.setAlbumArtColor(newValue));
+		color_picker.valueProperty().addListener((observable, oldValue, newValue) -> this.window.albumArt.setColor(newValue));
 
 
 		// Create a checkbox that will enable/disable the art
 		CheckBox box = new CheckBox("Show album art");
 		box.setSelected(true);
 		box.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			Window.hideAlbumArt(oldValue);
+			this.window.hideAlbumArt(oldValue);
 			color_picker.setDisable(oldValue);
 		});
 
@@ -125,14 +125,14 @@ public class DebugWindow extends javafx.application.Application {
 		// Create a checkbox for inverting the cat color
 		CheckBox invertCat = new CheckBox("Invert cat");
 		invertCat.setSelected(false);
-		invertCat.selectedProperty().addListener((observable, oldValue, newValue) -> Window.invertCat(newValue));
+		invertCat.selectedProperty().addListener((observable, oldValue, newValue) -> this.window.invertCat(newValue));
 
 
 		// Create a checkbox to show / hide the cat
 		CheckBox hideCat = new CheckBox("Show cat");
 		hideCat.setSelected(true);
 		hideCat.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			Window.hideCat(oldValue);
+			this.window.hideCat(oldValue);
 			invertCat.setDisable(oldValue);
 		});
 
@@ -154,7 +154,7 @@ public class DebugWindow extends javafx.application.Application {
 		// Create a TextField to edit the title
 		TextField titleText = new TextField();
 		titleText.setMaxWidth(150);
-		titleText.textProperty().addListener((observable, oldValue, newValue) -> Window.setTitle(newValue));
+		titleText.textProperty().addListener((observable, oldValue, newValue) -> this.window.title.setTitle(newValue, this.window.stage));
 		titleText.setPromptText("Title text");
 
 		// Create a CheckBox to hide the title
@@ -162,14 +162,14 @@ public class DebugWindow extends javafx.application.Application {
 		hideTitle.setText("Hide title");
 		hideTitle.setSelected(false);
 		hideTitle.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			Window.hideTitle(newValue);
+			this.window.hideTitle(newValue);
 			titleText.setDisable(newValue);
 		});
 
 		// Create a TextField to edit the title
 		TextField artistText = new TextField();
 		artistText.setMaxWidth(150);
-		artistText.textProperty().addListener((observable, oldValue, newValue) -> Window.setArtist(newValue));
+		artistText.textProperty().addListener((observable, oldValue, newValue) -> this.window.artist.setArtist(newValue, this.window.stage));
 		artistText.setPromptText("Artist text");
 
 		// Create a CheckBox to hide the title
@@ -177,7 +177,7 @@ public class DebugWindow extends javafx.application.Application {
 		hideArtist.setText("Hide artist");
 		hideArtist.setSelected(false);
 		hideArtist.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			Window.hideArtist(newValue);
+			this.window.hideArtist(newValue);
 			artistText.setDisable(newValue);
 		});
 

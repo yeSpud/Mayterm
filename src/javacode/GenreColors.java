@@ -92,4 +92,15 @@ public enum GenreColors {
 		return Color.rgb(this.r, this.g, this.b);
 	}
 
+	public static GenreColors getGenre(Color color) {
+		for (GenreColors genreColor : GenreColors.values()) {
+			Debugger.d(GenreColors.class, String.format("Comparing %s to %s", genreColor.getColor(), color));
+			if (genreColor.getColor().equals(color)) {
+				return genreColor;
+			}
+		}
+		return null;
+
+	}
+
 }

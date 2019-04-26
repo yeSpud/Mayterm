@@ -1,7 +1,6 @@
 package javacode.Windows;
 
 import javacode.Debugger;
-import javacode.GenreColors;
 import javacode.KeyListener;
 import javacode.UI.AlbumArt;
 import javacode.UI.LoadingBar;
@@ -19,34 +18,19 @@ import javafx.stage.Stage;
 
 public class Window extends Application {
 
-	private static Stage stage;
+	public Stage stage;
 
-	/**
-	 * TODO Documentation
-	 */
-	private static LoadingBar loadingBar = new LoadingBar();
+	public LoadingBar loadingBar = new LoadingBar();
 
-	/**
-	 * TODO Documentation
-	 */
-	private static AlbumArt albumArt = new AlbumArt();
+	public AlbumArt albumArt = new AlbumArt();
 
-	/**
-	 * TODO Documentation
-	 */
-	private static Monstercat cat = new Monstercat();
+	public Monstercat cat = new Monstercat();
 
-	private static TrackInfo trackInfo = new TrackInfo();
+	private TrackInfo trackInfo = new TrackInfo();
 
-	/**
-	 * TODO Documentation
-	 */
-	private static TrackInfo.Title title = trackInfo.new Title();
+	public TrackInfo.Title title = this.trackInfo.new Title();
 
-	/**
-	 * TODO Documentation
-	 */
-	private static TrackInfo.Artist artist = trackInfo.new Artist();
+	public TrackInfo.Artist artist = this.trackInfo.new Artist();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -57,27 +41,28 @@ public class Window extends Application {
 		Scene scene = new Scene(root, 1280, 720);
 
 		// Setup the stage, so it can be accessed by other classes statically
-		Window.stage = primaryStage;
+		this.stage = primaryStage;
 
 		// Add the loading bar
-		root.getChildren().add(Window.loadingBar);
+		root.getChildren().add(this.loadingBar);
 
 		// Add the album art
-		root.getChildren().add(Window.albumArt);
+		root.getChildren().add(this.albumArt);
 
 		// Add the Monstercat stock art for the album art
-		root.getChildren().add(Window.cat);
+		root.getChildren().add(this.cat);
 
 		// Add the title text
-		root.getChildren().add(Window.title);
+		root.getChildren().add(this.title);
 
 		// Add the artist text
-		root.getChildren().add(Window.artist);
+		root.getChildren().add(this.artist);
 
 		// Add the github link
+		// TODO
 
 		// Add a listener for key presses
-		root.setOnKeyPressed(new KeyListener());
+		scene.setOnKeyPressed(new KeyListener(this));
 
 		// TODO
 		// Add genre text
@@ -94,7 +79,7 @@ public class Window extends Application {
 		primaryStage.setScene(scene);
 
 		// Set the default background
-		Window.setStageBackground(Color.BLACK);
+		this.setStageBackground(Color.BLACK);
 
 		primaryStage.setOnCloseRequest((event -> System.exit(0)));
 		primaryStage.show();
@@ -105,9 +90,9 @@ public class Window extends Application {
 	 *
 	 * @param opacity
 	 */
-	public static void updateOpacity(double opacity) {
-		Debugger.d(Window.class, String.format("Setting opacity to %.2f%%", opacity));
-		Window.stage.setOpacity(opacity);
+	public void updateOpacity(double opacity) {
+		Debugger.d(this.getClass(), String.format("Setting opacity to %.2f%%", opacity));
+		this.stage.setOpacity(opacity);
 	}
 
 	/**
@@ -115,24 +100,21 @@ public class Window extends Application {
 	 *
 	 * @param color
 	 */
-	public static void setStageBackground(Color color) {
-		Debugger.d(Window.class, "Changing background color to " + color.toString());
-		Scene scene = Window.stage.getScene();
+	public void setStageBackground(Color color) {
+		Debugger.d(this.getClass(), "Changing background color to " + color.toString());
+		Scene scene = this.stage.getScene();
 		BorderPane root = (BorderPane) scene.getRoot();
 		root.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
-
-	public static void setLoadingColor(Color color) {
-		Window.loadingBar.setColor(color);
-	}
-
 	/**
 	 * TODO Documentation
+	 *
+	 * @param hide
 	 */
-	public static void playLoadingAnimation() {
-		Debugger.d(Window.class, "Playing animation");
-		Window.loadingBar.playAnimation();
+	public void hideLoadingBar(boolean hide) {
+		Debugger.d(this.getClass(), "Hiding loading bar? " + hide);
+		this.loadingBar.setVisible(!hide);
 	}
 
 	/**
@@ -140,29 +122,9 @@ public class Window extends Application {
 	 *
 	 * @param hide
 	 */
-	public static void hideLoadingBar(boolean hide) {
-		Debugger.d(Window.class, "Hiding loading bar? " + hide);
-		Window.loadingBar.setVisible(!hide);
-	}
-
-	/**
-	 * TODO Documentation
-	 *
-	 * @param color
-	 */
-	public static void setAlbumArtColor(GenreColors color) {
-		Debugger.d(Window.class, "Changing album art color to " + color.toString());
-		Window.albumArt.setColor(color);
-	}
-
-	/**
-	 * TODO Documentation
-	 *
-	 * @param hide
-	 */
-	public static void hideAlbumArt(boolean hide) {
-		Debugger.d(Window.class, "Hiding album art? " + hide);
-		Window.albumArt.setVisible(!hide);
+	public void hideAlbumArt(boolean hide) {
+		Debugger.d(this.getClass(), "Hiding album art? " + hide);
+		this.albumArt.setVisible(!hide);
 	}
 
 	/**
@@ -170,12 +132,12 @@ public class Window extends Application {
 	 *
 	 * @param invert
 	 */
-	public static void invertCat(boolean invert) {
+	public void invertCat(boolean invert) {
 		Debugger.d(Window.class, "Inverting cat: " + invert);
 		if (invert) {
-			Window.cat.setBlack();
+			this.cat.setBlack();
 		} else {
-			Window.cat.setWhite();
+			this.cat.setWhite();
 		}
 	}
 
@@ -184,18 +146,9 @@ public class Window extends Application {
 	 *
 	 * @param hide
 	 */
-	public static void hideCat(boolean hide) {
-		Debugger.d(Window.class, "Hide cat? " + hide);
-		Window.cat.setVisible(!hide);
-	}
-
-	/**
-	 * TODO Documentation
-	 *
-	 * @param text
-	 */
-	public static void setTitle(String text) {
-		Window.title.setTitle(text, Window.stage);
+	public void hideCat(boolean hide) {
+		Debugger.d(this.getClass(), "Hide cat? " + hide);
+		this.cat.setVisible(!hide);
 	}
 
 	/**
@@ -203,18 +156,9 @@ public class Window extends Application {
 	 *
 	 * @param hide
 	 */
-	public static void hideTitle(boolean hide) {
-		Debugger.d(Window.class, "Hide title? " + hide);
-		Window.title.setVisible(!hide);
-	}
-
-	/**
-	 * TODO Documentation
-	 *
-	 * @param text
-	 */
-	public static void setArtist(String text) {
-		Window.artist.setArtist(text, Window.stage);
+	public void hideTitle(boolean hide) {
+		Debugger.d(this.getClass(), "Hide title? " + hide);
+		this.title.setVisible(!hide);
 	}
 
 	/**
@@ -222,9 +166,9 @@ public class Window extends Application {
 	 *
 	 * @param hide
 	 */
-	public static void hideArtist(boolean hide) {
-		Debugger.d(Window.class, "Hide artist? " + hide);
-		Window.artist.setVisible(!hide);
+	public void hideArtist(boolean hide) {
+		Debugger.d(this.getClass(), "Hide artist? " + hide);
+		this.artist.setVisible(!hide);
 	}
 
 }

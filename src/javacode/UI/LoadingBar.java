@@ -49,6 +49,7 @@ public class LoadingBar extends Rectangle {
 		});
 
 		//Playing the animation
+		Debugger.d(this.getClass(), "Playing loading animation");
 		stage1.playFromStart();
 
 	}
