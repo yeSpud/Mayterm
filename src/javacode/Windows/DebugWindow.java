@@ -63,7 +63,12 @@ public class DebugWindow extends javafx.application.Application {
 		opacitySlider.valueProperty().addListener((observable, oldValue, newValue) -> this.window.updateOpacity(newValue.doubleValue()));
 		opacitySlider.setMaxWidth(150);
 
-		this.addToWindow(parent, this.createTitle("Main window"), opacitySlider);
+		// Create a CheckBox in order to hide the GitHub link
+		CheckBox hideGitHubLink = new CheckBox("Show GitHub link");
+		hideGitHubLink.setSelected(true);
+		hideGitHubLink.selectedProperty().addListener((observable, oldValue, newValue) -> this.window.hideElement(this.window.gitHubText, oldValue));
+
+		this.addToWindow(parent, this.createTitle("Main window"), opacitySlider, hideGitHubLink);
 
 	}
 
@@ -90,7 +95,7 @@ public class DebugWindow extends javafx.application.Application {
 		CheckBox showBar = new CheckBox("Show loading bar");
 		showBar.setSelected(true);
 		showBar.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			this.window.hideLoadingBar(oldValue);
+			this.window.hideElement(this.window.loadingBar, oldValue);
 			animate.setDisable(oldValue);
 			color_picker.setDisable(oldValue);
 
@@ -117,7 +122,7 @@ public class DebugWindow extends javafx.application.Application {
 		CheckBox box = new CheckBox("Show album art");
 		box.setSelected(true);
 		box.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			this.window.hideAlbumArt(oldValue);
+			this.window.hideElement(this.window.albumArt, oldValue);
 			color_picker.setDisable(oldValue);
 		});
 
@@ -132,7 +137,7 @@ public class DebugWindow extends javafx.application.Application {
 		CheckBox hideCat = new CheckBox("Show cat");
 		hideCat.setSelected(true);
 		hideCat.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			this.window.hideCat(oldValue);
+			this.window.hideElement(this.window.cat, oldValue);
 			invertCat.setDisable(oldValue);
 		});
 
@@ -162,7 +167,7 @@ public class DebugWindow extends javafx.application.Application {
 		hideTitle.setText("Hide title");
 		hideTitle.setSelected(false);
 		hideTitle.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			this.window.hideTitle(newValue);
+			this.window.hideElement(this.window.title, oldValue);
 			titleText.setDisable(newValue);
 		});
 
@@ -177,7 +182,7 @@ public class DebugWindow extends javafx.application.Application {
 		hideArtist.setText("Hide artist");
 		hideArtist.setSelected(false);
 		hideArtist.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			this.window.hideArtist(newValue);
+			this.window.hideElement(this.window.artist, oldValue);
 			artistText.setDisable(newValue);
 		});
 

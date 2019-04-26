@@ -5,9 +5,11 @@ import javacode.KeyListener;
 import javacode.UI.AlbumArt;
 import javacode.UI.LoadingBar;
 import javacode.UI.Monstercat;
+import javacode.UI.Text.GitHubText;
 import javacode.UI.TrackInfo;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -31,6 +33,9 @@ public class Window extends Application {
 	public TrackInfo.Title title = this.trackInfo.new Title();
 
 	public TrackInfo.Artist artist = this.trackInfo.new Artist();
+
+	public GitHubText gitHubText = new GitHubText();
+
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -59,7 +64,7 @@ public class Window extends Application {
 		root.getChildren().add(this.artist);
 
 		// Add the github link
-		// TODO
+		root.getChildren().add(this.gitHubText);
 
 		// Add a listener for key presses
 		scene.setOnKeyPressed(new KeyListener(this));
@@ -83,6 +88,10 @@ public class Window extends Application {
 
 		primaryStage.setOnCloseRequest((event -> System.exit(0)));
 		primaryStage.show();
+
+		// TODO Add a way to update the position of all elements on a screen size adjustments
+		// Setup all the relative positioning
+		this.gitHubText.setPosition(this);
 	}
 
 	/**
@@ -91,7 +100,7 @@ public class Window extends Application {
 	 * @param opacity
 	 */
 	public void updateOpacity(double opacity) {
-		Debugger.d(this.getClass(), String.format("Setting opacity to %.2f%%", opacity));
+		Debugger.d(this.getClass(), String.format("Setting opacity to %d%%", Math.round(opacity * 100)));
 		this.stage.setOpacity(opacity);
 	}
 
@@ -105,26 +114,6 @@ public class Window extends Application {
 		Scene scene = this.stage.getScene();
 		BorderPane root = (BorderPane) scene.getRoot();
 		root.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
-	}
-
-	/**
-	 * TODO Documentation
-	 *
-	 * @param hide
-	 */
-	public void hideLoadingBar(boolean hide) {
-		Debugger.d(this.getClass(), "Hiding loading bar? " + hide);
-		this.loadingBar.setVisible(!hide);
-	}
-
-	/**
-	 * TODO Documentation
-	 *
-	 * @param hide
-	 */
-	public void hideAlbumArt(boolean hide) {
-		Debugger.d(this.getClass(), "Hiding album art? " + hide);
-		this.albumArt.setVisible(!hide);
 	}
 
 	/**
@@ -144,31 +133,12 @@ public class Window extends Application {
 	/**
 	 * TODO Documentation
 	 *
+	 * @param node
 	 * @param hide
 	 */
-	public void hideCat(boolean hide) {
-		Debugger.d(this.getClass(), "Hide cat? " + hide);
-		this.cat.setVisible(!hide);
-	}
-
-	/**
-	 * TODO Documentation
-	 *
-	 * @param hide
-	 */
-	public void hideTitle(boolean hide) {
-		Debugger.d(this.getClass(), "Hide title? " + hide);
-		this.title.setVisible(!hide);
-	}
-
-	/**
-	 * TODO Documentation
-	 *
-	 * @param hide
-	 */
-	public void hideArtist(boolean hide) {
-		Debugger.d(this.getClass(), "Hide artist? " + hide);
-		this.artist.setVisible(!hide);
+	public void hideElement(Node node, boolean hide) {
+		Debugger.d(this.getClass(), String.format("Hide %s? %s", node.toString(), hide));
+		node.setVisible(!hide);
 	}
 
 }
