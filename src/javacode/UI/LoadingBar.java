@@ -19,7 +19,7 @@ public class LoadingBar extends Rectangle {
 		this.setWidth(1045);
 		this.setHeight(3);
 		this.setStrokeType(StrokeType.CENTERED);
-		this.setColor(GenreColors.DNB);
+		this.setColor(GenreColors.ELECTRONIC);
 		this.setStrokeWidth(3);
 		this.fillProperty();
 	}

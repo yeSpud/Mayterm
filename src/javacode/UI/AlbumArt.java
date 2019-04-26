@@ -11,7 +11,7 @@ public class AlbumArt extends Rectangle {
 		this.setY(396);
 		this.setWidth(126);
 		this.setHeight(126);
-		this.setColor(GenreColors.DNB);
+		this.setColor(GenreColors.ELECTRONIC);
 	}
 
 	/**

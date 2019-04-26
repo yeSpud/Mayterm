@@ -70,7 +70,7 @@ public class Window extends Application {
 		// Add the title text
 		root.getChildren().add(Window.title);
 
-		// Add the artist text TODO Fix positioning
+		// Add the artist text
 		root.getChildren().add(Window.artist);
 
 		// Add a listener for key presses
@@ -197,7 +197,7 @@ public class Window extends Application {
 	 * @param text
 	 */
 	public static void setTitle(String text) {
-		Window.title.setTitle(text);
+		Window.title.setTitle(text, Window.stage);
 	}
 
 	/**
@@ -216,7 +216,7 @@ public class Window extends Application {
 	 * @param text
 	 */
 	public static void setArtist(String text) {
-		Window.artist.setArtist(text);
+		Window.artist.setArtist(text, Window.stage);
 	}
 
 	/**

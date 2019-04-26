@@ -31,13 +31,8 @@ public class DebugWindow extends javafx.application.Application {
 		// Set the title
 		primaryStage.setTitle("Debug window");
 
-		// Add a slider for updating the window opacity
-		Slider opacitySlider = new Slider();
-		opacitySlider.setMax(1);
-		opacitySlider.setMin(0);
-		opacitySlider.setValue(1);
-		opacitySlider.valueProperty().addListener((observable, oldValue, newValue) -> Window.updateOpacity(newValue.doubleValue()));
-		parent.getChildren().add(opacitySlider);
+		// Add a wau to change the main window properties
+		this.setupMainWindow(parent);
 
 		// Add a way to change the loading bar properties
 		this.setupLoadingBar(parent);
@@ -56,6 +51,20 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Launch the main window as well
 		new Window().start(new Stage());
+	}
+
+	private void setupMainWindow(VBox parent) {
+
+		// Create a slider for modifying the opacity
+		Slider opacitySlider = new Slider();
+		opacitySlider.setMax(1);
+		opacitySlider.setMin(0);
+		opacitySlider.setValue(1);
+		opacitySlider.valueProperty().addListener((observable, oldValue, newValue) -> Window.updateOpacity(newValue.doubleValue()));
+		opacitySlider.setMaxWidth(150);
+
+		this.addToWindow(parent, this.createTitle("Main window"), opacitySlider);
+
 	}
 
 	/**
