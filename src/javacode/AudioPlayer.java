@@ -9,7 +9,7 @@ import java.util.Queue;
 public class AudioPlayer {
 
 	/**
-	 * TODO Documentaiton
+	 * TODO Documentation
 	 */
 	public Media track;
 
@@ -30,7 +30,11 @@ public class AudioPlayer {
 	 */
 	public void changeVolume(double volume) {
 		Debugger.d(this.getClass(), "Changing volume to: " + volume);
-		mediaPlayer.setVolume(volume);
+		try {
+			mediaPlayer.setVolume(volume);
+		} catch (NullPointerException npe) {
+			Debugger.d(this.getClass(), "Cannot set volume as media player is null");
+		}
 	}
 
 }

@@ -66,6 +66,14 @@ public class KeyListener implements EventHandler<KeyEvent> {
 					this.window.loadingBar.setColor(newGenre);
 				}
 				break;
+			case UP:
+				// Increase the volume
+				this.window.volumeText.adjustVolume(0.05d, this.window.player);
+				break;
+			case DOWN:
+				// Decrease the volume
+				this.window.volumeText.adjustVolume(-0.05d, this.window.player);
+				break;
 		}
 
 

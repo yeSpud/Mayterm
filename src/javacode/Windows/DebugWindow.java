@@ -240,7 +240,7 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Create a slider for setting the volume
 		Slider volumeSlider = this.createSlider(0, 1, 0.75d);
-		volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> this.window.volumeText.setVolume(newValue.doubleValue()));
+		volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> this.window.volumeText.setVolume(newValue.doubleValue(), this.window.player));
 		volumeSlider.setMaxWidth(150);
 
 		// Add all the nodes to the window

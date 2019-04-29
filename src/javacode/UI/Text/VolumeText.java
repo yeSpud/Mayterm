@@ -1,5 +1,6 @@
 package javacode.UI.Text;
 
+import javacode.AudioPlayer;
 import javacode.Debugger;
 import javafx.animation.FadeTransition;
 import javafx.scene.paint.Color;
@@ -20,7 +21,7 @@ public class VolumeText extends Text {
 	private final FadeTransition animation = new FadeTransition(Duration.millis(3000), this);
 
 	public VolumeText() {
-		this.setText(String.format("Volume: %d", Math.round(this.currentVolume * 100)));
+		this.setText(String.format("Volume: %d%%", Math.round(this.currentVolume * 100)));
 		this.setFont(Font.font(20));
 		this.setFill(Color.WHITE);
 		this.updateOpacity(0);
@@ -43,17 +44,19 @@ public class VolumeText extends Text {
 	 * TODO Documentation
 	 *
 	 * @param increment
+	 * @param audioPlayer
 	 */
-	public void adjustVolume(double increment) {
-		this.setVolume(this.currentVolume += increment);
+	public void adjustVolume(double increment, AudioPlayer audioPlayer) {
+		this.setVolume(this.currentVolume += increment, audioPlayer);
 	}
 
 	/**
 	 * TODO Documentation
 	 *
 	 * @param volume
+	 * @param audioPlayer
 	 */
-	public void setVolume(double volume) {
+	public void setVolume(double volume, AudioPlayer audioPlayer) {
 		this.currentVolume = volume;
 		Debugger.d(this.getClass(), "Setting volume to: " + this.currentVolume);
 
@@ -64,7 +67,7 @@ public class VolumeText extends Text {
 			this.currentVolume = 0;
 		}
 
-		// TODO Apply to AudioPlayer
+		audioPlayer.changeVolume(this.currentVolume);
 
 		this.playAnimation();
 	}
@@ -73,7 +76,7 @@ public class VolumeText extends Text {
 	 * TODO Documentation
 	 */
 	public void playAnimation() {
-		this.setText(String.format("Volume: %d", Math.round(this.currentVolume * 100)));
+		this.setText(String.format("Volume: %d%%", Math.round(this.currentVolume * 100)));
 		this.animation.setFromValue(1);
 		this.animation.setToValue(0);
 		this.animation.playFromStart();
