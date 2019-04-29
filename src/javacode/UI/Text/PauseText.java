@@ -9,11 +9,13 @@ import javafx.util.Duration;
 
 public class PauseText extends Text {
 
+	private final FadeTransition animation = new FadeTransition(Duration.millis(10000), this);
+
 	public PauseText() {
 		this.setText("Press \"P\" to pause / unpause");
 		this.setFont(new Font(25));
 		this.setFill(Color.WHITE);
-		this.updateOpacity(1);
+		this.updateOpacity(0);
 	}
 
 	/**
@@ -23,7 +25,7 @@ public class PauseText extends Text {
 	 * @param height
 	 */
 	public void updatePosition(double width, double height) {
-		double x = this.getLayoutBounds().getWidth(), y = height - this.getLayoutBounds().getHeight();
+		double x = 10, y = height - this.getLayoutBounds().getHeight();
 		Debugger.d(this.getClass(), String.format("Updating position to: %f, %f", x, y));
 		this.setX(x);
 		this.setY(y);
@@ -33,10 +35,9 @@ public class PauseText extends Text {
 	 * TODO Documentation
 	 */
 	public void playAnimation() {
-		FadeTransition pauseFade = new FadeTransition(Duration.millis(10000), this);
-		pauseFade.setFromValue(1);
-		pauseFade.setToValue(0);
-		pauseFade.play();
+		this.animation.setFromValue(1);
+		this.animation.setToValue(0);
+		this.animation.playFromStart();
 	}
 
 

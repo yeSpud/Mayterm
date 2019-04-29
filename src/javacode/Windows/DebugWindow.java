@@ -43,6 +43,9 @@ public class DebugWindow extends javafx.application.Application {
 		// Add a way to change the track info
 		this.setupTrackInfo(parent);
 
+		// Add a way to change the pause text properties
+		this.setupPauseText(parent);
+
 		// Show the debug window
 		primaryStage.setScene(scene);
 		primaryStage.setAlwaysOnTop(true);
@@ -53,13 +56,15 @@ public class DebugWindow extends javafx.application.Application {
 		window.start(new Stage());
 	}
 
+	/**
+	 * TODO Documentation
+	 *
+	 * @param parent
+	 */
 	private void setupMainWindow(VBox parent) {
 
 		// Create a slider for modifying the opacity
-		Slider opacitySlider = new Slider();
-		opacitySlider.setMax(1);
-		opacitySlider.setMin(0);
-		opacitySlider.setValue(1);
+		Slider opacitySlider = this.createSlider(0, 1, 1);
 		opacitySlider.valueProperty().addListener((observable, oldValue, newValue) -> this.window.updateOpacity(newValue.doubleValue()));
 		opacitySlider.setMaxWidth(150);
 
@@ -195,6 +200,27 @@ public class DebugWindow extends javafx.application.Application {
 	/**
 	 * TODO Documentation
 	 *
+	 * @param parent
+	 */
+	private void setupPauseText(VBox parent) {
+
+		// Create a slider for modifying the opacity
+		Slider opacitySlider = this.createSlider(0, 1, 0);
+		opacitySlider.valueProperty().addListener((observable, oldValue, newValue) -> this.window.pauseText.updateOpacity(newValue.doubleValue()));
+		opacitySlider.setMaxWidth(150);
+
+		// Create a button for playing the fade animation
+		Button animate = new Button("Play fade animation");
+		animate.setFont(new Font(15));
+		animate.setOnAction((event -> this.window.pauseText.playAnimation()));
+
+		// Add all the nodes to the window
+		this.addToWindow(parent, this.createTitle("Pause text"), opacitySlider, animate);
+	}
+
+	/**
+	 * TODO Documentation
+	 *
 	 * @param initial
 	 * @param genreColors
 	 * @return
@@ -235,6 +261,22 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Add the container to the parent
 		parent.getChildren().add(container);
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param minimum
+	 * @param maximum
+	 * @param initial
+	 * @return
+	 */
+	private Slider createSlider(double minimum, double maximum, double initial) {
+		Slider s = new Slider();
+		s.setMin(minimum);
+		s.setMax(maximum);
+		s.setValue(initial);
+		return s;
 	}
 
 }
