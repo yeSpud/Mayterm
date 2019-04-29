@@ -164,11 +164,11 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Create a CheckBox to hide the title
 		CheckBox hideTitle = new CheckBox();
-		hideTitle.setText("Hide title");
-		hideTitle.setSelected(false);
+		hideTitle.setText("Show title");
+		hideTitle.setSelected(true);
 		hideTitle.selectedProperty().addListener((observable, oldValue, newValue) -> {
 			this.window.hideElement(this.window.title, oldValue);
-			titleText.setDisable(newValue);
+			titleText.setDisable(oldValue);
 		});
 
 		// Create a TextField to edit the title
@@ -179,11 +179,11 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Create a CheckBox to hide the title
 		CheckBox hideArtist = new CheckBox();
-		hideArtist.setText("Hide artist");
-		hideArtist.setSelected(false);
+		hideArtist.setText("Show artist");
+		hideArtist.setSelected(true);
 		hideArtist.selectedProperty().addListener((observable, oldValue, newValue) -> {
 			this.window.hideElement(this.window.artist, oldValue);
-			artistText.setDisable(newValue);
+			artistText.setDisable(oldValue);
 		});
 
 		// TODO Art from track

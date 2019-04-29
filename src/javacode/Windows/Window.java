@@ -5,9 +5,12 @@ import javacode.KeyListener;
 import javacode.UI.AlbumArt;
 import javacode.UI.LoadingBar;
 import javacode.UI.Monstercat;
+import javacode.UI.Text.GenreText;
 import javacode.UI.Text.GitHubText;
+import javacode.UI.Text.PauseText;
 import javacode.UI.TrackInfo;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -35,6 +38,10 @@ public class Window extends Application {
 	public TrackInfo.Artist artist = this.trackInfo.new Artist();
 
 	public GitHubText gitHubText = new GitHubText();
+
+	public GenreText genreText = new GenreText();
+
+	public PauseText pauseText = new PauseText();
 
 
 	@Override
@@ -69,29 +76,42 @@ public class Window extends Application {
 		// Add a listener for key presses
 		scene.setOnKeyPressed(new KeyListener(this));
 
-		// TODO
 		// Add genre text
+		root.getChildren().add(this.genreText);
 
 		// Add the audio player and track selector
 		// TODO
 
 		// Add pause text
-		// TODO
+		root.getChildren().add(this.pauseText);
 
 		// Add volume text
 		// TODO
+
 
 		primaryStage.setScene(scene);
 
 		// Set the default background
 		this.setStageBackground(Color.BLACK);
 
+		// TODO Add a way to update the position of all elements on a screen size adjustments
+		ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
+			double width = this.stage.getWidth(), height = this.stage.getHeight();
+			Debugger.d(this.getClass(), "New stage height: " + height);
+			Debugger.d(this.getClass(), "New stage width: " + width);
+
+			// Setup all the relative positioning
+			this.gitHubText.setPosition(width, height);
+			this.pauseText.updatePosition(width, height);
+		};
+		this.stage.widthProperty().addListener(stageSizeListener);
+		this.stage.heightProperty().addListener(stageSizeListener);
+
 		primaryStage.setOnCloseRequest((event -> System.exit(0)));
+		Debugger.d(this.getClass(), "Showing stage");
 		primaryStage.show();
 
-		// TODO Add a way to update the position of all elements on a screen size adjustments
-		// Setup all the relative positioning
-		this.gitHubText.setPosition(this);
+
 	}
 
 	/**
