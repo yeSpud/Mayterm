@@ -1,11 +1,9 @@
 package javacode.UI;
 
-import javacode.Debugger;
 import javacode.GenreColors;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
-public class AlbumArt extends Rectangle {
+public class AlbumArt extends javafx.scene.shape.Rectangle {
 
 	public AlbumArt() {
 		this.setX(118);
@@ -21,7 +19,7 @@ public class AlbumArt extends Rectangle {
 	 * @param color
 	 */
 	public void setColor(Color color) {
-		Debugger.d(this.getClass(), "Changing album art color to " + color.toString());
+		javacode.Debugger.d(this.getClass(), "Changing album art color to " + color.toString());
 		this.setFill(color);
 	}
 

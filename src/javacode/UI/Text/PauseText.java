@@ -2,22 +2,18 @@ package javacode.UI.Text;
 
 import javacode.Debugger;
 import javafx.animation.FadeTransition;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.util.Duration;
 
-public class PauseText extends Text {
+public class PauseText extends javafx.scene.text.Text {
 
 	/**
 	 * TODO Documentation
 	 */
-	private final FadeTransition animation = new FadeTransition(Duration.millis(10000), this);
+	private final FadeTransition animation = new FadeTransition(javafx.util.Duration.millis(10000), this);
 
 	public PauseText() {
 		this.setText("Press \"P\" to pause / unpause");
-		this.setFont(new Font(25));
-		this.setFill(Color.WHITE);
+		this.setFont(new javafx.scene.text.Font(25));
+		this.setFill(javafx.scene.paint.Color.WHITE);
 		this.updateOpacity(0);
 	}
 

@@ -1,14 +1,13 @@
 package javacode.UI;
 
 import javafx.scene.paint.Color;
-import javafx.scene.shape.SVGPath;
 
 /**
  * TODO Documentation
  *
  * @author Spud
  */
-public class Monstercat extends SVGPath {
+public class Monstercat extends javafx.scene.shape.SVGPath {
 
 	/**
 	 * TODO Documentation

@@ -1,10 +1,9 @@
 package javacode;
 
 import javacode.Windows.Window;
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 
-public class KeyListener implements EventHandler<KeyEvent> {
+public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
 
 	private Window window;
 

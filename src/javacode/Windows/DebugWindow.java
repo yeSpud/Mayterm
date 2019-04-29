@@ -1,16 +1,12 @@
 package javacode.Windows;
 
-import javacode.Debugger;
 import javacode.GenreColors;
-import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class DebugWindow extends javafx.application.Application {
@@ -19,7 +15,7 @@ public class DebugWindow extends javafx.application.Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Debugger.d(this.getClass(), "Creating debug window");
+		javacode.Debugger.d(this.getClass(), "Creating debug window");
 
 		// Set the debug panel parent to a VBox
 		VBox parent = new VBox();
@@ -256,7 +252,7 @@ public class DebugWindow extends javafx.application.Application {
 	 * @return
 	 */
 	private ComboBox<GenreColors> createComboBox(GenreColors initial, GenreColors[] genreColors) {
-		ComboBox<GenreColors> comboBox = new ComboBox<>(FXCollections.observableArrayList(genreColors));
+		ComboBox<GenreColors> comboBox = new ComboBox<>(javafx.collections.FXCollections.observableArrayList(genreColors));
 		comboBox.setValue(initial);
 		return comboBox;
 	}
@@ -269,7 +265,7 @@ public class DebugWindow extends javafx.application.Application {
 	 */
 	private Text createTitle(String title) {
 		Text t = new Text(title);
-		t.setTextAlignment(TextAlignment.CENTER);
+		t.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
 		t.setFont(new Font(15));
 		return t;
 	}
@@ -280,7 +276,7 @@ public class DebugWindow extends javafx.application.Application {
 	 * @param parent
 	 * @param nodes
 	 */
-	private void addToWindow(VBox parent, Node... nodes) {
+	private void addToWindow(VBox parent, javafx.scene.Node... nodes) {
 		// Create a container to help space out and center all the nodes
 		VBox container = new VBox();
 		container.setSpacing(5);

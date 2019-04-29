@@ -3,12 +3,8 @@ package javacode.UI.Text;
 import javacode.AudioPlayer;
 import javacode.Debugger;
 import javafx.animation.FadeTransition;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.util.Duration;
 
-public class VolumeText extends Text {
+public class VolumeText extends javafx.scene.text.Text {
 
 	/**
 	 * TODO Documentation
@@ -18,12 +14,12 @@ public class VolumeText extends Text {
 	/**
 	 * TODO Documentation
 	 */
-	private final FadeTransition animation = new FadeTransition(Duration.millis(3000), this);
+	private final FadeTransition animation = new FadeTransition(javafx.util.Duration.millis(3000), this);
 
 	public VolumeText() {
 		this.setText(String.format("Volume: %d%%", Math.round(this.currentVolume * 100)));
-		this.setFont(Font.font(20));
-		this.setFill(Color.WHITE);
+		this.setFont(javafx.scene.text.Font.font(20));
+		this.setFill(javafx.scene.paint.Color.WHITE);
 		this.updateOpacity(0);
 	}
 

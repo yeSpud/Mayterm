@@ -2,7 +2,6 @@ package javacode.Windows;
 
 import javacode.AudioPlayer;
 import javacode.Debugger;
-import javacode.KeyListener;
 import javacode.UI.AlbumArt;
 import javacode.UI.LoadingBar;
 import javacode.UI.Monstercat;
@@ -11,19 +10,12 @@ import javacode.UI.Text.GitHubText;
 import javacode.UI.Text.PauseText;
 import javacode.UI.Text.VolumeText;
 import javacode.UI.TrackInfo;
-import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class Window extends Application {
+public class Window extends javafx.application.Application {
 
 	public Stage stage;
 
@@ -79,7 +71,7 @@ public class Window extends Application {
 		root.getChildren().add(this.gitHubText);
 
 		// Add a listener for key presses
-		scene.setOnKeyPressed(new KeyListener(this));
+		scene.setOnKeyPressed(new javacode.KeyListener(this));
 
 		// Add genre text
 		root.getChildren().add(this.genreText);
@@ -99,7 +91,7 @@ public class Window extends Application {
 		this.setStageBackground(Color.BLACK);
 
 		// TODO Add a way to update the position of all elements on a screen size adjustments
-		ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
+		javafx.beans.value.ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
 			double width = this.stage.getWidth(), height = this.stage.getHeight();
 			Debugger.d(this.getClass(), "New stage height: " + height);
 			Debugger.d(this.getClass(), "New stage width: " + width);
@@ -138,7 +130,7 @@ public class Window extends Application {
 		Debugger.d(this.getClass(), "Changing background color to " + color.toString());
 		Scene scene = this.stage.getScene();
 		BorderPane root = (BorderPane) scene.getRoot();
-		root.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+		root.setBackground(new javafx.scene.layout.Background(new javafx.scene.layout.BackgroundFill(color, javafx.scene.layout.CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY)));
 	}
 
 	/**
@@ -161,7 +153,7 @@ public class Window extends Application {
 	 * @param node
 	 * @param hide
 	 */
-	public void hideElement(Node node, boolean hide) {
+	public void hideElement(javafx.scene.Node node, boolean hide) {
 		Debugger.d(this.getClass(), String.format("Hide %s? %s", node.toString(), hide));
 		node.setVisible(!hide);
 	}

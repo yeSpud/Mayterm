@@ -77,7 +77,7 @@ public enum GenreColors {
 
 	private final int r, g, b;
 
-	private GenreColors(final int r, final int g, final int b) {
+	GenreColors(final int r, final int g, final int b) {
 		this.r = r;
 		this.g = g;
 		this.b = b;

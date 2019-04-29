@@ -1,24 +1,21 @@
 package javacode.UI;
 
-
 import javacode.Debugger;
 import javacode.GenreColors;
 import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeType;
 import javafx.util.Duration;
 
-public class LoadingBar extends Rectangle {
+public class LoadingBar extends javafx.scene.shape.Rectangle {
 
 	public LoadingBar() {
 		this.setX(117);
 		this.setY(360);
 		this.setWidth(1045);
 		this.setHeight(3);
-		this.setStrokeType(StrokeType.CENTERED);
+		this.setStrokeType(javafx.scene.shape.StrokeType.CENTERED);
 		this.setColor(GenreColors.ELECTRONIC);
 		this.setStrokeWidth(3);
 		this.fillProperty();
