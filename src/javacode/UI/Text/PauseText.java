@@ -9,6 +9,9 @@ import javafx.util.Duration;
 
 public class PauseText extends Text {
 
+	/**
+	 * TODO Documentation
+	 */
 	private final FadeTransition animation = new FadeTransition(Duration.millis(10000), this);
 
 	public PauseText() {

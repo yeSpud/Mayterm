@@ -107,6 +107,7 @@ public class Window extends Application {
 			// Setup all the relative positioning
 			this.gitHubText.setPosition(width, height);
 			this.pauseText.updatePosition(width, height);
+			this.volumeText.updatePosition(width, height);
 		};
 		this.stage.widthProperty().addListener(stageSizeListener);
 		this.stage.heightProperty().addListener(stageSizeListener);
