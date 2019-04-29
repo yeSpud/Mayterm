@@ -45,7 +45,16 @@ public class VolumeText extends Text {
 	 * @param increment
 	 */
 	public void adjustVolume(double increment) {
-		this.currentVolume = +increment;
+		this.setVolume(this.currentVolume += increment);
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param volume
+	 */
+	public void setVolume(double volume) {
+		this.currentVolume = volume;
 		Debugger.d(this.getClass(), "Setting volume to: " + this.currentVolume);
 
 		// Make sure its not less than 0, or greater than 1
@@ -58,13 +67,13 @@ public class VolumeText extends Text {
 		// TODO Apply to AudioPlayer
 
 		this.playAnimation();
-
 	}
 
 	/**
 	 * TODO Documentation
 	 */
 	public void playAnimation() {
+		this.setText(String.format("Volume: %d", Math.round(this.currentVolume * 100)));
 		this.animation.setFromValue(1);
 		this.animation.setToValue(0);
 		this.animation.playFromStart();

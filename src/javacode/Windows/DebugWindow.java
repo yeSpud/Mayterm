@@ -46,6 +46,9 @@ public class DebugWindow extends javafx.application.Application {
 		// Add a way to change the pause text properties
 		this.setupPauseText(parent);
 
+		// Add a way to change the volume text properties
+		this.setupVolumeText(parent);
+
 		// Show the debug window
 		primaryStage.setScene(scene);
 		primaryStage.setAlwaysOnTop(true);
@@ -216,6 +219,33 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Add all the nodes to the window
 		this.addToWindow(parent, this.createTitle("Pause text"), opacitySlider, animate);
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param parent
+	 */
+	private void setupVolumeText(VBox parent) {
+
+		// Create a slider for modifying the opacity
+		Slider opacitySlider = this.createSlider(0, 1, 0);
+		opacitySlider.valueProperty().addListener((observable, oldValue, newValue) -> this.window.volumeText.updateOpacity(newValue.doubleValue()));
+		opacitySlider.setMaxWidth(150);
+
+		// Create a button for playing the fade animation
+		Button animate = new Button("Play fade animation");
+		animate.setFont(new Font(15));
+		animate.setOnAction((event -> this.window.volumeText.playAnimation()));
+
+		// Create a slider for setting the volume
+		Slider volumeSlider = this.createSlider(0, 1, 0.75d);
+		volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> this.window.volumeText.setVolume(newValue.doubleValue()));
+		volumeSlider.setMaxWidth(150);
+
+		// Add all the nodes to the window
+		this.addToWindow(parent, this.createTitle("Volume text"), opacitySlider, animate, volumeSlider);
+
 	}
 
 	/**
