@@ -26,5 +26,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="library" name="JavaFX" level="project" />
+    <orderEntry type="library" name="org:jaudiotagger:2.0.3" level="project" />
   </component>
 </module>

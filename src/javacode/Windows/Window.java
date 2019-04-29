@@ -1,5 +1,6 @@
 package javacode.Windows;
 
+import javacode.AudioPlayer;
 import javacode.Debugger;
 import javacode.KeyListener;
 import javacode.UI.AlbumArt;
@@ -8,6 +9,7 @@ import javacode.UI.Monstercat;
 import javacode.UI.Text.GenreText;
 import javacode.UI.Text.GitHubText;
 import javacode.UI.Text.PauseText;
+import javacode.UI.Text.VolumeText;
 import javacode.UI.TrackInfo;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -41,8 +43,11 @@ public class Window extends Application {
 
 	public GenreText genreText = new GenreText();
 
+	public AudioPlayer player = new AudioPlayer();
+
 	public PauseText pauseText = new PauseText();
 
+	public VolumeText volumeText = new VolumeText();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -86,8 +91,7 @@ public class Window extends Application {
 		root.getChildren().add(this.pauseText);
 
 		// Add volume text
-		// TODO
-
+		root.getChildren().add(this.volumeText);
 
 		primaryStage.setScene(scene);
 
