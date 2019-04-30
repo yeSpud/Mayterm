@@ -22,6 +22,13 @@ public class DebugWindow extends javafx.application.Application {
 		parent.setSpacing(10);
 		parent.setAlignment(Pos.CENTER);
 
+		// Make it so that when the debug window is supposed to close, minimize it
+		// Just like what Skype does
+		primaryStage.setOnCloseRequest(event -> {
+			primaryStage.setIconified(true);
+			event.consume();
+		});
+
 		Scene scene = new Scene(parent);
 
 		// Set the title
@@ -44,6 +51,9 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Add a way to change the volume text properties
 		this.setupVolumeText(parent);
+
+		// Add a way to interact with the audio player
+		this.setupAudioPlayer(parent);
 
 		// Show the debug window
 		primaryStage.setScene(scene);
@@ -242,6 +252,20 @@ public class DebugWindow extends javafx.application.Application {
 		// Add all the nodes to the window
 		this.addToWindow(parent, this.createTitle("Volume text"), opacitySlider, animate, volumeSlider);
 
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param parent
+	 */
+	private void setupAudioPlayer(VBox parent) {
+		// Create a button to add tracks to the queue
+		Button addToQueue = new Button("Play track");
+		addToQueue.setFont(new Font(15));
+		addToQueue.setOnAction((event -> this.window.player.loadTrack(this.window.volumeText, this.window.pauseText)));
+
+		this.addToWindow(parent, this.createTitle("Audio player"), addToQueue);
 	}
 
 	/**

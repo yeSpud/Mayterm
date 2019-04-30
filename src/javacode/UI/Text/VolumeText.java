@@ -54,7 +54,7 @@ public class VolumeText extends javafx.scene.text.Text {
 	 */
 	public void setVolume(double volume, AudioPlayer audioPlayer) {
 		this.currentVolume = volume;
-		Debugger.d(this.getClass(), "Setting volume to: " + this.currentVolume);
+		Debugger.d(this.getClass(), String.format("Setting volume to: %f0.2", this.currentVolume));
 
 		// Make sure its not less than 0, or greater than 1
 		if (this.currentVolume > 1) {

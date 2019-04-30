@@ -55,6 +55,9 @@ public class Window extends javafx.application.Application {
 		// Add the loading bar
 		root.getChildren().add(this.loadingBar);
 
+		// Add the main bars
+		// TODO
+
 		// Add the album art
 		root.getChildren().add(this.albumArt);
 
@@ -75,9 +78,6 @@ public class Window extends javafx.application.Application {
 
 		// Add genre text
 		root.getChildren().add(this.genreText);
-
-		// Add the audio player and track selector
-		// TODO
 
 		// Add pause text
 		root.getChildren().add(this.pauseText);
