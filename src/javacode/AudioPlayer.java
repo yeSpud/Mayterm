@@ -1,14 +1,26 @@
 package javacode;
 
-import javacode.UI.Text.PauseText;
-import javacode.UI.Text.VolumeText;
+import javacode.Windows.Window;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.Tag;
+import org.jaudiotagger.tag.TagException;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AudioPlayer {
 
@@ -24,11 +36,22 @@ public class AudioPlayer {
 
 	/**
 	 * TODO Documentation
+	 */
+	public MediaPlayer.Status status = MediaPlayer.Status.STOPPED;
+
+	private Window window;
+
+	public AudioPlayer(Window window) {
+		this.window = window;
+	}
+
+	/**
+	 * TODO Documentation
 	 *
 	 * @param volume
 	 */
 	public void changeVolume(double volume) {
-		Debugger.d(this.getClass(), "Changing volume to: " + volume);
+		Debugger.d(this.getClass(), String.format("Changing volume to: %.2f", volume));
 		try {
 			mediaPlayer.setVolume(volume);
 		} catch (NullPointerException npe) {
@@ -40,13 +63,13 @@ public class AudioPlayer {
 	/**
 	 * TODO Documentation
 	 */
-	public void loadTrack(VolumeText volume, PauseText pauseText) {
+	public void loadTrack() {
 
 		// Create a file picker dialog for loading the file into the queue
 		FileChooser pickFile = new FileChooser();
 
 		// Create an extension regex for only audio files
-		String[] supportedExtensions = new String[]{"*.mp3", "*.m4a", "*.mp4", "*.m4v", "*.wav", "*.aif", ".aiff"};
+		String[] supportedExtensions = new String[]{"*.mp3", "*.m4a", "*.mp4", "*.m4v", "*.wav", "*.aif", ".aiff", "*.fxm", "*.flv", "*.m3u8"};
 		FileChooser.ExtensionFilter fileFilter = new FileChooser.ExtensionFilter("Music", supportedExtensions);
 		pickFile.getExtensionFilters().addAll(fileFilter);
 
@@ -56,35 +79,36 @@ public class AudioPlayer {
 
 		// Create a new media object given the file path
 		Media media = new Media(file.toPath().toUri().toString());
+		media.setOnError(() -> Debugger.d(this.getClass(), "Error with media: " + media.getError().toString()));
 		Debugger.d(this.getClass(), "Queueing from URI: " + media.getSource());
 
 		// Add the media to the queue
 		this.queue.add(media);
 
 		// Play the track
-		this.play(volume, pauseText);
+		this.play();
 	}
 
 	/**
 	 * TODO Documentation
 	 */
-	public void play(VolumeText volume, PauseText pauseText) {
+	public void play() {
 
 		// Make sure the media player isn't null before the initial checks
 		if (this.mediaPlayer != null) {
 
 			// Check if the player is stopped or paused, in order to play
-			if (this.mediaPlayer.getStatus().equals(MediaPlayer.Status.STOPPED)) {
+			if (this.status.equals(MediaPlayer.Status.STOPPED)) {
 				// Dispose of the player
 				Debugger.d(this.getClass(), "Disposing of old media player");
 				this.mediaPlayer.dispose();
-			} else if (this.mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)) {
+			} else if (this.status.equals(MediaPlayer.Status.PAUSED)) {
 				// Continue to play
 				Debugger.d(this.getClass(), "Unpausing media");
 				this.mediaPlayer.play();
 				return;
-			} else {
-				// If its currently playing, return early
+			} else if (this.status.equals(MediaPlayer.Status.PLAYING)) {
+				Debugger.d(this.getClass(), "Media is still playing...");
 				return;
 			}
 		}
@@ -102,20 +126,49 @@ public class AudioPlayer {
 		}
 
 		// Just go through the play method again once done
-		this.mediaPlayer.setOnEndOfMedia(() -> this.play(volume, pauseText));
+		this.mediaPlayer.setOnEndOfMedia(() -> {
+			Debugger.d(this.getClass(), "End of media!");
+			this.status = MediaPlayer.Status.STOPPED;
+			this.play();
+		});
 
 		// If there are any errors, report it
-		this.mediaPlayer.setOnError(() -> Debugger.d(this.getClass(), "Error with media: " + this.mediaPlayer.getError()));
+		this.mediaPlayer.setOnError(() -> Debugger.d(this.getClass(), "Error with media player: " + this.mediaPlayer.getError().toString()));
 
 		// Prematurely set the volume
-		this.mediaPlayer.setVolume(volume.currentVolume);
+		this.mediaPlayer.setVolume(this.window.volumeText.currentVolume);
+
+		// Set the title and artist
+		Debugger.d(this.getClass(), "Metadata test: " + this.getMetadata(media).getFirst(FieldKey.ARTIST));
 
 		// Play the track
 		this.mediaPlayer.play();
 
-		// Play the text animation
-		pauseText.playAnimation();
+		// Update the private status to PLAYING
+		this.status = MediaPlayer.Status.PLAYING;
 
+		// Play the text animation
+		this.window.pauseText.playAnimation();
+
+	}
+
+	private Tag getMetadata(Media source) {
+		AudioFile f = null;
+
+		//Disable loggers
+		Logger[] pin = new Logger[]{Logger.getLogger("org.jaudiotagger")};
+		for (Logger l : pin) {
+			l.setLevel(Level.OFF);
+		}
+
+		try {
+			f = AudioFileIO.read(Paths.get(URI.create(source.getSource())).toFile());
+
+		} catch (CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
+			e.printStackTrace();
+		}
+
+		return f != null ? f.getTag() : null;
 	}
 
 }

@@ -263,7 +263,7 @@ public class DebugWindow extends javafx.application.Application {
 		// Create a button to add tracks to the queue
 		Button addToQueue = new Button("Play track");
 		addToQueue.setFont(new Font(15));
-		addToQueue.setOnAction((event -> this.window.player.loadTrack(this.window.volumeText, this.window.pauseText)));
+		addToQueue.setOnAction((event -> this.window.player.loadTrack()));
 
 		this.addToWindow(parent, this.createTitle("Audio player"), addToQueue);
 	}

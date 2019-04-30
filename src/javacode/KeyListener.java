@@ -81,12 +81,14 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
 			case P:
 				// Pause / Unpause the media player
 				try {
-					if (this.window.player.mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
+					if (this.window.player.status.equals(MediaPlayer.Status.PLAYING)) {
 						Debugger.d(this.getClass(), "Pausing track");
 						this.window.player.mediaPlayer.pause();
-					} else if (this.window.player.mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)) {
+						this.window.player.status = MediaPlayer.Status.PAUSED;
+					} else if (this.window.player.status.equals(MediaPlayer.Status.PAUSED)) {
 						Debugger.d(this.getClass(), "Resuming track");
 						this.window.player.mediaPlayer.play();
+						this.window.player.status = MediaPlayer.Status.PLAYING;
 					} else {
 						return;
 					}
@@ -99,7 +101,7 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
 				break;
 			case O:
 				// Load a new track
-				this.window.player.loadTrack(this.window.volumeText, this.window.pauseText);
+				this.window.player.loadTrack();
 				break;
 		}
 

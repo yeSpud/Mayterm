@@ -1,4 +1,4 @@
-package javacode.UI;
+package javacode.UI.Text;
 
 import javacode.Debugger;
 import javafx.scene.paint.Color;
@@ -82,8 +82,4 @@ public class TrackInfo {
 			TrackInfo.checkTextSpacing(text, weight, fontSize - 1, stage);
 		}
 	}
-
-
-	// TODO Art from track
-
 }

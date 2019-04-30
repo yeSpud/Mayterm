@@ -9,7 +9,7 @@ import javacode.UI.Text.GenreText;
 import javacode.UI.Text.GitHubText;
 import javacode.UI.Text.PauseText;
 import javacode.UI.Text.VolumeText;
-import javacode.UI.TrackInfo;
+import javacode.UI.Text.TrackInfo;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -35,7 +35,7 @@ public class Window extends javafx.application.Application {
 
 	public GenreText genreText = new GenreText();
 
-	public AudioPlayer player = new AudioPlayer();
+	public AudioPlayer player = new AudioPlayer(this);
 
 	public PauseText pauseText = new PauseText();
 
