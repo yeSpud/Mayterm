@@ -22,7 +22,7 @@ public class Window extends javafx.application.Application {
 
 	public LoadingBar loadingBar = new LoadingBar();
 
-	public Bar[] bars = new Bar[1];
+	public Bar[] bars = new Bar[63];
 
 	public AlbumArt albumArt = new AlbumArt();
 
