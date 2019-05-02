@@ -63,9 +63,10 @@ public class Window extends javafx.application.Application {
 			this.bars[i] = new Bar();
 		}
 
-		// Add the main bars
+		// Add the main bars, and then hide them
 		for (Bar bar : this.bars) {
 			root.getChildren().add(bar);
+			this.hideElement(bar, true);
 		}
 
 		// Add the album art

@@ -1,5 +1,6 @@
 package javacode;
 
+import javacode.UI.Bar;
 import javacode.Windows.Window;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.MediaPlayer;
@@ -43,6 +44,9 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
 					this.window.invertCat(newGenre.equals(GenreColors.OTHER));
 					this.window.albumArt.setColor(newGenre);
 					this.window.loadingBar.setColor(newGenre);
+					for (Bar bar : this.window.bars) {
+						bar.setColor(newGenre);
+					}
 				}
 				break;
 			case COMMA:
@@ -68,6 +72,9 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
 					this.window.invertCat(newGenre.equals(GenreColors.OTHER));
 					this.window.albumArt.setColor(newGenre);
 					this.window.loadingBar.setColor(newGenre);
+					for (Bar bar : this.window.bars) {
+						bar.setColor(newGenre);
+					}
 				}
 				break;
 			case UP:

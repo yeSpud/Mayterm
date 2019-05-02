@@ -1,5 +1,6 @@
 package javacode;
 
+import javacode.UI.Bar;
 import javacode.Windows.Window;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -99,6 +100,13 @@ public class AudioPlayer {
 
 			// Check if the player is stopped or paused, in order to play
 			if (this.status.equals(MediaPlayer.Status.STOPPED)) {
+
+				// Show the loading bar
+				this.window.hideElement(this.window.loadingBar, false);
+				for (Bar bar : this.window.bars) {
+					this.window.hideElement(bar, true);
+				}
+
 				// Dispose of the player
 				Debugger.d(this.getClass(), "Disposing of old media player");
 				this.mediaPlayer.dispose();
@@ -148,11 +156,28 @@ public class AudioPlayer {
 		// Update the private status to PLAYING
 		this.status = MediaPlayer.Status.PLAYING;
 
+		// Hide the loading bar
+		this.window.hideElement(this.window.loadingBar, true);
+		for (Bar bar : this.window.bars) {
+			this.window.hideElement(bar, false);
+		}
+
+		// Setup the analysis
+		this.mediaPlayer.setAudioSpectrumInterval(1 / 60); // Think of this as how often it computes the fft (in seconds)
+		this.mediaPlayer.setAudioSpectrumNumBands(63); // How many data points there will be per second
+		this.mediaPlayer.setAudioSpectrumListener(new AudioAnalysis());
+
 		// Play the text animation
 		this.window.pauseText.playAnimation();
 
 	}
 
+	/**
+	 * TODO Documentaiton
+	 *
+	 * @param source
+	 * @return
+	 */
 	private Tag getMetadata(Media source) {
 		AudioFile f = null;
 
