@@ -1,6 +1,7 @@
 package javacode.Windows;
 
 import javacode.GenreColors;
+import javacode.UI.Bar;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -39,6 +40,9 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Add a way to change the loading bar properties
 		this.setupLoadingBar(parent);
+
+		// Add a way to change the regular bar properties
+		this.setupBars(parent);
 
 		// Add a way to change the album art properties
 		this.setupAlbumArt(parent);
@@ -118,6 +122,41 @@ public class DebugWindow extends javafx.application.Application {
 
 		// Add all the nodes to the window
 		this.addToWindow(parent, this.createTitle("Loading bar"), animate, color_picker, showBar);
+	}
+
+	/**
+	 * TODO Documentation
+	 *
+	 * @param parent
+	 */
+	private void setupBars(VBox parent) {
+
+		// Create a checkbox to display the heights of the bars
+		// TODO
+
+		// Create a combo box to change the loading bar color
+		ComboBox<GenreColors> color_picker = this.createComboBox(GenreColors.ELECTRONIC, GenreColors.values());
+		// Change the loading bar colors
+		color_picker.valueProperty().addListener((observable, oldValue, newValue) -> {
+			for (Bar bar : this.window.bars) {
+				bar.setColor(newValue);
+			}
+		});
+
+		// Create a checkbox to enable/disable the bar
+		CheckBox showBars = new CheckBox("Show bars");
+		showBars.setSelected(true);
+		showBars.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			for (Bar bar : this.window.bars) {
+				this.window.hideElement(bar, oldValue);
+			}
+			color_picker.setDisable(oldValue);
+
+		});
+
+
+		// Add all the nodes to the window
+		this.addToWindow(parent, this.createTitle("Bars"), color_picker, showBars);
 	}
 
 	/**
@@ -264,6 +303,10 @@ public class DebugWindow extends javafx.application.Application {
 		Button addToQueue = new Button("Play track");
 		addToQueue.setFont(new Font(15));
 		addToQueue.setOnAction((event -> this.window.player.loadTrack()));
+
+		// TODO Add a pause / play option
+
+		// TODO Add a skip option
 
 		this.addToWindow(parent, this.createTitle("Audio player"), addToQueue);
 	}

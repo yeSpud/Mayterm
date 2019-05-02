@@ -11,9 +11,9 @@ import javafx.util.Duration;
 public class LoadingBar extends javafx.scene.shape.Rectangle {
 
 	public LoadingBar() {
-		this.setX(117);
+		this.setX(117.5);
 		this.setY(360);
-		this.setWidth(1045);
+		this.setWidth(1043.5);
 		this.setHeight(3);
 		this.setStrokeType(javafx.scene.shape.StrokeType.CENTERED);
 		this.setColor(GenreColors.ELECTRONIC);

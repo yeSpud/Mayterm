@@ -63,7 +63,6 @@ public class Window extends javafx.application.Application {
 			this.bars[i] = new Bar();
 		}
 
-
 		// Add the main bars
 		for (Bar bar : this.bars) {
 			root.getChildren().add(bar);
@@ -113,8 +112,8 @@ public class Window extends javafx.application.Application {
 			this.volumeText.updatePosition(width, height);
 
 			// Update bar positioning
-			for (Bar bar : this.bars) {
-				bar.updatePosition(width, height);
+			for (int i = 0; i < this.bars.length; i++) {
+				this.bars[i].updatePosition(width, height, i);
 			}
 
 		};

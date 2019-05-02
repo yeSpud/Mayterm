@@ -8,7 +8,7 @@ public class Bar extends javafx.scene.shape.Rectangle {
 
 	public Bar() {
 		this.setStrokeType(javafx.scene.shape.StrokeType.CENTERED);
-		this.setWidth(12);
+		this.setWidth(13);
 		this.setHeight(3);
 		this.setColor(GenreColors.ELECTRONIC);
 	}
@@ -19,8 +19,8 @@ public class Bar extends javafx.scene.shape.Rectangle {
 	 * @param width
 	 * @param height
 	 */
-	public void updatePosition(double width, double height) {
-		double x = 30, y = height * 0.4851752022d;
+	public void updatePosition(double width, double height, int index) { // TODO Add index variable for different spacing
+		double x = (117.5 + (1 * index)), y = height * 0.4851752022d;
 		Debugger.d(this.getClass(), String.format("Updating position to: %f, %f", x, y));
 		this.setX(x);
 		this.setY(y);

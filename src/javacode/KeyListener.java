@@ -103,6 +103,8 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
 				// Load a new track
 				this.window.player.loadTrack();
 				break;
+
+			// TODO Add a skip track option
 		}
 
 
