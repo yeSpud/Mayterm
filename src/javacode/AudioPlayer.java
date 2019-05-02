@@ -139,7 +139,8 @@ public class AudioPlayer {
 		this.mediaPlayer.setVolume(this.window.volumeText.currentVolume);
 
 		// Set the title and artist
-		Debugger.d(this.getClass(), "Metadata test: " + this.getMetadata(media).getFirst(FieldKey.ARTIST));
+		this.window.title.setTitle(this.getMetadata(media).getFirst(FieldKey.TITLE), this.window.stage);
+		this.window.artist.setArtist(this.getMetadata(media).getFirst(FieldKey.ARTIST), this.window.stage);
 
 		// Play the track
 		this.mediaPlayer.play();

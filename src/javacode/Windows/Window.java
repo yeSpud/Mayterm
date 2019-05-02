@@ -3,6 +3,7 @@ package javacode.Windows;
 import javacode.AudioPlayer;
 import javacode.Debugger;
 import javacode.UI.AlbumArt;
+import javacode.UI.Bar;
 import javacode.UI.LoadingBar;
 import javacode.UI.Monstercat;
 import javacode.UI.Text.GenreText;
@@ -20,6 +21,8 @@ public class Window extends javafx.application.Application {
 	public Stage stage;
 
 	public LoadingBar loadingBar = new LoadingBar();
+
+	public Bar[] bars = new Bar[1];
 
 	public AlbumArt albumArt = new AlbumArt();
 
@@ -55,8 +58,16 @@ public class Window extends javafx.application.Application {
 		// Add the loading bar
 		root.getChildren().add(this.loadingBar);
 
+		// Initialize the bars
+		for (int i = 0; i < this.bars.length; i++) {
+			this.bars[i] = new Bar();
+		}
+
+
 		// Add the main bars
-		// TODO
+		for (Bar bar : this.bars) {
+			root.getChildren().add(bar);
+		}
 
 		// Add the album art
 		root.getChildren().add(this.albumArt);
@@ -100,6 +111,12 @@ public class Window extends javafx.application.Application {
 			this.gitHubText.setPosition(width, height);
 			this.pauseText.updatePosition(width, height);
 			this.volumeText.updatePosition(width, height);
+
+			// Update bar positioning
+			for (Bar bar : this.bars) {
+				bar.updatePosition(width, height);
+			}
+
 		};
 		this.stage.widthProperty().addListener(stageSizeListener);
 		this.stage.heightProperty().addListener(stageSizeListener);
