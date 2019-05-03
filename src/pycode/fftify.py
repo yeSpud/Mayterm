@@ -39,4 +39,8 @@ def process(file):
     plt.show()
 
 
-process(sys.argv[1])
+# Determine CLI arguments
+if len(sys.argv) != 2:
+    print("Usage: python3 fftify.py <file.wav>")
+else:
+    process(sys.argv[1])
