@@ -162,10 +162,18 @@ public class AudioPlayer {
 			this.window.hideElement(bar, false);
 		}
 
+		// Convert the file
+		// TODO
+
+		// Pass the file to a python program
+		// TODO
+
 		// Setup the analysis
-		this.mediaPlayer.setAudioSpectrumInterval(1 / 60); // Think of this as how often it computes the fft (in seconds)
-		this.mediaPlayer.setAudioSpectrumNumBands(63); // How many data points there will be per second
+		/*
+		this.mediaPlayer.setAudioSpectrumInterval(1); // Think of this as how often it computes the fft (in seconds)
+		this.mediaPlayer.setAudioSpectrumNumBands(200); // How many data points there will be per second
 		this.mediaPlayer.setAudioSpectrumListener(new AudioAnalysis());
+		 */
 
 		// Play the text animation
 		this.window.pauseText.playAnimation();
