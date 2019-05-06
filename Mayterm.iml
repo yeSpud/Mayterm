@@ -32,8 +32,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="library" name="JavaFX" level="project" />
     <orderEntry type="library" name="org:jaudiotagger:2.0.3" level="project" />
-    <orderEntry type="library" name="Python 3.7 interpreter library" level="application" />
     <orderEntry type="library" name="net.bramp.ffmpeg:ffmpeg:0.6.2" level="project" />
     <orderEntry type="library" name="org.python:jython:2.7.0" level="project" />
+    <orderEntry type="library" name="javafx-sdk Linux" level="project" />
+    <orderEntry type="library" name="jaudiotagger-2.0.3" level="project" />
   </component>
 </module>
