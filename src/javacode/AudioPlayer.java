@@ -13,9 +13,15 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
+import org.python.core.PyCode;
+import org.python.core.PyObject;
+import org.python.core.PyString;
+import org.python.util.PythonInterpreter;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.nio.file.Paths;
 import java.util.LinkedList;
@@ -150,6 +156,33 @@ public class AudioPlayer {
 		this.window.title.setTitle(this.getMetadata(media).getFirst(FieldKey.TITLE), this.window.stage);
 		this.window.artist.setArtist(this.getMetadata(media).getFirst(FieldKey.ARTIST), this.window.stage);
 
+		// Convert the file
+		// TODO
+
+		// Pass the file to a python program
+		// TODO
+		//try {
+		//Process p = Runtime.getRuntime().exec(new String[]{"python3", "/Users/stephenogden/Documents/GitHub/Mayterm/src/pycode/fftify.py", "/Users/stephenogden/Desktop/test/50.wav"});
+		//BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		//String line = "";
+		//while ((line = reader.readLine()) != null) {
+		//	System.out.println(line + "\n");
+		//}
+		//} catch (IOException e) {
+		//	e.printStackTrace();
+		//}
+		PythonInterpreter python = new PythonInterpreter();
+		python.exec("print('Hello world')");
+		//python.exec(pyCode + " /Users/stephenogden/Desktop/test/50.wav");
+
+
+		// Setup the analysis
+		/*
+		this.mediaPlayer.setAudioSpectrumInterval(1); // Think of this as how often it computes the fft (in seconds)
+		this.mediaPlayer.setAudioSpectrumNumBands(200); // How many data points there will be per second
+		this.mediaPlayer.setAudioSpectrumListener(new AudioAnalysis());
+		 */
+
 		// Play the track
 		this.mediaPlayer.play();
 
@@ -161,19 +194,6 @@ public class AudioPlayer {
 		for (Bar bar : this.window.bars) {
 			this.window.hideElement(bar, false);
 		}
-
-		// Convert the file
-		// TODO
-
-		// Pass the file to a python program
-		// TODO
-
-		// Setup the analysis
-		/*
-		this.mediaPlayer.setAudioSpectrumInterval(1); // Think of this as how often it computes the fft (in seconds)
-		this.mediaPlayer.setAudioSpectrumNumBands(200); // How many data points there will be per second
-		this.mediaPlayer.setAudioSpectrumListener(new AudioAnalysis());
-		 */
 
 		// Play the text animation
 		this.window.pauseText.playAnimation();
