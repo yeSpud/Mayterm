@@ -20,6 +20,8 @@ public class Main {
 				String[] debugArg = argument.split("=");
 				debugPanel = Boolean.parseBoolean(debugArg[1]);
 				Debugger.d(Main.class, "Showing debug panel: " + debugPanel);
+			} else {
+				System.err.println("Unsupported argument: " + argument);
 			}
 		}
 
