@@ -3,10 +3,16 @@ package javacode.UI.Text;
 import javacode.Debugger;
 import javafx.animation.FadeTransition;
 
-public class PauseText extends javafx.scene.text.Text {
+/**
+ * Creates the pause text node for the user when a track is played/resumed. Once it is shown, the text then fades out.
+ *
+ * @author Spud
+ */
+public class PauseText extends javafx.scene.text.Text implements javacode.UI.RelativeNode {
 
 	/**
-	 * TODO Documentation
+	 * Creates the fade animation that the pause text will utilize.
+	 * This animation should take 1 second to execute fully.
 	 */
 	private final FadeTransition animation = new FadeTransition(javafx.util.Duration.millis(10000), this);
 
@@ -17,12 +23,7 @@ public class PauseText extends javafx.scene.text.Text {
 		this.updateOpacity(0);
 	}
 
-	/**
-	 * TODO Documentation
-	 *
-	 * @param width
-	 * @param height
-	 */
+	@Override
 	public void updatePosition(double width, double height) {
 		double x = 10, y = height - this.getLayoutBounds().getHeight();
 		Debugger.d(this.getClass(), String.format("Updating position to: %f, %f", x, y));
@@ -31,7 +32,7 @@ public class PauseText extends javafx.scene.text.Text {
 	}
 
 	/**
-	 * TODO Documentation
+	 * Plays the fade animation of the text.
 	 */
 	public void playAnimation() {
 		this.animation.setFromValue(1);
@@ -41,9 +42,9 @@ public class PauseText extends javafx.scene.text.Text {
 
 
 	/**
-	 * TODO Documentation
+	 * Updates the opacity the pause text to the provided argument.
 	 *
-	 * @param opacity
+	 * @param opacity The opacity as a value from 0 to 1.0.
 	 */
 	public void updateOpacity(double opacity) {
 		Debugger.d(this.getClass(), String.format("Setting opacity to %d%%", Math.round(opacity * 100)));

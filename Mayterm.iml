@@ -36,5 +36,6 @@
     <orderEntry type="library" name="javafx-sdk Linux" level="project" />
     <orderEntry type="library" name="jaudiotagger-2.0.3" level="project" />
     <orderEntry type="library" name="Python 3.7 interpreter library" level="application" />
+    <orderEntry type="library" name="jython-2.7.0" level="project" />
   </component>
 </module>

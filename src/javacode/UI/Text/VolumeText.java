@@ -4,15 +4,21 @@ import javacode.AudioPlayer;
 import javacode.Debugger;
 import javafx.animation.FadeTransition;
 
-public class VolumeText extends javafx.scene.text.Text {
+/**
+ * Create the volume text that shows the current volume of the player after it has been adjusted, then fade away.
+ *
+ * @author Spud
+ */
+public class VolumeText extends javafx.scene.text.Text implements javacode.UI.RelativeNode {
 
 	/**
-	 * TODO Documentation
+	 * The volume percentage (default is 75%).
 	 */
 	public double currentVolume = 0.75d;
 
 	/**
-	 * TODO Documentation
+	 * The fade animation that is played after the volume has been changed.
+	 * This applies to the VolumeText node, and lasts for 3 seconds.
 	 */
 	private final FadeTransition animation = new FadeTransition(javafx.util.Duration.millis(3000), this);
 
@@ -23,12 +29,7 @@ public class VolumeText extends javafx.scene.text.Text {
 		this.updateOpacity(0);
 	}
 
-	/**
-	 * TODO Documentation
-	 *
-	 * @param width
-	 * @param height
-	 */
+	@Override
 	public void updatePosition(double width, double height) {
 		double x = width - (this.getLayoutBounds().getWidth() + (width / 4.5)), y = this.getLayoutBounds().getHeight();
 		Debugger.d(this.getClass(), String.format("Updating position to: %f, %f", x, y));
@@ -37,20 +38,20 @@ public class VolumeText extends javafx.scene.text.Text {
 	}
 
 	/**
-	 * TODO Documentation
+	 * Adjusts the volume by the increment amount.
 	 *
-	 * @param increment
-	 * @param audioPlayer
+	 * @param increment The value to adjust the volume by. This should be negative to decrease the volume.
+	 * @param audioPlayer The audio player this volume value applies to.
 	 */
 	public void adjustVolume(double increment, AudioPlayer audioPlayer) {
 		this.setVolume(this.currentVolume += increment, audioPlayer);
 	}
 
 	/**
-	 * TODO Documentation
+	 * Sets the volume percentage of the audio player.
 	 *
-	 * @param volume
-	 * @param audioPlayer
+	 * @param volume The volume percentage value (from 0 to 1.0).
+	 * @param audioPlayer The audio player this applies to.
 	 */
 	public void setVolume(double volume, AudioPlayer audioPlayer) {
 		this.currentVolume = volume;
@@ -69,7 +70,7 @@ public class VolumeText extends javafx.scene.text.Text {
 	}
 
 	/**
-	 * TODO Documentation
+	 * Plays the fade animation.
 	 */
 	public void playAnimation() {
 		this.setText(String.format("Volume: %d%%", Math.round(this.currentVolume * 100)));
@@ -79,9 +80,9 @@ public class VolumeText extends javafx.scene.text.Text {
 	}
 
 	/**
-	 * TODO Documentation
+	 * Updates the opacity the volume text to the provided argument.
 	 *
-	 * @param opacity
+	 * @param opacity The opacity as a value from 0 to 1.0.
 	 */
 	public void updateOpacity(double opacity) {
 		Debugger.d(this.getClass(), String.format("Setting opacity to %d%%", Math.round(opacity * 100)));
