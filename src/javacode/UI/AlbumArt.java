@@ -3,7 +3,12 @@ package javacode.UI;
 import javacode.GenreColors;
 import javafx.scene.paint.Color;
 
-public class AlbumArt extends javafx.scene.shape.Rectangle {
+/**
+ * Corresponds to the colored square that is behind the cat.
+ *
+ * @author Spud
+ */
+public class AlbumArt extends javafx.scene.shape.Rectangle implements javacode.UI.ColoredNode {
 
 	public AlbumArt() {
 		this.setX(118);
@@ -13,29 +18,21 @@ public class AlbumArt extends javafx.scene.shape.Rectangle {
 		this.setColor(GenreColors.ELECTRONIC);
 	}
 
-	/**
-	 * TODO Documentation
-	 *
-	 * @param color
-	 */
+	@Override
 	public void setColor(Color color) {
 		javacode.Debugger.d(this.getClass(), "Changing album art color to " + color.toString());
 		this.setFill(color);
 	}
 
-	/**
-	 * TODO Documentation
-	 *
-	 * @param color
-	 */
+	@Override
 	public void setColor(GenreColors color) {
 		this.setColor(color.getColor());
 	}
 
 	/**
-	 * TODO Documentation
+	 * Gets the color of the album art.
 	 *
-	 * @return
+	 * @return The color (as a Color object) of the album art.
 	 */
 	public Color getColor() {
 		return (Color) this.getFill();

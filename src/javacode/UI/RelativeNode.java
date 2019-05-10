@@ -1,7 +1,7 @@
 package javacode.UI;
 
 /**
- * An interface for all the ndoes that need to be made relative based on the windows size.
+ * An interface for all the nodes that need to be made relative based on the windows size.
  *
  * @author Spud
  */

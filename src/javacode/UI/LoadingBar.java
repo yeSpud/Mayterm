@@ -8,7 +8,12 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-public class LoadingBar extends javafx.scene.shape.Rectangle {
+/**
+ * Creates the bar that is primarily used when there isn't a track playing, or the track is being loaded.
+ *
+ * @author Spud
+ */
+public class LoadingBar extends javafx.scene.shape.Rectangle implements javacode.UI.ColoredNode {
 
 	public LoadingBar() {
 		this.setX(117.5);
@@ -22,7 +27,9 @@ public class LoadingBar extends javafx.scene.shape.Rectangle {
 	}
 
 	/**
-	 * TODO Documentation
+	 * Plays the loading animation of the loading bar.
+	 * <p>
+	 * It should be noted that once this has finished, the bar will not return to its origin.
 	 */
 	public void playAnimation() {
 
@@ -52,9 +59,9 @@ public class LoadingBar extends javafx.scene.shape.Rectangle {
 	}
 
 	/**
-	 * TODO Documentation
+	 * Sets up the first sequence of the animation.
 	 *
-	 * @return
+	 * @return The first sequence of the animation.
 	 */
 	private TranslateTransition stage1Animation() {
 
@@ -74,9 +81,9 @@ public class LoadingBar extends javafx.scene.shape.Rectangle {
 	}
 
 	/**
-	 * TODO Documentation
+	 * Sets up the second sequence of the animation.
 	 *
-	 * @return
+	 * @return The second sequence of the animation.
 	 */
 	private ParallelTransition stage2Animation() {
 		ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(1000));
@@ -92,9 +99,9 @@ public class LoadingBar extends javafx.scene.shape.Rectangle {
 	}
 
 	/**
-	 * TODO Documentation
+	 * Sets up the third sequence of the animation.
 	 *
-	 * @return
+	 * @return The third sequence of the animation.
 	 */
 	private ParallelTransition stage3Animation() {
 		ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(1000));
@@ -109,21 +116,13 @@ public class LoadingBar extends javafx.scene.shape.Rectangle {
 		return new ParallelTransition(this, scaleTransition, translateTransition);
 	}
 
-	/**
-	 * TODO Documentation
-	 *
-	 * @param color
-	 */
+	@Override
 	public void setColor(Color color) {
 		Debugger.d(this.getClass(), "Changing loading bar color to " + color.toString());
 		this.setFill(color);
 	}
 
-	/**
-	 * TODO Documentation
-	 *
-	 * @param color
-	 */
+	@Override
 	public void setColor(GenreColors color) {
 		this.setColor(color.getColor());
 	}
