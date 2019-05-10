@@ -101,14 +101,14 @@ public class Window extends javafx.application.Application {
 		// Set the default background
 		this.setStageBackground(Color.BLACK);
 
-		// TODO Add a way to update the position of all elements on a screen size adjustments
+		// Update the position of all elements on a screen size adjustments
 		javafx.beans.value.ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) -> {
 			double width = this.stage.getWidth(), height = this.stage.getHeight();
 			Debugger.d(this.getClass(), "New stage height: " + height);
 			Debugger.d(this.getClass(), "New stage width: " + width);
 
 			// Setup all the relative positioning
-			this.gitHubText.setPosition(width, height);
+			this.gitHubText.updatePosition(width, height);
 			this.pauseText.updatePosition(width, height);
 			this.volumeText.updatePosition(width, height);
 
@@ -129,21 +129,21 @@ public class Window extends javafx.application.Application {
 	}
 
 	/**
-	 * TODO Documentation
+	 * Updates the window opacity.
 	 *
-	 * @param opacity
+	 * @param opacity The opacity value from 0 to 1.0.
 	 */
-	public void updateOpacity(double opacity) {
+	void updateOpacity(double opacity) {
 		Debugger.d(this.getClass(), String.format("Setting opacity to %d%%", Math.round(opacity * 100)));
 		this.stage.setOpacity(opacity);
 	}
 
 	/**
-	 * TODO Documentation
+	 * Changes the background color of the window.
 	 *
-	 * @param color
+	 * @param color The color to set the background to.
 	 */
-	public void setStageBackground(Color color) {
+	void setStageBackground(Color color) {
 		Debugger.d(this.getClass(), "Changing background color to " + color.toString());
 		Scene scene = this.stage.getScene();
 		BorderPane root = (BorderPane) scene.getRoot();
@@ -151,9 +151,9 @@ public class Window extends javafx.application.Application {
 	}
 
 	/**
-	 * TODO Documentation
+	 * Helper function to set the fill of the cat to either white or black. Default is white. Inverted is black.
 	 *
-	 * @param invert
+	 * @param invert Whether or not to invert the cat.
 	 */
 	public void invertCat(boolean invert) {
 		Debugger.d(Window.class, "Inverting cat: " + invert);
@@ -165,10 +165,10 @@ public class Window extends javafx.application.Application {
 	}
 
 	/**
-	 * TODO Documentation
+	 * Helper function to toggle the visibility a specific node in the window, effectively hiding or showing it.
 	 *
-	 * @param node
-	 * @param hide
+	 * @param node The node to apply the visibility changes to
+	 * @param hide Whether or not to hide the node.
 	 */
 	public void hideElement(javafx.scene.Node node, boolean hide) {
 		Debugger.d(this.getClass(), String.format("Hide %s? %s", node.toString(), hide));
