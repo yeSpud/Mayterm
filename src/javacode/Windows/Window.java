@@ -1,6 +1,7 @@
 package javacode.Windows;
 
 import javacode.AudioPlayer;
+import javacode.Database;
 import javacode.Debugger;
 import javacode.UI.AlbumArt;
 import javacode.UI.Bar;
@@ -125,7 +126,8 @@ public class Window extends javafx.application.Application {
 		Debugger.d(this.getClass(), "Showing stage");
 		primaryStage.show();
 
-
+		// Do the database stuff
+		Database.getDatabase();
 	}
 
 	/**
