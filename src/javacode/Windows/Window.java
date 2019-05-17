@@ -126,8 +126,6 @@ public class Window extends javafx.application.Application {
 		Debugger.d(this.getClass(), "Showing stage");
 		primaryStage.show();
 
-		Debugger.d(this.getClass(), "Error location: " + Window.errorPrompt.getLayoutX() + ", " + Window.errorPrompt.getLayoutY());
-
 	}
 
 	/**

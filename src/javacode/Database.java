@@ -89,7 +89,7 @@ public class Database {
 		if (connection != null) {
 			try {
 
-				String SQL = "SELECT 'file location', 'title', 'artist', 'genre' FROM track WHERE 'file location' = ? AND 'title' = ? AND 'artist' = ?";
+				String SQL = "SELECT \"file location\", \"title\", \"artist\", \"genre\" FROM track WHERE \"file location\" = ? AND \"title\" = ? AND \"artist\" = ?";
 				PreparedStatement statement = connection.prepareStatement(SQL);
 				statement.setString(1, fileLocation);
 				statement.setString(2, title);
@@ -113,8 +113,14 @@ public class Database {
 					statement.close();
 					connection.close();
 
-					//noinspection ToArrayCallWithZeroLengthArrayArgument
-					return tracks.toArray(new Track[tracks.size()]);
+					// If the length is 0, return null
+					if (tracks.size() == 0) {
+						Debugger.d(Database.class, "No such entry");
+						return null;
+					} else {
+						//noinspection ToArrayCallWithZeroLengthArrayArgument
+						return tracks.toArray(new Track[tracks.size()]);
+					}
 				}
 
 			} catch (SQLException malSQL) {
@@ -137,7 +143,7 @@ public class Database {
 		if (connection != null) {
 
 			try {
-				String sql = "INSERT INTO track VALUES ('file location', 'title', 'artist', 'genre') VALUES (?, ?, ?, ?)";
+				String sql = "INSERT INTO track (\"file location\", \"title\", \"artist\", \"genre\") VALUES (?, ?, ?, ?)";
 				PreparedStatement statement = connection.prepareStatement(sql);
 				statement.setString(1, track.fileLocation);
 				statement.setString(2, track.Title);
@@ -173,7 +179,7 @@ public class Database {
 
 				Debugger.d(Database.class, String.format("Updating %s genre to %s", track.Title, newGenre.name()));
 
-				String sql = "UPDATE track SET 'genre' = ? WHERE 'file location' = ? AND 'title' = ? AND 'artist' = ?";
+				String sql = "UPDATE track SET \"genre\" = ? WHERE \"file location\" = ? AND \"title\" = ? AND \"artist\" = ?";
 				PreparedStatement statement = connection.prepareStatement(sql);
 				statement.setString(1, newGenre.name());
 				statement.setString(2, track.fileLocation);

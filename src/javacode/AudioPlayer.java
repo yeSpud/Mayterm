@@ -178,18 +178,17 @@ public class AudioPlayer {
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
-			return;
-		} catch (ArrayIndexOutOfBoundsException oob) {
-			Debugger.e(oob);
+			Debugger.e(e);
 			return;
 		}
 
-		// Set the bar color to the current track color
+		// Set the bar color and album art to the current track color
 		this.window.loadingBar.setColor(this.currentTrack.Genre);
 		for (Bar bar : this.window.bars) {
 			bar.setColor(this.currentTrack.Genre);
 		}
+		this.window.invertCat(this.currentTrack.Genre.equals(GenreColors.OTHER));
+		this.window.albumArt.setColor(this.currentTrack.Genre);
 
 		// Convert the file
 		// TODO
@@ -206,8 +205,8 @@ public class AudioPlayer {
 		//} catch (IOException e) {
 		//	e.printStackTrace();
 		//}
-		PythonInterpreter python = new PythonInterpreter();
-		python.exec("print('Hello world')");
+		//PythonInterpreter python = new PythonInterpreter();
+		//python.exec("print('Hello world')");
 		//python.exec(pyCode + " /Users/stephenogden/Desktop/test/50.wav");
 
 
