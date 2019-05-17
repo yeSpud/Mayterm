@@ -1,17 +1,9 @@
 package javacode.Windows;
 
 import javacode.AudioPlayer;
-import javacode.Database;
 import javacode.Debugger;
-import javacode.UI.AlbumArt;
-import javacode.UI.Bar;
-import javacode.UI.LoadingBar;
-import javacode.UI.Monstercat;
-import javacode.UI.Text.GenreText;
-import javacode.UI.Text.GitHubText;
-import javacode.UI.Text.PauseText;
-import javacode.UI.Text.VolumeText;
-import javacode.UI.Text.TrackInfo;
+import javacode.UI.*;
+import javacode.UI.Text.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -45,6 +37,8 @@ public class Window extends javafx.application.Application {
 
 	public VolumeText volumeText = new VolumeText();
 
+	public static ErrorPrompt errorPrompt = new ErrorPrompt();
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Debugger.d(this.getClass(), "Starting application");
@@ -52,6 +46,8 @@ public class Window extends javafx.application.Application {
 		BorderPane root = new BorderPane();
 
 		Scene scene = new Scene(root, 1280, 720);
+
+		// TODO set a minimum size
 
 		// Setup the stage, so it can be accessed by other classes statically
 		this.stage = primaryStage;
@@ -89,13 +85,17 @@ public class Window extends javafx.application.Application {
 		scene.setOnKeyPressed(new javacode.KeyListener(this));
 
 		// Add genre text
-		root.getChildren().add(this.genreText);
+		// FIXME
+		//root.getChildren().add(this.genreText);
 
 		// Add pause text
 		root.getChildren().add(this.pauseText);
 
 		// Add volume text
 		root.getChildren().add(this.volumeText);
+
+		// Add error stuff
+		root.getChildren().add(Window.errorPrompt);
 
 		primaryStage.setScene(scene);
 
@@ -126,8 +126,8 @@ public class Window extends javafx.application.Application {
 		Debugger.d(this.getClass(), "Showing stage");
 		primaryStage.show();
 
-		// Do the database stuff
-		Database.getDatabase();
+		Debugger.d(this.getClass(), "Error location: " + Window.errorPrompt.getLayoutX() + ", " + Window.errorPrompt.getLayoutY());
+
 	}
 
 	/**
@@ -176,5 +176,6 @@ public class Window extends javafx.application.Application {
 		Debugger.d(this.getClass(), String.format("Hide %s? %s", node.toString(), hide));
 		node.setVisible(!hide);
 	}
+
 
 }

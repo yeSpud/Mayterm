@@ -1,5 +1,9 @@
 package javacode;
 
+import javacode.Windows.Window;
+
+import java.io.StringWriter;
+
 public class Debugger {
 
 	/**
@@ -21,5 +25,10 @@ public class Debugger {
 	 */
 	public static void e(Throwable e) {
 		// TODO Display the error on the main window
+		if (Window.errorPrompt != null) {
+			StringWriter sw = new StringWriter();
+			e.printStackTrace(new java.io.PrintWriter(sw));
+			Window.errorPrompt.logError(sw.toString());
+		}
 	}
 }

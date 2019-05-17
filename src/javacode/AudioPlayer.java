@@ -179,6 +179,10 @@ public class AudioPlayer {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+			return;
+		} catch (ArrayIndexOutOfBoundsException oob) {
+			Debugger.e(oob);
+			return;
 		}
 
 		// Set the bar color to the current track color
