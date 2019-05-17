@@ -11,6 +11,11 @@ import javafx.scene.paint.Color;
  */
 public class Bar extends javafx.scene.shape.Rectangle implements javacode.UI.ColoredNode {
 
+	/**
+	 * TODO Documentation
+	 */
+	public double rootY;
+
 	public Bar() {
 		this.setStrokeType(javafx.scene.shape.StrokeType.CENTERED);
 		this.setWidth(12);
@@ -30,6 +35,7 @@ public class Bar extends javafx.scene.shape.Rectangle implements javacode.UI.Col
 	public void updatePosition(double width, double height, int index) {
 		double x = (118 + (16.625 * index)), y = height * 0.4851752022d;
 		Debugger.d(this.getClass(), String.format("Updating position to: %f, %f", x, y));
+		this.rootY = y;
 		this.setX(x);
 		this.setY(y);
 	}

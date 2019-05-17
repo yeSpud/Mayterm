@@ -98,10 +98,16 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
 						Debugger.d(this.getClass(), "Pausing track");
 						this.window.player.mediaPlayer.pause();
 						this.window.player.status = MediaPlayer.Status.PAUSED;
+						for (Bar bar : this.window.bars) {
+							bar.setHeight(3);
+							bar.setY(bar.rootY - 3);
+						}
+						this.window.stage.setTitle("PAUSED");
 					} else if (this.window.player.status.equals(MediaPlayer.Status.PAUSED)) {
 						Debugger.d(this.getClass(), "Resuming track");
 						this.window.player.mediaPlayer.play();
 						this.window.player.status = MediaPlayer.Status.PLAYING;
+						this.window.stage.setTitle("PLAYING - " + this.window.player.currentTrack.Title);
 					} else {
 						return;
 					}

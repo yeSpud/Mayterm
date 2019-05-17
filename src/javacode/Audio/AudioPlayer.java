@@ -113,6 +113,9 @@ public class AudioPlayer {
 					this.window.hideElement(bar, true);
 				}
 
+				// Reset the title
+				this.window.stage.setTitle("");
+
 				// Dispose of the player
 				Debugger.d(this.getClass(), "Disposing of old media player");
 				this.mediaPlayer.dispose();
@@ -191,13 +194,10 @@ public class AudioPlayer {
 		// Pass the file to a python program
 		fftify.fft();
 
-
 		// Setup the analysis
-		/*
-		this.mediaPlayer.setAudioSpectrumInterval(1); // Think of this as how often it computes the fft (in seconds)
-		this.mediaPlayer.setAudioSpectrumNumBands(200); // How many data points there will be per second
-		this.mediaPlayer.setAudioSpectrumListener(new AudioAnalysis());
-		 */
+		this.mediaPlayer.setAudioSpectrumInterval(1.0d / 60.0d); // Think of this as how often it computes the fft (in seconds)
+		this.mediaPlayer.setAudioSpectrumNumBands(63); // How many data points there will be per second
+		this.mediaPlayer.setAudioSpectrumListener(new AudioAnalysis(this.window.bars));
 
 		// Play the track
 		this.mediaPlayer.play();
@@ -210,6 +210,9 @@ public class AudioPlayer {
 		for (Bar bar : this.window.bars) {
 			this.window.hideElement(bar, false);
 		}
+
+		// Set the title
+		this.window.stage.setTitle("PLAYING - " + this.window.player.currentTrack.Title);
 
 		// Play the text animation
 		this.window.pauseText.playAnimation();
@@ -235,7 +238,7 @@ public class AudioPlayer {
 			f = AudioFileIO.read(Paths.get(URI.create(source.getSource())).toFile());
 
 		} catch (CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
-			e.printStackTrace();
+			Debugger.e(e);
 		}
 
 		return f != null ? f.getTag() : null;
