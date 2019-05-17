@@ -1,5 +1,6 @@
-package javacode;
+package javacode.Audio;
 
+import javacode.*;
 import javacode.UI.Bar;
 import javacode.Windows.Window;
 import javafx.scene.media.Media;
@@ -13,15 +14,9 @@ import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
-import org.python.core.PyCode;
-import org.python.core.PyObject;
-import org.python.core.PyString;
-import org.python.util.PythonInterpreter;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URI;
 import java.nio.file.Paths;
 import java.util.LinkedList;
@@ -194,20 +189,7 @@ public class AudioPlayer {
 		// TODO
 
 		// Pass the file to a python program
-		// TODO
-		//try {
-		//Process p = Runtime.getRuntime().exec(new String[]{"python3", "/Users/stephenogden/Documents/GitHub/Mayterm/src/pycode/fftify.py", "/Users/stephenogden/Desktop/test/50.wav"});
-		//BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		//String line = "";
-		//while ((line = reader.readLine()) != null) {
-		//	System.out.println(line + "\n");
-		//}
-		//} catch (IOException e) {
-		//	e.printStackTrace();
-		//}
-		//PythonInterpreter python = new PythonInterpreter();
-		//python.exec("print('Hello world')");
-		//python.exec(pyCode + " /Users/stephenogden/Desktop/test/50.wav");
+		fftify.fft();
 
 
 		// Setup the analysis

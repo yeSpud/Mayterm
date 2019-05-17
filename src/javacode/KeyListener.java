@@ -117,7 +117,19 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
 				this.window.player.loadTrack();
 				break;
 
-			// TODO Add a skip track option
+			case RIGHT:
+				// Skip the track
+				try {
+					if (this.window.player.status.equals(MediaPlayer.Status.PLAYING) || this.window.player.status.equals(MediaPlayer.Status.PAUSED)) {
+						this.window.player.mediaPlayer.stop();
+						this.window.player.status = MediaPlayer.Status.STOPPED;
+						this.window.player.play();
+					}
+				} catch (NullPointerException NPE) {
+					// No media has been loaded, so just return
+					return;
+				}
+				break;
 		}
 
 

@@ -1,5 +1,6 @@
-package javacode;
+package javacode.Audio;
 
+import javacode.Debugger;
 import javafx.scene.media.AudioSpectrumListener;
 
 import java.util.Arrays;

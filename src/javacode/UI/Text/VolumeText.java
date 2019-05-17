@@ -1,6 +1,6 @@
 package javacode.UI.Text;
 
-import javacode.AudioPlayer;
+import javacode.Audio.AudioPlayer;
 import javacode.Debugger;
 import javafx.animation.FadeTransition;
 

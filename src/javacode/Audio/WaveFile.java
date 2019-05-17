@@ -1,4 +1,4 @@
-package javacode;
+package javacode.Audio;
 
 import java.io.File;
 import java.io.FileNotFoundException;

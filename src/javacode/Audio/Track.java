@@ -1,4 +1,6 @@
-package javacode;
+package javacode.Audio;
+
+import javacode.GenreColors;
 
 import java.util.ArrayList;
 

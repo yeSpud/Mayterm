@@ -24,15 +24,11 @@ public class ErrorPrompt extends javafx.scene.text.Text {
 		this.setY(15);
 		this.setOpacity(0d);
 
-		// Copy the top error message to the users clipboard when they click on the text
-		this.setOnMouseClicked((event -> {
-			java.awt.Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new java.awt.datatransfer.StringSelection(this.getText().split("\n")[0]), null);
-			Debugger.d(ErrorPrompt.class, "Copied error to clipboard!");
-			this.setText("Copied error to clipboard!\n" + this.getText());
-		}));
-
 		// Change the cursor back to normal when finished
-		this.animation.setOnFinished((event -> this.setCursor(Cursor.DEFAULT)));
+		this.animation.setOnFinished(event -> {
+			this.setCursor(Cursor.DEFAULT);
+			this.setOnMouseClicked(null);
+		});
 
 	}
 
@@ -44,6 +40,13 @@ public class ErrorPrompt extends javafx.scene.text.Text {
 		this.animation.setToValue(0);
 		this.animation.playFromStart();
 		this.setCursor(Cursor.TEXT);
+		
+		// Copy the top error message to the users clipboard when they click on the text
+		this.setOnMouseClicked(event -> {
+			java.awt.Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new java.awt.datatransfer.StringSelection(this.getText().split("\n")[0]), null);
+			Debugger.d(ErrorPrompt.class, "Copied error to clipboard!");
+			this.setText("Copied error to clipboard!\n" + this.getText());
+		});
 	}
 
 	/**

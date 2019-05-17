@@ -1,6 +1,6 @@
 package javacode.Windows;
 
-import javacode.AudioPlayer;
+import javacode.Audio.AudioPlayer;
 import javacode.Debugger;
 import javacode.UI.*;
 import javacode.UI.Text.*;
