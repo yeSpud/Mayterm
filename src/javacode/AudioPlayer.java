@@ -48,6 +48,11 @@ public class AudioPlayer {
 
 	private Window window;
 
+	/**
+	 * TODO Documentation
+	 */
+	public Track currentTrack = null;
+
 	public AudioPlayer(Window window) {
 		this.window = window;
 	}
@@ -152,9 +157,35 @@ public class AudioPlayer {
 		// Prematurely set the volume
 		this.mediaPlayer.setVolume(this.window.volumeText.currentVolume);
 
+		String title = this.getMetadata(media).getFirst(FieldKey.TITLE), artist = this.getMetadata(media).getFirst(FieldKey.ARTIST);
+
 		// Set the title and artist
-		this.window.title.setTitle(this.getMetadata(media).getFirst(FieldKey.TITLE), this.window.stage);
-		this.window.artist.setArtist(this.getMetadata(media).getFirst(FieldKey.ARTIST), this.window.stage);
+		this.window.title.setTitle(title, this.window.stage);
+		this.window.artist.setArtist(artist, this.window.stage);
+
+		try {
+			// Check if the current track is in the database already
+			Track[] tracks = Database.getTrackFromDatabase(media.getSource(), title, artist);
+
+			if (tracks != null) {
+				// Set the current track to the first track returned
+				this.currentTrack = tracks[0];
+			} else {
+				// Add the track to the database
+				Track newTrack = new Track(media.getSource(), title, artist, GenreColors.ELECTRONIC);
+				Database.saveToDatabase(newTrack);
+				this.currentTrack = newTrack;
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// Set the bar color to the current track color
+		this.window.loadingBar.setColor(this.currentTrack.Genre);
+		for (Bar bar : this.window.bars) {
+			bar.setColor(this.currentTrack.Genre);
+		}
 
 		// Convert the file
 		// TODO

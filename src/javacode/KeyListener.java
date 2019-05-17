@@ -47,6 +47,9 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
 					for (Bar bar : this.window.bars) {
 						bar.setColor(newGenre);
 					}
+
+					// Change the genre in the database
+					Database.updateGenre(this.window.player.currentTrack, newGenre);
 				}
 				break;
 			case COMMA:
@@ -75,6 +78,9 @@ public class KeyListener implements javafx.event.EventHandler<KeyEvent> {
 					for (Bar bar : this.window.bars) {
 						bar.setColor(newGenre);
 					}
+
+					// Change the genre in the database
+					Database.updateGenre(this.window.player.currentTrack, newGenre);
 				}
 				break;
 			case UP:
