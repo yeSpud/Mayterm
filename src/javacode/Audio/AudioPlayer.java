@@ -1,6 +1,8 @@
 package javacode.Audio;
 
-import javacode.*;
+import javacode.Database;
+import javacode.Debugger;
+import javacode.GenreColors;
 import javacode.UI.Bar;
 import javacode.Windows.Window;
 import javafx.scene.media.Media;
@@ -21,8 +23,6 @@ import java.net.URI;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class AudioPlayer {
 
@@ -227,12 +227,6 @@ public class AudioPlayer {
 	 */
 	private Tag getMetadata(Media source) {
 		AudioFile f = null;
-
-		//Disable loggers
-		Logger[] pin = new Logger[]{Logger.getLogger("org.jaudiotagger")};
-		for (Logger l : pin) {
-			l.setLevel(Level.OFF);
-		}
 
 		try {
 			f = AudioFileIO.read(Paths.get(URI.create(source.getSource())).toFile());

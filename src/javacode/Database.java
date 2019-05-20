@@ -1,6 +1,7 @@
 package javacode;
 
 import javacode.Audio.Track;
+import org.sqlite.JDBC;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,12 +40,9 @@ public class Database {
 		// Get the database connection based on the file
 		try {
 			Class.forName("org.sqlite.JDBC");
-			connection = java.sql.DriverManager.getConnection("jdbc:sqlite:" + databaseFile.getAbsolutePath());
-		} catch (SQLException sqlError) {
+			connection = java.sql.DriverManager.getConnection(JDBC.PREFIX + databaseFile.getAbsolutePath());
+		} catch (SQLException | ClassNotFoundException sqlError) {
 			sqlError.printStackTrace();
-			return null;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 			return null;
 		}
 
