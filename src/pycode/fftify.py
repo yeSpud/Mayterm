@@ -10,6 +10,7 @@ from matplotlib import pyplot as plt
 def process(file):
     # Load in the data from the converted wav
     frequency_sample_rate, data = wav.read(file)
+    print(f"Frequency sample rate: {frequency_sample_rate}")
 
     # Get the duration of the file
     shape = data.shape[0]
