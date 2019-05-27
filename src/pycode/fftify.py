@@ -12,21 +12,22 @@ def find_fft(file):
 
     # Get the duration of the file
     shape = data.shape[0]
-    seconds = shape / frequency_sample_rate
+    # seconds = shape / frequency_sample_rate
     # print(f"Duration of clip: {seconds}")
 
-    time = scipy.arange(0, seconds, 1 / frequency_sample_rate)  # time vector as scipy arange field / numpy.ndarray
+    time = scipy.arange(0, (shape / frequency_sample_rate),
+                        1 / frequency_sample_rate)  # time vector as scipy arange field / numpy.ndarray
 
-    fft = abs(scipy.fft(data))
-    fft_side = fft[range(shape // 2)]  # one side FFT range
+    # fft = abs(scipy.fft(data))
+    # fft_side = abs(scipy.fft(data))[range(shape // 2)]  # one side FFT range
 
-    sample = time[1] - time[0]
+    # sample = time[1] - time[0]
     # print(f"Getting sample of {sample}")
 
-    freq = scipy.fftpack.fftfreq(data.size, sample)
-    freq_side = freq[range(shape // 2)]  # one side frequency range
+    # freq = scipy.fftpack.fftfreq(data.size, (time[1] - time[0]))
+    # freq_side = (scipy.fftpack.fftfreq(data.size, (time[1] - time[0])))[range(shape // 2)]  # one side frequency range
 
-    array = np.column_stack((freq_side, fft_side))
+    array = np.column_stack((((scipy.fftpack.fftfreq(data.size, (time[1] - time[0])))[range(shape // 2)]), (abs(scipy.fft(data))[range(shape // 2)])))
     test_array = []
     for x in range(0, len(array), 100):
         # print(f"{array[x][0]}, {array[x][1]}")
@@ -103,7 +104,7 @@ def breakup_file(actualFile):
         chunk.export(chunk_name, format='wav')
 
 
-def sumRange(L, a, b):
+def 总数(L, a, b):
     s = 0
     for i in range(a, b + 1, 1):
         s += L[i]
@@ -119,8 +120,8 @@ def generate_bar_size(fft, start_range, end_range):
         # start = start_range + (index * delta)
         # end = (start_range + delta - 1) + (index * delta)
         # print(f"Getting values between the index of {start} and {end}")
-        l[index] = sumRange(abs(fft), (start_range + (index * delta)),
-                            ((start_range + delta - 1) + (index * delta))) / delta
+        l[index] = 总数(abs(fft), (start_range + (index * delta)),
+                      ((start_range + delta - 1) + (index * delta))) / delta
 
     return l
 
@@ -134,4 +135,7 @@ else:
     start_time = time.time()
     find_fft(sys.argv[1])
     end_time = time.time()
+    import psutil, os
+    process = psutil.Process(os.getpid())
     print(f"Total execution time: {end_time - start_time}")
+    print(process.memory_info().rss)  # in bytes
