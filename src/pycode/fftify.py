@@ -5,16 +5,15 @@ def find_fft(file):
     import numpy as np
     import scipy.fftpack
     import scipy.io.wavfile as wav
-    from matplotlib import pyplot as plt
 
     # Load in the data from the converted wav
     frequency_sample_rate, data = wav.read(file)
-    print(f"Frequency sample rate: {frequency_sample_rate}")
+    # print(f"Frequency sample rate: {frequency_sample_rate}")
 
     # Get the duration of the file
     shape = data.shape[0]
     seconds = shape / frequency_sample_rate
-    print(f"Duration of clip: {seconds}")
+    # print(f"Duration of clip: {seconds}")
 
     time = scipy.arange(0, seconds, 1 / frequency_sample_rate)  # time vector as scipy arange field / numpy.ndarray
 
@@ -22,26 +21,26 @@ def find_fft(file):
     fft_side = fft[range(shape // 2)]  # one side FFT range
 
     sample = time[1] - time[0]
-    print(f"Getting sample of {sample}")
+    # print(f"Getting sample of {sample}")
 
     freq = scipy.fftpack.fftfreq(data.size, sample)
     freq_side = freq[range(shape // 2)]  # one side frequency range
 
     array = np.column_stack((freq_side, fft_side))
-    finalarray = []
+    test_array = []
     for x in range(0, len(array), 100):
-        print(f"{array[x][0]}, {array[x][1]}")
-        finalarray.append(array[x][1])
+        # print(f"{array[x][0]}, {array[x][1]}")
+        test_array.append(array[x][1])
 
-    #print(type(np.asarray(finalarray)))
-    #print(type(fft_side))
-    他妈的 = np.asarray(finalarray)
+    # print(type(np.asarray(finalarray)))
+    # print(type(fft_side))
+    他妈的 = np.asarray(test_array)
 
-    plt.plot(freq_side, abs(fft_side), "b")  # plotting the positive fft spectrum
-    plt.xlabel('Frequency (Hz)')
-    plt.ylabel('Count single-sided')
-    plt.xlim(20, 20000)
-    plt.show()
+    # plt.plot(freq_side, abs(fft_side), "b")  # plotting the positive fft spectrum
+    # plt.xlabel('Frequency (Hz)')
+    # plt.ylabel('Count single-sided')
+    # plt.xlim(20, 20000)
+    # plt.show()
 
     # Bars 0 - 6 will get between 20 and 50 hz
     # Bars 7 - 13 will get between 50 and 100 hz
@@ -53,28 +52,33 @@ def find_fft(file):
     # Bars 49 - 55 will get between 5 and 10hkz
     # Bars 56 - 63 will get between 10 and 20 khz
 
-    print(f"20: {fft_side[20]}")
-    a = generate_bar_size(他妈的, 20, 49)
+    # print(f"20: {fft_side[20]}")
+    # a = generate_bar_size(他妈的, 20, 49)
     # print(a)
 
-    b = generate_bar_size(他妈的, 50, 99)
+    # b = generate_bar_size(他妈的, 50, 99)
     # print(b)
 
-    c = generate_bar_size(他妈的, 100, 199)
+    # c = generate_bar_size(他妈的, 100, 199)
 
-    d = generate_bar_size(他妈的, 200, 499)
+    # d = generate_bar_size(他妈的, 200, 499)
 
-    e = generate_bar_size(他妈的, 500, 999)
+    # e = generate_bar_size(他妈的, 500, 999)
 
-    f = generate_bar_size(他妈的, 1000, 1999)
+    # f = generate_bar_size(他妈的, 1000, 1999)
 
-    g = generate_bar_size(他妈的, 2000, 4999)
+    # g = generate_bar_size(他妈的, 2000, 4999)
 
-    h = generate_bar_size(他妈的, 5000, 9999)
+    # h = generate_bar_size(他妈的, 5000, 9999)
 
-    i = generate_bar_size(他妈的, 10000, 19999)
+    # i = generate_bar_size(他妈的, 10000, 19999)
 
-    print(a + b + c + d + e + f + g + h + i)
+    print(generate_bar_size(他妈的, 20, 49) + generate_bar_size(他妈的, 50, 99) + generate_bar_size(他妈的, 100, 199)
+          + generate_bar_size(他妈的, 200, 499) + generate_bar_size(他妈的, 500, 999) + generate_bar_size(他妈的, 1000, 1999)
+          + generate_bar_size(他妈的, 2000, 4999) + generate_bar_size(他妈的, 5000, 9999) + generate_bar_size(他妈的, 10000,
+                                                                                                        19999))
+
+    # Time to beat: 2.3775219917297363
 
 
 def breakup_file(actualFile):
@@ -100,22 +104,23 @@ def breakup_file(actualFile):
 
 
 def sumRange(L, a, b):
-    sum = 0
+    s = 0
     for i in range(a, b + 1, 1):
-        sum += L[i]
-    return sum
+        s += L[i]
+    return s
 
 
 def generate_bar_size(fft, start_range, end_range):
     from math import floor
-    delta = floor((end_range - start_range) / 7) + 1
+    delta = floor((end_range - start_range) / 7)
     # print(f"Delta: {delta}\nStart range: {start_range}\nEnd range: {end_range}")
     l = [0.0] * 7
     for index in range(len(l)):
-        start = start_range + (index * delta)
-        end = (start_range + delta - 1) + (index * delta)
-        print(f"Getting values between the index of {start} and {end}")
-        l[index] = sumRange(abs(fft), start, end) / delta
+        # start = start_range + (index * delta)
+        # end = (start_range + delta - 1) + (index * delta)
+        # print(f"Getting values between the index of {start} and {end}")
+        l[index] = sumRange(abs(fft), (start_range + (index * delta)),
+                            ((start_range + delta - 1) + (index * delta))) / delta
 
     return l
 
@@ -124,4 +129,9 @@ def generate_bar_size(fft, start_range, end_range):
 if len(sys.argv) != 2:
     print("Usage: python3 fftify.py <file.wav>")
 else:
+    import time
+
+    start_time = time.time()
     find_fft(sys.argv[1])
+    end_time = time.time()
+    print(f"Total execution time: {end_time - start_time}")
